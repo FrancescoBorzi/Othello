@@ -13,11 +13,11 @@
     <script src="js/othello.js"></script>
   </head>
   <body>
-    <div class="container" ng-controller="othelloController as othello">
+    <div class="container" ng-controller="othelloController as othello" ng-init="othello.init()">
       <table class="text-center">
         <tr ng-repeat="x in othello.t">
           <td ng-repeat="y in othello.t" ng-click="othello.changeColor(x, y, 'black')">
-            <figure id="{{ x }}-{{ y }}" class="disc disc-empty"></figure>
+            <figure id="{{ x }}-{{ y }}" class="disc"></figure>
           </td>
         </tr>
       </table>
