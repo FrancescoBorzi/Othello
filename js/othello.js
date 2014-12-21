@@ -47,7 +47,7 @@
         this.matrix[i] = new Array(8);
         for(j = 0; j < 8; j++)
         {
-          this.matrix[i][j] = 0;
+          this.setValue(i, j, 0);
         }
       }
 
@@ -55,6 +55,9 @@
       this.setValue(3, 4, 2);
       this.setValue(4, 3, 2);
       this.setValue(4, 4, 1);
+
+      var result = document.getElementById('btn-start');
+      result.innerHTML = "Restart";
     };
 
     // */
