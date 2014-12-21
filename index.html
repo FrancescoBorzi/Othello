@@ -17,7 +17,7 @@
       <button id="btn-start" class="btn btn-lg btn-primary" ng-click="othello.init()">Start</button>
       <table class="text-center">
         <tr ng-repeat="x in othello.t">
-          <td ng-repeat="y in othello.t" ng-click="othello.changeColor(x, y, 'black')">
+          <td ng-repeat="y in othello.t" ng-click="othello.clickEvent(x, y)">
             <figure id="{{ x }}-{{ y }}" class="disc"></figure>
           </td>
         </tr>

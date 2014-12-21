@@ -30,7 +30,7 @@
           color = 'white';
           break;
         default:
-          alert('Errore!');
+          alert('Error: passed wrong color value');
           return;
       };
 
@@ -58,6 +58,53 @@
 
       var result = document.getElementById('btn-start');
       result.innerHTML = "Restart";
+    };
+
+    this.flowControl = function() {
+
+      // TODO
+
+      return false;
+    };
+
+    this.stepControl = function(x, y, val) {
+
+      // TODO
+
+      return false;
+    };
+
+    this.stepProcess = function(x, y, val) {
+
+      // TODO
+
+    }
+
+    this.calculateMove = function() {
+
+      // TODO
+
+    }
+
+    this.clickEvent = function(x, y) {
+      alert("Debug: clicked on (" + x + ", " + y + ")");
+
+      if (!this.stepControl(x, y, val))
+        return;
+
+      this.stepProcess(x, y, val);
+
+      if (!this.flowControl())
+      {
+        // TODO
+      }
+
+      this.calculateMove();
+
+      if (!this.flowControl())
+      {
+        // TODO
+      }
     };
 
     // */
