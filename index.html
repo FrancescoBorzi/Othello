@@ -11,14 +11,15 @@
 
     <script src="js/angular.min.js"></script>
     <script src="js/othello.js"></script>
-
   </head>
   <body>
-    <div class="container" ng-controller="othelloCtrl as othello">
-      <table class="text-center" ng-init="t = [0,1,2,3,4,5,6,7]">
-        <tr ng-repeat="x in t">
-          <td ng-repeat="y in t">
-            <button data-coord-x="{{ x }}" data-coord-y="{{ y }}" ng-click="othello.getCoords(x, y)">({{ x }},{{ y }})</button>
+    <div class="container" ng-controller="othelloController as othello">
+      <table class="text-center">
+        <tr ng-repeat="x in othello.t">
+          <td ng-repeat="y in othello.t">
+            <button data-coord-x="{{ x }}" data-coord-y="{{ y }}" ng-click="othello.getCoords(x, y)">
+              ({{ x }},{{ y }})
+            </button>
           </td>
         </tr>
       </table>
