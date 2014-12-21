@@ -16,10 +16,8 @@
     <div class="container" ng-controller="othelloController as othello">
       <table class="text-center">
         <tr ng-repeat="x in othello.t">
-          <td ng-repeat="y in othello.t">
-            <button data-coord-x="{{ x }}" data-coord-y="{{ y }}" ng-click="othello.getCoords(x, y)">
-              ({{ x }},{{ y }})
-            </button>
+          <td ng-repeat="y in othello.t"  data-coord-x="{{ x }}" data-coord-y="{{ y }}" ng-click="othello.getCoords(x, y)">
+            <figure class="disc disc-white"></figure>
           </td>
         </tr>
       </table>
