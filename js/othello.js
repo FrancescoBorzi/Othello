@@ -3,12 +3,15 @@
   app.controller("othelloController", function(){
     this.t = [0,1,2,3,4,5,6,7];
 
-    this.chgimg = function chgimg(cx, cy) {
-      document.getElementsByTagName("tr")[cx].getElementsByTagName("td")[cy].getElementsByTagName("button")[0].style.backgroundColor = 'red';
-    };
+    this.changeColor = function(x, y, color) {
+      var result = document.getElementById(x + "-" + y);
+      var wrappedResult = angular.element(result);
 
-    this.getCoords = function(x, y) {
-      alert(x + ", " + y);
+      wrappedResult.removeClass("disc-empty");
+      wrappedResult.removeClass("disc-black");
+      wrappedResult.removeClass("disc-white");
+
+      wrappedResult.addClass("disc-" + color);
     };
   });
 })();
