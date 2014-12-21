@@ -13,7 +13,7 @@
     <script src="js/othello.js"></script>
   </head>
   <body>
-    <div class="container" ng-controller="othelloController as othello" ng-init="othello.init()">
+    <div class="container text-center" ng-controller="othelloController as othello">
       <table class="text-center">
         <tr ng-repeat="x in othello.t">
           <td ng-repeat="y in othello.t" ng-click="othello.changeColor(x, y, 'black')">
@@ -21,6 +21,8 @@
           </td>
         </tr>
       </table>
+      <br>
+      <button class="btn btn-lg btn-primary" ng-click="othello.init()">Start</button>
     </div>
   </body>
 </html>

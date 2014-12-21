@@ -53,8 +53,8 @@
 
       this.setValue(3, 3, 1);
       this.setValue(3, 4, 2);
-      this.setValue(4, 3, 1);
-      this.setValue(4, 4, 2);
+      this.setValue(4, 3, 2);
+      this.setValue(4, 4, 1);
     };
 
     // */
