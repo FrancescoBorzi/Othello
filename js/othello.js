@@ -13,8 +13,6 @@
       wrappedResult.removeClass("disc-white");
 
       wrappedResult.addClass("disc-" + color);
-
-      alert(x + " " + y + " " + "disc-" + color);
     };
 
     this.setValue = function(x, y, val) {
