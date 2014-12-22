@@ -225,13 +225,6 @@
       return false;
     };
 
-    this.debugStepControl = function(x, y, val) {
-      if (this.stepControl(x, y, val))
-        alert("true");
-      else
-        alert("false");
-    };
-
     this.stepProcess = function(i, j, id) {
       this.setValue(i, j, id);
 
@@ -716,6 +709,15 @@
       return coordinate;
     };
 
+    this.endGame = function() {
+      if (this.white > this.black)
+        alert("White wins");
+      else if (this.black > this.white)
+        alert("Black wins");
+      else
+        alert("Draw");
+    };
+
     this.clickEvent = function(x, y) {
 
       var playermove;
@@ -732,11 +734,10 @@
 
       if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined')
       {
-        alert("cpu can't move");
         playermove = this.calculateMove(1);
 
         if (typeof playermove[0] == 'undefined' || typeof playermove[1] == 'undefined')
-          alert("END GAME");
+          this.endGame();
 
         return;
       }
@@ -748,13 +749,10 @@
       playermove = this.calculateMove(1);
       while(typeof playermove[0] == 'undefined' || typeof playermove[1] == 'undefined')
       {
-        alert("player can't move");
         move = this.calculateMove(2);
 
         if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined')
-        {
-          alert("END GAME");
-        }
+          this.endGame();
 
         this.stepProcess(move[0], move[1], 2);
         this.black = this.calculateScore(1);
