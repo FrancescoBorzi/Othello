@@ -19,9 +19,32 @@ table {
   background: #8CBA9D;
 }
 
-td {
-  width: 70px;
-  height: 70px;
+@media(max-width:767px)
+{
+  td {
+    min-width: 40px;
+    min-height: 40px;
+
+    width: 40px;
+    height: 40px;
+
+    max-width: 40px;
+    max-height: 40px;
+  }
+}
+
+@media(min-width:768px)
+{
+  td {
+    min-width: 70px;
+    min-height: 70px;
+
+    width: 70px;
+    height: 70px;
+
+    max-width: 70px;
+    max-height: 70px;
+  }
 }
 
 tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
@@ -32,8 +55,8 @@ tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
   display: block;
 
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
+  height: 60%;
+  width: 60%;
 
   margin: auto;
 }
