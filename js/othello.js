@@ -81,9 +81,9 @@
     this.calculateScore = function(val) {
       var count = 0;
 
-      for (var i = 0; i < 8; i++)
+      for (var i = 1; i < 9; i++)
       {
-        for (var j = 0; j < 8; j++)
+        for (var j = 1; j < 9; j++)
         {
           if (this.matrix[i][j] == val)
             count++;
