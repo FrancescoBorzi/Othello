@@ -65,19 +65,6 @@
       result.innerHTML = "Restart";
     };
 
-    this.flowControl = function() {
-
-      for (var i = 0; i < 8; i++)
-      {
-        for (var j = 0; j < 8; j++)
-        {
-          if (this.matrix[i][j] == 0)
-            return true;
-        }
-      }
-      return false;
-    };
-
     this.calculateScore = function(val) {
       var count = 0;
 
@@ -741,11 +728,6 @@
       this.black = this.calculateScore(1);
       this.white = this.calculateScore(2);
 
-      if (!this.flowControl())
-      {
-        // TODO
-      }
-
       move = this.calculateMove(2);
 
       if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined')
@@ -763,11 +745,6 @@
       this.black = this.calculateScore(1);
       this.white = this.calculateScore(2);
 
-      if (!this.flowControl())
-      {
-        // TODO
-      }
-
       playermove = this.calculateMove(1);
       while(typeof playermove[0] == 'undefined' || typeof playermove[1] == 'undefined')
       {
@@ -782,11 +759,6 @@
         this.stepProcess(move[0], move[1], 2);
         this.black = this.calculateScore(1);
         this.white = this.calculateScore(2);
-
-        if (!this.flowControl())
-        {
-          // TODO
-        }
 
         playermove = this.calculateMove(1)
       }
