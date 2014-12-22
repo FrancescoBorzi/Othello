@@ -2,6 +2,10 @@ body {
 	padding: 10px;
 }
 
+.container {
+  max-width: 600px;
+}
+
 #btn-start {
   margin-bottom: 10px;
 }

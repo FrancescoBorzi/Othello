@@ -1,7 +1,7 @@
 (function (){
   var app = angular.module('othello', [ ]);
   app.controller("othelloController", function(){
-    this.t = [0,1,2,3,4,5,6,7];
+    this.t = [1,2,3,4,5,6,7, 8];
     this.matrix = [];
 
     this.changeColor = function(x, y, color) {
@@ -42,19 +42,19 @@
 
       var i, j;
 
-      for(i = 0; i < 8; i++)
+      for(i = 0; i < 10; i++)
       {
         this.matrix[i] = new Array(8);
-        for(j = 0; j < 8; j++)
+        for(j = 0; j < 10; j++)
         {
-          this.setValue(i, j, 0);
+          this.matrix[i][j] = 0;
         }
       }
 
-      this.setValue(3, 3, 1);
-      this.setValue(3, 4, 2);
-      this.setValue(4, 3, 2);
       this.setValue(4, 4, 1);
+      this.setValue(4, 5, 2);
+      this.setValue(5, 4, 2);
+      this.setValue(5, 5, 1);
 
       var result = document.getElementById('btn-start');
       result.innerHTML = "Restart";
@@ -73,16 +73,28 @@
       return false;
     };
 
-    this.stepControl = function(x, y, val) {
-      //Porting from controlloMossa
-/*
-      var i = X;
-      var j = Y;
+    this.calculateScore = function(val) {
+      var count = 0;
+
+      for (var i = 0; i < 8; i++)
+      {
+        for (var j = 0; j < 8; j++)
+        {
+          if (this.matrix[i][j] == val)
+            count++;
+        }
+      }
+
+      return count;
+    };
+
+    this.stepControl = function(i, j, id) {
 
       if (this.matrix[i][j] == 0)
       {
         var p2;
         var p1;
+
         if (id == 1)
         {
           p1 = 1;
@@ -94,7 +106,14 @@
           p2 = 1;
         }
 
-        if ((this.matrix[(i + 1)][j] != p2) && (this.matrix[i][(j + 1)] != p2) && (this.matrix[(i + 1)][(j + 1)] != p2) && (this.matrix[(i - 1)][j] != p2) && (this.matrix[i][(j - 1)] != p2) && (this.matrix[(i - 1)][(j - 1)] != p2) && (this.matrix[(i + 1)][(j - 1)] != p2) && (this.matrix[(i - 1)][(j + 1)] != p2))
+        if ((this.matrix[(i + 1)][j] != p2) &&
+            (this.matrix[i][(j + 1)] != p2) &&
+            (this.matrix[(i + 1)][(j + 1)] != p2) &&
+            (this.matrix[(i - 1)][j] != p2) &&
+            (this.matrix[i][(j - 1)] != p2) &&
+            (this.matrix[(i - 1)][(j - 1)] != p2) &&
+            (this.matrix[(i + 1)][(j - 1)] != p2) &&
+            (this.matrix[(i - 1)][(j + 1)] != p2))
         {
           return false;
         }
@@ -210,8 +229,15 @@
         }
         return false;
       }
-*/
+
       return false;
+    };
+
+    this.debugStepControl = function(x, y, val) {
+      if (this.stepControl(x, y, val))
+          alert("true");
+      else
+        alert("false");
     };
 
     this.stepProcess = function(x, y, val) {

@@ -14,10 +14,14 @@
   </head>
   <body>
     <div class="container text-center" ng-controller="othelloController as othello">
-      <button id="btn-start" class="btn btn-lg btn-primary" ng-click="othello.init()">Start</button>
+      <div class="row">
+        <div class="col-xs-3">Black: <span id="score-black" class="lead">0</span></div>
+        <div class="col-xs-6"><button id="btn-start" class="btn btn-lg btn-primary" ng-click="othello.init()">Start</button></div>
+        <div class="col-xs-3">White: <span id="score-white" class="lead">0</span></div>
+      </div>
       <table class="text-center">
         <tr ng-repeat="x in othello.t">
-          <td ng-repeat="y in othello.t" ng-click="othello.clickEvent(x, y)">
+          <td ng-repeat="y in othello.t" ng-click="othello.debugStepControl(x, y, 1)">
             <figure id="{{ x }}-{{ y }}" class="disc"></figure>
           </td>
         </tr>
