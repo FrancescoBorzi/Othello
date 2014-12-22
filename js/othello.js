@@ -442,8 +442,7 @@
       c = 0;
     };
 
-    this.calculateMove = function() {
-      var id = 2;
+    this.calculateMove = function(id) {
 
       var coordinate = Array(2);
 
@@ -727,8 +726,6 @@
 
     this.clickEvent = function(x, y) {
 
-      //alert("Debug: clicked on (" + x + ", " + y + ")");
-
       if (!this.stepControl(x, y, 1))
         return;
 
@@ -739,15 +736,34 @@
         // TODO
       }
 
-      var move = this.calculateMove();
+      var move = this.calculateMove(2);
 
-      //alert(move[0] + " " + move[1]);
+      if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined')
+        return;
 
       this.stepProcess(move[0], move[1], 2);
 
       if (!this.flowControl())
       {
         // TODO
+      }
+
+      var playermove = this.calculateMove(1);
+      while(typeof playermove[0] == 'undefined' || typeof playermove[1] == 'undefined')
+      {
+        move = this.calculateMove(2);
+
+        if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined')
+          return;
+
+        this.stepProcess(move[0], move[1], 2);
+
+        if (!this.flowControl())
+        {
+          // TODO
+        }
+
+        playermove = this.calculateMove(1)
       }
     };
 
