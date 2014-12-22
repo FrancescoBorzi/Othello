@@ -47,7 +47,7 @@
         this.matrix[i] = new Array(8);
         for(j = 0; j < 10; j++)
         {
-          this.matrix[i][j] = 0;
+          this.setValue(i, j, 0);
         }
       }
 
@@ -235,44 +235,241 @@
 
     this.debugStepControl = function(x, y, val) {
       if (this.stepControl(x, y, val))
-          alert("true");
+        alert("true");
       else
         alert("false");
     };
 
-    this.stepProcess = function(x, y, val) {
+    this.stepProcess = function(i, j, id) {
+        this.setValue(i, j, id);
 
-      // TODO
+        var c = 0;
+        var p2;
+        var p1;
 
-    }
+        if (id == 1)
+        {
+          p1 = 1;
+          p2 = 2;
+        }
+        else
+        {
+          p1 = 2;
+          p2 = 1;
+        }
 
-    this.calculateMove = function() {
+        for (var x = 1; x <= 8; x = (x + 1))
+        {
+          if (this.matrix[(i + x)][j] == 0) {
+            break;
+          }
+          if (this.matrix[(i + x)][j] == p2)
+          {
+            c = (c + 1);
+            if (this.matrix[(i + x + 1)][j] == p1)
+            {
+              while (c > 0)
+              {
+                this.setValue((i + x - c + 1), j, p1);
+                c = (c - 1);
+              }
+            }
+          }
+        }
 
-      // TODO
+        c = 0;
 
-    }
+        for (var x = 1; x <= 8; x = (x + 1))
+        {
+          if (x > i) {
+            break;
+          }
+          if (this.matrix[(i - x)][j] == 0) {
+            break;
+          }
+          if (this.matrix[(i - x)][j] == p2)
+          {
+            c = c + 1;
+            if (this.matrix[(i - x - 1)][j] == p1)
+            {
+              while (c > 0)
+              {
+                this.setValue((i - x + c - 1), j, p1);
+                c = (c - 1);
+              }
+            }
+          }
+        }
 
-    this.clickEvent = function(x, y) {
-      alert("Debug: clicked on (" + x + ", " + y + ")");
+        c = 0;
 
-      if (!this.stepControl(x, y, val))
-        return;
+        for (var x = 1; x <= 8; x = (x + 1))
+        {
+          if (this.matrix[i][(j + x)] == 0) {
+            break;
+          }
+          if (this.matrix[i][(j + x)] == p2)
+          {
+            c = (c + 1);
+            if (this.matrix[i][(j + x + 1)] == p1)
+            {
+              while (c > 0)
+              {
+                this.setValue(i, (j + x - c + 1), p1);
+                c = (c - 1);
+              }
+            }
+          }
+        }
 
-      this.stepProcess(x, y, val);
+        c = 0;
 
-      if (!this.flowControl())
-      {
+        for (var x = 1; x <= 8; x = (x + 1))
+        {
+          if (x > j) {
+            break;
+          }
+          if (this.matrix[i][(j - x)] == 0) {
+            break;
+          }
+          if (this.matrix[i][(j - x)] == p2)
+          {
+            c = (c + 1);
+            if (this.matrix[i][(j - x - 1)] == p1)
+            {
+              while (c > 0)
+              {
+                this.setValue(i, (j - x + c - 1), p1);
+                c = (c - 1);
+              }
+            }
+          }
+        }
+
+        c = 0;
+
+        for (var x = 1; x <= 8; x = (x + 1))
+        {
+          if (this.matrix[(i + x)][(j + x)] == 0) {
+            break;
+          }
+          if (this.matrix[(i + x)][(j + x)] == p2)
+          {
+            c = (c + 1);
+            if (this.matrix[(i + x + 1)][(j + x + 1)] == p1)
+            {
+              while (c > 0)
+              {
+                this.setValue((i + x - c + 1), (j + x - c + 1), p1);
+                c = (c - 1);
+              }
+            }
+          }
+        }
+
+        c = 0;
+
+        for (var x = 1; x <= 8; x = (x + 1))
+        {
+          if (x > j) {
+            break;
+          }
+          if (this.matrix[(i + x)][(j - x)] == 0) {
+            break;
+          }
+          if (this.matrix[(i + x)][(j - x)] == p2)
+          {
+            c = (c + 1);
+            if (this.matrix[(i + x + 1)][(j - x - 1)] == p1)
+            {
+              while (c > 0)
+              {
+                this.setValue((i + x - c + 1), (j - x + c - 1), p1);
+                c = (c - 1);
+              }
+            }
+          }
+        }
+
+        c = 0;
+
+        for (var x = 1; x <= 8; x = (x + 1))
+        {
+          if (x > i) {
+            break;
+          }
+          if (this.matrix[(i - x)][(j + x)] == 0) {
+            break;
+          }
+          if (this.matrix[(i - x)][(j + x)] == p2)
+          {
+            c = (c + 1);
+            if (this.matrix[(i - x - 1)][(j + x + 1)] == p1)
+            {
+              while (c > 0)
+              {
+                this.setValue((i - x + c - 1), (j + x - c + 1), p1);
+                c = (c - 1);
+              }
+            }
+          }
+        }
+
+        c = 0;
+
+        for (var x = 1; x <= 8; x = (x + 1))
+        {
+          if ((x > i) || (x > i)) {
+            break;
+          }
+          if (this.matrix[(i - x)][(j - x)] == 0) {
+            break;
+          }
+          if (this.matrix[(i - x)][(j - x)] == p2)
+          {
+            c = (c + 1);
+            if (this.matrix[(i - x - 1)][(j - x - 1)] == p1)
+            {
+              while (c > 0)
+              {
+                this.setValue((i - x + c - 1), (j - x + c - 1), p1);
+                c = (c - 1);
+              }
+            }
+          }
+        }
+
+        c = 0;
+      };
+
+      this.calculateMove = function() {
+
         // TODO
-      }
 
-      this.calculateMove();
+      };
 
-      if (!this.flowControl())
-      {
-        // TODO
-      }
-    };
+      this.clickEvent = function(x, y) {
 
-    // */
-  });
-})();
+        //alert("Debug: clicked on (" + x + ", " + y + ")");
+
+        if (!this.stepControl(x, y, 1))
+          return;
+
+        this.stepProcess(x, y, 1);
+
+        if (!this.flowControl())
+        {
+          // TODO
+        }
+
+        this.calculateMove();
+
+        if (!this.flowControl())
+        {
+          // TODO
+        }
+      };
+
+      // */
+    });
+  })();
