@@ -731,6 +731,9 @@
 
     this.clickEvent = function(x, y) {
 
+      var playermove;
+      var move;
+
       if (!this.stepControl(x, y, 1))
         return;
 
@@ -743,11 +746,16 @@
         // TODO
       }
 
-      var move = this.calculateMove(2);
+      move = this.calculateMove(2);
 
       if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined')
       {
         alert("cpu can't move");
+        playermove = this.calculateMove(1);
+
+        if (typeof playermove[0] == 'undefined' || typeof playermove[1] == 'undefined')
+          alert("END GAME");
+
         return;
       }
 
@@ -760,7 +768,7 @@
         // TODO
       }
 
-      var playermove = this.calculateMove(1);
+      playermove = this.calculateMove(1);
       while(typeof playermove[0] == 'undefined' || typeof playermove[1] == 'undefined')
       {
         alert("player can't move");
