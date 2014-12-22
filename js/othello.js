@@ -720,6 +720,9 @@
 
     this.clickEvent = function(x, y) {
 
+      if (typeof this.matrix[x] == 'undefined')
+        return;
+
       var playermove;
       var move;
 
