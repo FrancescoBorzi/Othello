@@ -736,6 +736,7 @@
 
       this.stepProcess(x, y, 1);
       this.black = this.calculateScore(1);
+      this.white = this.calculateScore(2);
 
       if (!this.flowControl())
       {
@@ -751,6 +752,7 @@
       }
 
       this.stepProcess(move[0], move[1], 2);
+      this.black = this.calculateScore(1);
       this.white = this.calculateScore(2);
 
       if (!this.flowControl())
@@ -771,6 +773,8 @@
         }
 
         this.stepProcess(move[0], move[1], 2);
+        this.black = this.calculateScore(1);
+      this.white = this.calculateScore(2);
 
         if (!this.flowControl())
         {
