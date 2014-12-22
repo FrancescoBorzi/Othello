@@ -241,235 +241,516 @@
     };
 
     this.stepProcess = function(i, j, id) {
-        this.setValue(i, j, id);
+      this.setValue(i, j, id);
 
-        var c = 0;
-        var p2;
-        var p1;
+      var c = 0;
+      var p2;
+      var p1;
 
-        if (id == 1)
-        {
-          p1 = 1;
-          p2 = 2;
+      if (id == 1)
+      {
+        p1 = 1;
+        p2 = 2;
+      }
+      else
+      {
+        p1 = 2;
+        p2 = 1;
+      }
+
+      for (var x = 1; x <= 8; x = (x + 1))
+      {
+        if (this.matrix[(i + x)][j] == 0) {
+          break;
         }
-        else
+        if (this.matrix[(i + x)][j] == p2)
         {
-          p1 = 2;
-          p2 = 1;
-        }
-
-        for (var x = 1; x <= 8; x = (x + 1))
-        {
-          if (this.matrix[(i + x)][j] == 0) {
-            break;
-          }
-          if (this.matrix[(i + x)][j] == p2)
+          c = (c + 1);
+          if (this.matrix[(i + x + 1)][j] == p1)
           {
-            c = (c + 1);
-            if (this.matrix[(i + x + 1)][j] == p1)
+            while (c > 0)
             {
-              while (c > 0)
-              {
-                this.setValue((i + x - c + 1), j, p1);
-                c = (c - 1);
-              }
+              this.setValue((i + x - c + 1), j, p1);
+              c = (c - 1);
+            }
+          }
+        }
+      }
+
+      c = 0;
+
+      for (var x = 1; x <= 8; x = (x + 1))
+      {
+        if (x > i) {
+          break;
+        }
+        if (this.matrix[(i - x)][j] == 0) {
+          break;
+        }
+        if (this.matrix[(i - x)][j] == p2)
+        {
+          c = c + 1;
+          if (this.matrix[(i - x - 1)][j] == p1)
+          {
+            while (c > 0)
+            {
+              this.setValue((i - x + c - 1), j, p1);
+              c = (c - 1);
+            }
+          }
+        }
+      }
+
+      c = 0;
+
+      for (var x = 1; x <= 8; x = (x + 1))
+      {
+        if (this.matrix[i][(j + x)] == 0) {
+          break;
+        }
+        if (this.matrix[i][(j + x)] == p2)
+        {
+          c = (c + 1);
+          if (this.matrix[i][(j + x + 1)] == p1)
+          {
+            while (c > 0)
+            {
+              this.setValue(i, (j + x - c + 1), p1);
+              c = (c - 1);
+            }
+          }
+        }
+      }
+
+      c = 0;
+
+      for (var x = 1; x <= 8; x = (x + 1))
+      {
+        if (x > j) {
+          break;
+        }
+        if (this.matrix[i][(j - x)] == 0) {
+          break;
+        }
+        if (this.matrix[i][(j - x)] == p2)
+        {
+          c = (c + 1);
+          if (this.matrix[i][(j - x - 1)] == p1)
+          {
+            while (c > 0)
+            {
+              this.setValue(i, (j - x + c - 1), p1);
+              c = (c - 1);
+            }
+          }
+        }
+      }
+
+      c = 0;
+
+      for (var x = 1; x <= 8; x = (x + 1))
+      {
+        if (this.matrix[(i + x)][(j + x)] == 0) {
+          break;
+        }
+        if (this.matrix[(i + x)][(j + x)] == p2)
+        {
+          c = (c + 1);
+          if (this.matrix[(i + x + 1)][(j + x + 1)] == p1)
+          {
+            while (c > 0)
+            {
+              this.setValue((i + x - c + 1), (j + x - c + 1), p1);
+              c = (c - 1);
+            }
+          }
+        }
+      }
+
+      c = 0;
+
+      for (var x = 1; x <= 8; x = (x + 1))
+      {
+        if (x > j) {
+          break;
+        }
+        if (this.matrix[(i + x)][(j - x)] == 0) {
+          break;
+        }
+        if (this.matrix[(i + x)][(j - x)] == p2)
+        {
+          c = (c + 1);
+          if (this.matrix[(i + x + 1)][(j - x - 1)] == p1)
+          {
+            while (c > 0)
+            {
+              this.setValue((i + x - c + 1), (j - x + c - 1), p1);
+              c = (c - 1);
+            }
+          }
+        }
+      }
+
+      c = 0;
+
+      for (var x = 1; x <= 8; x = (x + 1))
+      {
+        if (x > i) {
+          break;
+        }
+        if (this.matrix[(i - x)][(j + x)] == 0) {
+          break;
+        }
+        if (this.matrix[(i - x)][(j + x)] == p2)
+        {
+          c = (c + 1);
+          if (this.matrix[(i - x - 1)][(j + x + 1)] == p1)
+          {
+            while (c > 0)
+            {
+              this.setValue((i - x + c - 1), (j + x - c + 1), p1);
+              c = (c - 1);
+            }
+          }
+        }
+      }
+
+      c = 0;
+
+      for (var x = 1; x <= 8; x = (x + 1))
+      {
+        if ((x > i) || (x > i)) {
+          break;
+        }
+        if (this.matrix[(i - x)][(j - x)] == 0) {
+          break;
+        }
+        if (this.matrix[(i - x)][(j - x)] == p2)
+        {
+          c = (c + 1);
+          if (this.matrix[(i - x - 1)][(j - x - 1)] == p1)
+          {
+            while (c > 0)
+            {
+              this.setValue((i - x + c - 1), (j - x + c - 1), p1);
+              c = (c - 1);
+            }
+          }
+        }
+      }
+
+      c = 0;
+    };
+
+    this.calculateMove = function() {
+      var id = 2;
+
+      var coordinate = Array(2);
+
+      if (this.stepControl(1, 8, id))
+      {
+        coordinate[0] = 1;
+        coordinate[1] = 8;
+      }
+      else if (this.stepControl(8, 1, id))
+      {
+        coordinate[0] = 8;
+        coordinate[1] = 1;
+      }
+      else if (this.stepControl(1, 1, id))
+      {
+        coordinate[0] = 1;
+        coordinate[1] = 1;
+      }
+      else if (this.stepControl(8, 8, id))
+      {
+        coordinate[0] = 8;
+        coordinate[1] = 8;
+      }
+      else
+      {
+        var count = 0;
+        for (var n = 1; n <= 8; n = (n + 1))
+        {
+          for (var m = 1; m <= 8; m = (m + 1))
+          {
+            if (this.stepControl(n, m, id))
+            {
+              count = (count + 1);
             }
           }
         }
 
-        c = 0;
+        var punteggioMossa = Array(count);
+        var cordM = Array(count);
+        var cordN = Array(count);
+        var k = 0;
 
-        for (var x = 1; x <= 8; x = (x + 1))
+        for (var n = 1; n <= 8; n = (n + 1))
         {
-          if (x > i) {
-            break;
-          }
-          if (this.matrix[(i - x)][j] == 0) {
-            break;
-          }
-          if (this.matrix[(i - x)][j] == p2)
+          for (var m = 1; m <= 8; m = (m + 1))
           {
-            c = c + 1;
-            if (this.matrix[(i - x - 1)][j] == p1)
+            if (this.stepControl(n, m, id))
             {
-              while (c > 0)
-              {
-                this.setValue((i - x + c - 1), j, p1);
-                c = (c - 1);
-              }
+              cordM[k] = m;
+              cordN[k] = n;
+              k = (k + 1);
             }
           }
+
         }
 
-        c = 0;
-
-        for (var x = 1; x <= 8; x = (x + 1))
+        for (k = 0; k < count; k = (k + 1))
         {
-          if (this.matrix[i][(j + x)] == 0) {
-            break;
-          }
-          if (this.matrix[i][(j + x)] == p2)
+          var punteggio1 = 0;
+          var punteggio2 = 0;
+          var punteggio3 = 0;
+          var punteggio4 = 0;
+          var punteggio5 = 0;
+          var punteggio6 = 0;
+          var punteggio7 = 0;
+          var punteggio8 = 0;
+
+          for (var x = 1; x <= 9; x = (x + 1))
           {
-            c = (c + 1);
-            if (this.matrix[i][(j + x + 1)] == p1)
+            if ((cordN[k] + x) > 9 || (cordM[k] + x) > 9)
             {
-              while (c > 0)
-              {
-                this.setValue(i, (j + x - c + 1), p1);
-                c = (c - 1);
-              }
+              break;
+            }
+            if (this.matrix[(cordN[k] + x)][cordM[k]] == 0)
+            {
+              punteggio1 = 0;
+            }
+            else if (this.matrix[(cordN[k] + x)][cordM[k]] == 1)
+            {
+              punteggio1 = (punteggio1 + 1);
+
+              if (this.matrix[(cordN[k] + x + 1)][cordM[k]] == 2)
+                break;
             }
           }
-        }
 
-        c = 0;
+          var tmp407_405 = k;
+          var tmp407_403 = punteggioMossa;
 
-        for (var x = 1; x <= 8; x = (x + 1))
-        {
-          if (x > j) {
-            break;
-          }
-          if (this.matrix[i][(j - x)] == 0) {
-            break;
-          }
-          if (this.matrix[i][(j - x)] == p2)
+          tmp407_403[tmp407_405] = tmp407_403[tmp407_405] + punteggio1;
+
+          for (var x = 1; x <= 9; x = (x + 1))
           {
-            c = (c + 1);
-            if (this.matrix[i][(j - x - 1)] == p1)
+            if (x > cordN[k])
             {
-              while (c > 0)
-              {
-                this.setValue(i, (j - x + c - 1), p1);
-                c = (c - 1);
-              }
+              break;
+            }
+            if (this.matrix[(cordN[k] - x)][cordM[k]] == 0)
+            {
+              punteggio2 = 0;
+            }
+            else if (this.matrix[(cordN[k] - x)][cordM[k]] == 1)
+            {
+              punteggio2 = (punteggio2 + 1);
+
+              if (this.matrix[(cordN[k] - x - 1)][cordM[k]] == 2)
+                break;
             }
           }
-        }
 
-        c = 0;
+          var tmp539_537 = k;
+          var tmp539_535 = punteggioMossa;
 
-        for (var x = 1; x <= 8; x = (x + 1))
-        {
-          if (this.matrix[(i + x)][(j + x)] == 0) {
-            break;
-          }
-          if (this.matrix[(i + x)][(j + x)] == p2)
+          tmp539_535[tmp539_537] = tmp539_535[tmp539_537] + punteggio2;
+
+          for (var x = 1; x <= 9; x = (x + 1))
           {
-            c = (c + 1);
-            if (this.matrix[(i + x + 1)][(j + x + 1)] == p1)
+            if (x + cordM[k] > 8)
             {
-              while (c > 0)
-              {
-                this.setValue((i + x - c + 1), (j + x - c + 1), p1);
-                c = (c - 1);
-              }
+              break;
+            }
+            if (this.matrix[cordN[k]][(cordM[k] + x)] == 0)
+            {
+              punteggio3 = 0;
+            }
+
+            if (this.matrix[cordN[k]][(cordM[k] + x)] == 1)
+            {
+              punteggio3 = (punteggio3 + 1);
+
+              if (this.matrix[cordN[k]][(cordM[k] + x + 1)] == 2)
+                break;
             }
           }
-        }
 
-        c = 0;
+          var tmp669_667 = k;
+          var tmp669_665 = punteggioMossa;
 
-        for (var x = 1; x <= 8; x = (x + 1))
-        {
-          if (x > j) {
-            break;
-          }
-          if (this.matrix[(i + x)][(j - x)] == 0) {
-            break;
-          }
-          if (this.matrix[(i + x)][(j - x)] == p2)
+          tmp669_665[tmp669_667] = tmp669_665[tmp669_667] + punteggio3;
+
+          for (var x = 1; x <= 9; x = (x + 1))
           {
-            c = (c + 1);
-            if (this.matrix[(i + x + 1)][(j - x - 1)] == p1)
+            if (x > cordM[k])
             {
-              while (c > 0)
-              {
-                this.setValue((i + x - c + 1), (j - x + c - 1), p1);
-                c = (c - 1);
-              }
+              break;
+            }
+            if (this.matrix[cordN[k]][(cordM[k] - x)] == 0)
+            {
+              punteggio4 = 0;
+            }
+            else if (this.matrix[cordN[k]][(cordM[k] - x)] == 1)
+            {
+              punteggio4 = (punteggio4 + 1);
+
+              if (this.matrix[cordN[k]][(cordM[k] - x - 1)] == 2)
+                break;
             }
           }
-        }
 
-        c = 0;
+          var tmp801_799 = k;
+          var tmp801_797 = punteggioMossa;
 
-        for (var x = 1; x <= 8; x = (x + 1))
-        {
-          if (x > i) {
-            break;
-          }
-          if (this.matrix[(i - x)][(j + x)] == 0) {
-            break;
-          }
-          if (this.matrix[(i - x)][(j + x)] == p2)
+          tmp801_797[tmp801_799] = tmp801_797[tmp801_799] + punteggio4;
+
+          for (var x = 1; x <= 9; x = (x + 1))
           {
-            c = (c + 1);
-            if (this.matrix[(i - x - 1)][(j + x + 1)] == p1)
+            if ((cordN[k] + x) > 9 || (cordM[k] + x) > 9)
             {
-              while (c > 0)
-              {
-                this.setValue((i - x + c - 1), (j + x - c + 1), p1);
-                c = (c - 1);
-              }
+              break;
+            }
+            if (this.matrix[(cordN[k] + x)][(cordM[k] + x)] == 0)
+            {
+              punteggio5 = 0;
+            }
+            else if (this.matrix[(cordN[k] + x)][(cordM[k] + x)] == 1)
+            {
+              punteggio5 = (punteggio5 + 1);
+
+              if (this.matrix[(cordN[k] + x + 1)][(cordM[k] + x + 1)] == 2)
+                break;
             }
           }
-        }
+          var tmp929_927 = k;
+          var tmp929_925 = punteggioMossa;
 
-        c = 0;
+          tmp929_925[tmp929_927] = tmp929_925[tmp929_927] + punteggio5;
 
-        for (var x = 1; x <= 8; x = (x + 1))
-        {
-          if ((x > i) || (x > i)) {
-            break;
-          }
-          if (this.matrix[(i - x)][(j - x)] == 0) {
-            break;
-          }
-          if (this.matrix[(i - x)][(j - x)] == p2)
+          for (var x = 1; x <= 9; x = (x + 1))
           {
-            c = (c + 1);
-            if (this.matrix[(i - x - 1)][(j - x - 1)] == p1)
+            if (x > cordM[k] || cordN[k] + x > 9)
             {
-              while (c > 0)
-              {
-                this.setValue((i - x + c - 1), (j - x + c - 1), p1);
-                c = (c - 1);
-              }
+              break;
+            }
+            if (this.matrix[(cordN[k] + x)][(cordM[k] - x)] == 0)
+            {
+              punteggio6 = 0;
+            }
+            else if (this.matrix[(cordN[k] + x)][(cordM[k] - x)] == 1)
+            {
+              punteggio6 = (punteggio6 + 1);
+
+              if (this.matrix[(cordN[k] + x + 1)][(cordM[k] - x - 1)] == 2)
+                break;
             }
           }
+
+          var tmp1072_1070 = k;
+          var tmp1072_1068 = punteggioMossa;
+
+          tmp1072_1068[tmp1072_1070] = tmp1072_1068[tmp1072_1070] + punteggio6;
+
+          for (var x = 1; x <= 9; x = (x + 1))
+          {
+            if (x > cordN[k] || cordM[k] + x > 9)
+            {
+              break;
+            }
+            if (this.matrix[(cordN[k] - x)][(cordM[k] + x)] == 0)
+            {
+              punteggio7 = 0;
+            }
+            else if (this.matrix[(cordN[k] - x)][(cordM[k] + x)] == 1)
+            {
+              punteggio7 = (punteggio7 + 1);
+
+              if (this.matrix[(cordN[k] - x - 1)][(cordM[k] + x + 1)] == 2)
+                break;
+            }
+          }
+          var tmp1215_1213 = k;
+          var tmp1215_1211 = punteggioMossa;
+
+          tmp1215_1211[tmp1215_1213] = tmp1215_1211[tmp1215_1213] + punteggio7;
+
+          for (var x = 1; x <= 9; x = (x + 1))
+          {
+            if ((x > cordN[k]) || (x > cordM[k]))
+            {
+              break;
+            }
+            if (this.matrix[(cordN[k] - x)][(cordM[k] - x)] == 0)
+            {
+              punteggio8 = 0;
+            }
+            else if (this.matrix[(cordN[k] - x)][(cordM[k] - x)] == 1)
+            {
+              punteggio8 = (punteggio8 + 1);
+
+              if (this.matrix[(cordN[k] - x - 1)][(cordM[k] - x - 1)] == 2)
+                break;
+            }
+          }
+          var tmp1370_1368 = k;
+          var tmp1370_1366 = punteggioMossa;
+
+          tmp1370_1366[tmp1370_1368] = ((tmp1370_1366[tmp1370_1368] + punteggio8));
+
+          if ((cordN[k] == 1) || (cordN[k] == 8) || (cordM[k] == 1) || (cordM[k] == 8))
+          {
+            var tmp1419_1417 = k;
+            var tmp1419_1415 = punteggioMossa;
+
+            tmp1419_1415[tmp1419_1417] = tmp1419_1415[tmp1419_1417] + 10;
+          }
+
         }
 
-        c = 0;
-      };
+        var max_k = 0;
 
-      this.calculateMove = function() {
+        for (k = 0; k < count; k = (k + 1)) {
+          if (punteggioMossa[k] > max_k) {
+            max_k = k;
+          }
+        }
+        coordinate[0] = cordN[max_k];
+        coordinate[1] = cordM[max_k];
+      }
 
+      return coordinate;
+    };
+
+    this.clickEvent = function(x, y) {
+
+      //alert("Debug: clicked on (" + x + ", " + y + ")");
+
+      if (!this.stepControl(x, y, 1))
+        return;
+
+      this.stepProcess(x, y, 1);
+
+      if (!this.flowControl())
+      {
         // TODO
+      }
 
-      };
+      var move = this.calculateMove();
 
-      this.clickEvent = function(x, y) {
+      //alert(move[0] + " " + move[1]);
 
-        //alert("Debug: clicked on (" + x + ", " + y + ")");
+      this.stepProcess(move[0], move[1], 2);
 
-        if (!this.stepControl(x, y, 1))
-          return;
+      if (!this.flowControl())
+      {
+        // TODO
+      }
+    };
 
-        this.stepProcess(x, y, 1);
-
-        if (!this.flowControl())
-        {
-          // TODO
-        }
-
-        this.calculateMove();
-
-        if (!this.flowControl())
-        {
-          // TODO
-        }
-      };
-
-      // */
-    });
-  })();
+    // */
+  });
+})();
