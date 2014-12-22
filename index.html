@@ -15,9 +15,9 @@
   <body>
     <div class="container text-center" ng-controller="othelloController as othello">
       <div class="row">
-        <div class="col-xs-3">Black: <span id="score-black" class="lead">{{othello.black}}</span></div>
+        <div class="col-xs-3">Black: <span class="lead">{{othello.black}}</span></div>
         <div class="col-xs-6"><button id="btn-start" class="btn btn-lg btn-primary" ng-click="othello.init()">Start</button></div>
-        <div class="col-xs-3">White: <span id="score-white" class="lead">{{othello.white}}</span></div>
+        <div class="col-xs-3">White: <span class="lead">{{othello.white}}</span></div>
       </div>
       <table class="text-center">
         <tr ng-repeat="x in othello.t">
