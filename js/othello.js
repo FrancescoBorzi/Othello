@@ -3,6 +3,8 @@
   app.controller("othelloController", function(){
     this.t = [1,2,3,4,5,6,7, 8];
     this.matrix = [];
+    this.white = 0;
+    this.black = 0;
 
     this.changeColor = function(x, y, color) {
       var result = document.getElementById(x + "-" + y);
@@ -55,6 +57,9 @@
       this.setValue(4, 5, 2);
       this.setValue(5, 4, 2);
       this.setValue(5, 5, 1);
+
+      this.black = this.calculateScore(1);
+      this.white = this.calculateScore(2);
 
       var result = document.getElementById('btn-start');
       result.innerHTML = "Restart";
@@ -733,6 +738,7 @@
         return;
 
       this.stepProcess(x, y, 1);
+      this.black = this.calculateScore(1);
 
       if (!this.flowControl())
       {
@@ -744,6 +750,7 @@
       //alert(move[0] + " " + move[1]);
 
       this.stepProcess(move[0], move[1], 2);
+      this.white = this.calculateScore(2);
 
       if (!this.flowControl())
       {
@@ -751,6 +758,5 @@
       }
     };
 
-    // */
   });
 })();
