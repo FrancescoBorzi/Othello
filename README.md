@@ -1,4 +1,4 @@
-experiment
+Othello
 ==========
 
-an experiment with AngularJS
+This is our first experiment with AngularJS
