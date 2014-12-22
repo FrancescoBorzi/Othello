@@ -1,5 +1,5 @@
 body {
-	padding: 10px;
+  padding: 10px;
 }
 
 .container {
@@ -11,20 +11,21 @@ body {
 }
 
 table {
-	margin: 0 auto;
+  margin: 0 auto;
 
-    border: solid 1px grey;
-	border-collapse: collapse;
+  border: solid 1px grey;
+  border-collapse: collapse;
 
-	background: #8CBA9D;
+  background: #8CBA9D;
 }
 
 td {
-    width: 70px; height: 70px;
+  width: 70px;
+  height: 70px;
 }
 
 tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
-	background: #A7C2B1;
+  background: #A7C2B1;
 }
 
 .disc {
