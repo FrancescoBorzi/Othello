@@ -768,13 +768,12 @@
 
         if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined')
         {
-          alert("cpu can't move");
-          return;
+          alert("END GAME");
         }
 
         this.stepProcess(move[0], move[1], 2);
         this.black = this.calculateScore(1);
-      this.white = this.calculateScore(2);
+        this.white = this.calculateScore(2);
 
         if (!this.flowControl())
         {
