@@ -745,7 +745,10 @@
       var move = this.calculateMove(2);
 
       if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined')
+      {
+        alert("cpu can't move");
         return;
+      }
 
       this.stepProcess(move[0], move[1], 2);
       this.white = this.calculateScore(2);
@@ -758,10 +761,14 @@
       var playermove = this.calculateMove(1);
       while(typeof playermove[0] == 'undefined' || typeof playermove[1] == 'undefined')
       {
+        alert("player can't move");
         move = this.calculateMove(2);
 
         if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined')
+        {
+          alert("cpu can't move");
           return;
+        }
 
         this.stepProcess(move[0], move[1], 2);
 
