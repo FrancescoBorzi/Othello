@@ -74,9 +74,143 @@
     };
 
     this.stepControl = function(x, y, val) {
+      //Porting from controlloMossa
+/*
+      var i = X;
+      var j = Y;
 
-      // TODO
+      if (this.matrix[i][j] == 0)
+      {
+        var p2;
+        var p1;
+        if (id == 1)
+        {
+          p1 = 1;
+          p2 = 2;
+        }
+        else
+        {
+          p1 = 2;
+          p2 = 1;
+        }
 
+        if ((this.matrix[(i + 1)][j] != p2) && (this.matrix[i][(j + 1)] != p2) && (this.matrix[(i + 1)][(j + 1)] != p2) && (this.matrix[(i - 1)][j] != p2) && (this.matrix[i][(j - 1)] != p2) && (this.matrix[(i - 1)][(j - 1)] != p2) && (this.matrix[(i + 1)][(j - 1)] != p2) && (this.matrix[(i - 1)][(j + 1)] != p2))
+        {
+          return false;
+        }
+
+        for (var x = 1; x <= 8; x++)
+        {
+          if (this.matrix[(i + x)][j] == 0)
+            break;
+
+          if (this.matrix[(i + x)][j] == p2)
+          {
+            if (this.matrix[(i + x + 1)][j] == p1)
+              return true;
+          }
+        }
+
+        for (var x = 1; x <= 8; x++)
+        {
+          if ((x > i) || (x - i == 0))
+            break;
+
+          if (this.matrix[(i - x)][j] == 0)
+            break;
+
+          if (this.matrix[(i - x)][j] == p2)
+          {
+            if (this.matrix[(i - x - 1)][j] == p1)
+              return true;
+          }
+
+        }
+
+        for (var x = 1; x <= 8; x++)
+        {
+          if (this.matrix[i][(j + x)] == 0)
+            break;
+
+          if (this.matrix[i][(j + x)] == p2)
+          {
+            if (this.matrix[i][(j + x + 1)] == p1)
+              return true;
+          }
+        }
+
+        for (var x = 1; x <= 8; x++)
+        {
+          if ((x > j) || (j - x == 0))
+            break;
+
+          if (this.matrix[i][(j - x)] == 0)
+            break;
+
+          if (this.matrix[i][(j - x)] == p2)
+          {
+            if (this.matrix[i][(j - x - 1)] == p1)
+              return true;
+          }
+        }
+
+        for (var x = 1; x <= 8; x++)
+        {
+          if (this.matrix[(i + x)][(j + x)] == 0)
+            break;
+
+          if (this.matrix[(i + x)][(j + x)] == p2)
+          {
+            if (this.matrix[(i + x + 1)][(j + x + 1)] == p1)
+              return true;
+          }
+        }
+
+        for (var x = 1; x <= 8; x++)
+        {
+          if ((x > j) || (x - j == 0))
+            break;
+
+          if (this.matrix[(i + x)][(j - x)] == 0)
+            break;
+
+          if ((this.matrix[(i + x)][(j - x)] == p2) && (this.matrix[(i + x + 1)][(j - x - 1)] == p1))
+            return true;
+
+        }
+
+        for (var x = 1; x <= 8; x++)
+        {
+          if ((x > i) || (i - x == 0))
+            break;
+
+          if (this.matrix[(i - x)][(j + x)] == 0)
+            break;
+
+          if (this.matrix[(i - x)][(j + x)] == p2)
+          {
+            if (this.matrix[(i - x - 1)][(j + x + 1)] == p1)
+              return true;
+          }
+        }
+
+        for (var x = 1; x <= 8; x++)
+        {
+          if ((x > i) || (x > j) || (i - x == 0) || (j - x == 0))
+            break;
+
+          if (this.matrix[(i - x)][(j - x)] == 0)
+            break;
+
+          if (this.matrix[(i - x)][(j - x)] == p2)
+          {
+            if (this.matrix[(i - x - 1)][(j - x - 1)] == p1)
+              return true;
+          }
+        }
+        return false;
+      }
+*/
       return false;
     };
 
