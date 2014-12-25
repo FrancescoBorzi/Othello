@@ -145,7 +145,7 @@
         {
           for (x = 2; x < 8; x++)
           {
-            if (i - j < 1)
+            if (i - x < 1)
               break;
 
             if (this.matrix[i - x][j] == 0)
@@ -304,7 +304,7 @@
       {
         for (x = 2; x < 8; x++)
         {
-          if (i - j < 1)
+          if (i - x < 1)
             break;
 
           if (this.matrix[i - x][j] == 0)
