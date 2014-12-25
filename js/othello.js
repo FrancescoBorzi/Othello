@@ -431,27 +431,38 @@
 
     this.calculateMove = function(id) {
 
-      var coordinate = Array(2);
+      var coords = Array(2);
+
+      if (id == 1)
+      {
+        p1 = 1;
+        p2 = 2;
+      }
+      else
+      {
+        p1 = 2;
+        p2 = 1;
+      }
 
       if (this.stepControl(1, 8, id))
       {
-        coordinate[0] = 1;
-        coordinate[1] = 8;
+        coords[0] = 1;
+        coords[1] = 8;
       }
       else if (this.stepControl(8, 1, id))
       {
-        coordinate[0] = 8;
-        coordinate[1] = 1;
+        coords[0] = 8;
+        coords[1] = 1;
       }
       else if (this.stepControl(1, 1, id))
       {
-        coordinate[0] = 1;
-        coordinate[1] = 1;
+        coords[0] = 1;
+        coords[1] = 1;
       }
       else if (this.stepControl(8, 8, id))
       {
-        coordinate[0] = 8;
-        coordinate[1] = 8;
+        coords[0] = 8;
+        coords[1] = 8;
       }
       else
       {
@@ -467,10 +478,20 @@
           }
         }
 
-        var punteggioMossa = Array(count);
+        var moveScore = Array(count);
         var cordM = Array(count);
         var cordN = Array(count);
         var k = 0;
+        var x;
+        var y;
+        var score1;
+        var score2;
+        var score3;
+        var score4;
+        var score5;
+        var score6;
+        var score7;
+        var score8;
 
         for (var n = 1; n <= 8; n = (n + 1))
         {
@@ -483,232 +504,234 @@
               k = (k + 1);
             }
           }
-
         }
 
-        for (k = 0; k < count; k = (k + 1))
+        for (k = 0; k < count; k++)
         {
-          var punteggio1 = 0;
-          var punteggio2 = 0;
-          var punteggio3 = 0;
-          var punteggio4 = 0;
-          var punteggio5 = 0;
-          var punteggio6 = 0;
-          var punteggio7 = 0;
-          var punteggio8 = 0;
+          score1 = 0;
+          score2 = 0;
+          score3 = 0;
+          score4 = 0;
+          score5 = 0;
+          score6 = 0;
+          score7 = 0;
+          score8 = 0;
 
-          for (var x = 1; x <= 9; x = (x + 1))
+          moveScore[k] = 0;
+
+          // 1
+          for (x = 1; x < 8; x++)
           {
-            if ((cordN[k] + x) > 9 || (cordM[k] + x) > 9)
-            {
+            if ((cordN[k] + x) > 9)
               break;
-            }
+
             if (this.matrix[(cordN[k] + x)][cordM[k]] == 0)
             {
-              punteggio1 = 0;
-            }
-            else if (this.matrix[(cordN[k] + x)][cordM[k]] == 1)
-            {
-              punteggio1 = (punteggio1 + 1);
-
-              if (this.matrix[(cordN[k] + x + 1)][cordM[k]] == 2)
-                break;
-            }
-          }
-
-          var tmp407_405 = k;
-          var tmp407_403 = punteggioMossa;
-
-          tmp407_403[tmp407_405] = tmp407_403[tmp407_405] + punteggio1;
-
-          for (var x = 1; x <= 9; x = (x + 1))
-          {
-            if (x > cordN[k])
-            {
+              score1 = 0;
               break;
             }
-            if (this.matrix[(cordN[k] - x)][cordM[k]] == 0)
-            {
-              punteggio2 = 0;
-            }
-            else if (this.matrix[(cordN[k] - x)][cordM[k]] == 1)
-            {
-              punteggio2 = (punteggio2 + 1);
 
-              if (this.matrix[(cordN[k] - x - 1)][cordM[k]] == 2)
+            if (this.matrix[(cordN[k] + x)][cordM[k]] == p2)
+            {
+              score1++;
+
+              if (this.matrix[(cordN[k] + x + 1)][cordM[k]] == p1)
                 break;
             }
           }
+          moveScore[k] += score1;
 
-          var tmp539_537 = k;
-          var tmp539_535 = punteggioMossa;
-
-          tmp539_535[tmp539_537] = tmp539_535[tmp539_537] + punteggio2;
-
-          for (var x = 1; x <= 9; x = (x + 1))
+          // 2
+          for (x = 1; x < 8; x++)
           {
-            if (x + cordM[k] > 8)
+            if ((cordM[k] + x) > 9)
+              break;
+
+            if (this.matrix[(cordN[k])][cordM[k] + x] == 0)
             {
+              score2 = 0;
               break;
             }
-            if (this.matrix[cordN[k]][(cordM[k] + x)] == 0)
-            {
-              punteggio3 = 0;
-            }
 
-            if (this.matrix[cordN[k]][(cordM[k] + x)] == 1)
+            if (this.matrix[(cordN[k])][cordM[k] + x] == p2)
             {
-              punteggio3 = (punteggio3 + 1);
+              score2++;
 
-              if (this.matrix[cordN[k]][(cordM[k] + x + 1)] == 2)
+              if (this.matrix[(cordN[k])][cordM[k] + x + 1] == p1)
                 break;
             }
           }
+          moveScore[k] += score2;
 
-          var tmp669_667 = k;
-          var tmp669_665 = punteggioMossa;
-
-          tmp669_665[tmp669_667] = tmp669_665[tmp669_667] + punteggio3;
-
-          for (var x = 1; x <= 9; x = (x + 1))
+          // 3
+          for (x = 1; x < 8; x++)
           {
-            if (x > cordM[k])
+            if ((cordM[k] - x) < 0)
+              break;
+
+            if (this.matrix[(cordN[k])][cordM[k] - x] == 0)
             {
+              score3 = 0;
               break;
             }
-            if (this.matrix[cordN[k]][(cordM[k] - x)] == 0)
-            {
-              punteggio4 = 0;
-            }
-            else if (this.matrix[cordN[k]][(cordM[k] - x)] == 1)
-            {
-              punteggio4 = (punteggio4 + 1);
 
-              if (this.matrix[cordN[k]][(cordM[k] - x - 1)] == 2)
+            if (this.matrix[(cordN[k])][cordM[k] - x] == p2)
+            {
+              score3++;
+
+              if (this.matrix[(cordN[k])][cordM[k] - x - 1] == p1)
                 break;
             }
           }
+          moveScore[k] += score3;
 
-          var tmp801_799 = k;
-          var tmp801_797 = punteggioMossa;
+          // 4
+          for (x = 1; x < 8; x++)
+          {
+            if ((cordN[k] - x) < 0)
+              break;
 
-          tmp801_797[tmp801_799] = tmp801_797[tmp801_799] + punteggio4;
+            if (this.matrix[(cordN[k]) - x][cordM[k]] == 0)
+            {
+              score4 = 0;
+              break;
+            }
 
-          for (var x = 1; x <= 9; x = (x + 1))
+            if (this.matrix[(cordN[k]) - x][cordM[k]] == p2)
+            {
+              score4++;
+
+              if (this.matrix[(cordN[k]) - x - 1][cordM[k]] == p1)
+                break;
+            }
+          }
+          moveScore[k] += score4;
+
+          // 5
+          for (x = 1; x < 8; x++)
           {
             if ((cordN[k] + x) > 9 || (cordM[k] + x) > 9)
+              break;
+
+            if (this.matrix[(cordN[k]) + x][cordM[k] + x] == 0)
             {
+              score5 = 0;
               break;
             }
-            if (this.matrix[(cordN[k] + x)][(cordM[k] + x)] == 0)
-            {
-              punteggio5 = 0;
-            }
-            else if (this.matrix[(cordN[k] + x)][(cordM[k] + x)] == 1)
-            {
-              punteggio5 = (punteggio5 + 1);
 
-              if (this.matrix[(cordN[k] + x + 1)][(cordM[k] + x + 1)] == 2)
+            if (this.matrix[(cordN[k]) + x][cordM[k] + x] == p2)
+            {
+              score5++;
+
+              if (this.matrix[(cordN[k]) + x + 1][cordM[k] + x + 1] == p1)
                 break;
             }
           }
-          var tmp929_927 = k;
-          var tmp929_925 = punteggioMossa;
+          moveScore[k] += score5;
 
-          tmp929_925[tmp929_927] = tmp929_925[tmp929_927] + punteggio5;
-
-          for (var x = 1; x <= 9; x = (x + 1))
+          // 6
+          for (x = 1; x < 8; x++)
           {
-            if (x > cordM[k] || cordN[k] + x > 9)
+            if ((cordN[k] - x) < 0 || (cordM[k] - x) < 0)
+              break;
+
+            if (this.matrix[cordN[k] - x][cordM[k] - x] == 0)
             {
+              score6 = 0;
               break;
             }
-            if (this.matrix[(cordN[k] + x)][(cordM[k] - x)] == 0)
-            {
-              punteggio6 = 0;
-            }
-            else if (this.matrix[(cordN[k] + x)][(cordM[k] - x)] == 1)
-            {
-              punteggio6 = (punteggio6 + 1);
 
-              if (this.matrix[(cordN[k] + x + 1)][(cordM[k] - x - 1)] == 2)
+            if (this.matrix[(cordN[k]) - x][cordM[k] - x] == p2)
+            {
+              score6++;
+
+              if (this.matrix[cordN[k] - x - 1][cordM[k] - x - 1] == p1)
+                break;
+            }
+          }
+          moveScore[k] += score6;
+
+          // 7
+          for (x = 1; x < 8; x++)
+          {
+            if ((cordN[k] + x) > 9 || (cordM[k] - x) < 0)
+              break;
+
+            if (this.matrix[(cordN[k]) + x][cordM[k] - x] == 0)
+            {
+              score7 = 0;
+              break;
+            }
+
+            if (this.matrix[(cordN[k]) + x][cordM[k] - x] == p2)
+            {
+              score7++;
+
+              if (this.matrix[(cordN[k]) + x + 1][cordM[k] - x - 1] == p1)
+                break;
+            }
+          }
+          moveScore[k] += score7;
+
+          // 8
+          for (x = 1; x < 8; x++)
+          {
+            if ((cordN[k] - x) < 0 || (cordM[k] + x) > 9)
+              break;
+
+            if (this.matrix[(cordN[k]) - x][cordM[k] + x] == 0)
+            {
+              score8 = 0;
+              break;
+            }
+
+            if (this.matrix[(cordN[k]) - x][cordM[k] + x] == p2)
+            {
+              score8++;
+
+              if (this.matrix[(cordN[k]) - x - 1][cordM[k] + x + 1] == p1)
                 break;
             }
           }
 
-          var tmp1072_1070 = k;
-          var tmp1072_1068 = punteggioMossa;
-
-          tmp1072_1068[tmp1072_1070] = tmp1072_1068[tmp1072_1070] + punteggio6;
-
-          for (var x = 1; x <= 9; x = (x + 1))
-          {
-            if (x > cordN[k] || cordM[k] + x > 9)
-            {
-              break;
-            }
-            if (this.matrix[(cordN[k] - x)][(cordM[k] + x)] == 0)
-            {
-              punteggio7 = 0;
-            }
-            else if (this.matrix[(cordN[k] - x)][(cordM[k] + x)] == 1)
-            {
-              punteggio7 = (punteggio7 + 1);
-
-              if (this.matrix[(cordN[k] - x - 1)][(cordM[k] + x + 1)] == 2)
-                break;
-            }
-          }
-          var tmp1215_1213 = k;
-          var tmp1215_1211 = punteggioMossa;
-
-          tmp1215_1211[tmp1215_1213] = tmp1215_1211[tmp1215_1213] + punteggio7;
-
-          for (var x = 1; x <= 9; x = (x + 1))
-          {
-            if ((x > cordN[k]) || (x > cordM[k]))
-            {
-              break;
-            }
-            if (this.matrix[(cordN[k] - x)][(cordM[k] - x)] == 0)
-            {
-              punteggio8 = 0;
-            }
-            else if (this.matrix[(cordN[k] - x)][(cordM[k] - x)] == 1)
-            {
-              punteggio8 = (punteggio8 + 1);
-
-              if (this.matrix[(cordN[k] - x - 1)][(cordM[k] - x - 1)] == 2)
-                break;
-            }
-          }
-          var tmp1370_1368 = k;
-          var tmp1370_1366 = punteggioMossa;
-
-          tmp1370_1366[tmp1370_1368] = ((tmp1370_1366[tmp1370_1368] + punteggio8));
-
-          if ((cordN[k] == 1) || (cordN[k] == 8) || (cordM[k] == 1) || (cordM[k] == 8))
-          {
-            var tmp1419_1417 = k;
-            var tmp1419_1415 = punteggioMossa;
-
-            tmp1419_1415[tmp1419_1417] = tmp1419_1415[tmp1419_1417] + 10;
-          }
-
+          moveScore[k] += score8;
         }
 
         var max_k = 0;
 
-        for (k = 0; k < count; k = (k + 1)) {
-          if (punteggioMossa[k] > max_k) {
+        for (k = 0; k < count; k = (k + 1))
+        {
+          if ((cordN[k] == 1) ||
+              (cordN[k] == 8) ||
+              (cordM[k] == 1) ||
+              (cordM[k] == 8))
+          {
+            moveScore[k] += 100;
+          }
+          else if ((cordN[k] == 2) ||
+                   (cordN[k] == 7) ||
+                   (cordM[k] == 2) ||
+                   (cordM[k] == 7))
+          {
+            moveScore[k] -= 100;
+            if (((cordN[k] == 2) && (cordM[k] == 2)) ||
+                ((cordN[k] == 2) && (cordM[k] == 7)) ||
+                ((cordN[k] == 7) && (cordM[k] == 2)) ||
+                ((cordN[k] == 7) && (cordM[k] == 7)))
+              moveScore[k] -= 50;
+          }
+
+          if (moveScore[k] > moveScore[max_k])
+          {
             max_k = k;
           }
         }
-        coordinate[0] = cordN[max_k];
-        coordinate[1] = cordM[max_k];
+
+        coords[0] = cordN[max_k];
+        coords[1] = cordM[max_k];
       }
 
-      return coordinate;
+      return coords;
     };
 
     this.endGame = function() {
