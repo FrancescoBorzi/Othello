@@ -2,7 +2,7 @@
   var app = angular.module('othello', [ ]);
   app.controller("othelloController", function($scope) {
 
-    this.t = [1,2,3,4,5,6,7, 8];
+    this.t = [1, 2, 3, 4, 5, 6, 7, 8];
     this.matrix = [];
 
     $scope.white = 0;
