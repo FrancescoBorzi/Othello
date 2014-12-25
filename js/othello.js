@@ -238,7 +238,6 @@
     this.stepProcess = function(i, j, id) {
       this.setValue(i, j, id);
 
-      var c = 0;
       var p2;
       var p1;
 
@@ -253,188 +252,191 @@
         p2 = 1;
       }
 
-      for (var x = 1; x <= 8; x = (x + 1))
+      var x;
+
+      if (this.matrix[i + 1][j] == p2)
       {
-        if (this.matrix[(i + x)][j] == 0) {
-          break;
-        }
-        if (this.matrix[(i + x)][j] == p2)
+        for (x = 2; x < 7; x++)
         {
-          c = (c + 1);
-          if (this.matrix[(i + x + 1)][j] == p1)
+          if ((i + x) > 8)
+            break;
+
+          if (this.matrix[i + x][j] == 0)
+            break;
+
+          if (this.matrix[i + x][j] == p1)
           {
-            while (c > 0)
+            x--;
+            while (x > 0)
             {
-              this.setValue((i + x - c + 1), j, p1);
-              c = (c - 1);
+              this.setValue(i + x, j, p1);
+              x--;
             }
+            break;
           }
         }
       }
 
-      c = 0;
-
-      for (var x = 1; x <= 8; x = (x + 1))
+      if (this.matrix[i][j + 1] == p2)
       {
-        if (x > i) {
-          break;
-        }
-        if (this.matrix[(i - x)][j] == 0) {
-          break;
-        }
-        if (this.matrix[(i - x)][j] == p2)
+        for (x = 2; x < 7; x++)
         {
-          c = c + 1;
-          if (this.matrix[(i - x - 1)][j] == p1)
+          if ((j + x) > 8)
+            break;
+
+          if (this.matrix[i][j + x] == 0)
+            break;
+
+          if (this.matrix[i][j + x] == p1)
           {
-            while (c > 0)
+            x--;
+            while (x > 0)
             {
-              this.setValue((i - x + c - 1), j, p1);
-              c = (c - 1);
+              this.setValue(i, j + x, p1);
+              x--;
             }
+            break;
           }
         }
       }
 
-      c = 0;
-
-      for (var x = 1; x <= 8; x = (x + 1))
+      if (this.matrix[i - 1][j] == p2)
       {
-        if (this.matrix[i][(j + x)] == 0) {
-          break;
-        }
-        if (this.matrix[i][(j + x)] == p2)
+        for (x = 2; x < 7; x++)
         {
-          c = (c + 1);
-          if (this.matrix[i][(j + x + 1)] == p1)
+          if (i - j < 1)
+            break;
+
+          if (this.matrix[i - x][j] == 0)
+            break;
+
+          if (this.matrix[i - x][j] == p1)
           {
-            while (c > 0)
+            x--;
+            while (x > 0)
             {
-              this.setValue(i, (j + x - c + 1), p1);
-              c = (c - 1);
+              this.setValue(i - x, j, p1);
+              x--;
             }
+            break;
           }
         }
       }
 
-      c = 0;
-
-      for (var x = 1; x <= 8; x = (x + 1))
+      if (this.matrix[i][j - 1] == p2)
       {
-        if (x > j) {
-          break;
-        }
-        if (this.matrix[i][(j - x)] == 0) {
-          break;
-        }
-        if (this.matrix[i][(j - x)] == p2)
+        for (x = 2; x < 7; x++)
         {
-          c = (c + 1);
-          if (this.matrix[i][(j - x - 1)] == p1)
+          if ((j - x) < 1)
+            break;
+
+          if (this.matrix[i][j - x] == 0)
+            break;
+
+          if (this.matrix[i][j - x] == p1)
           {
-            while (c > 0)
+            x--;
+            while (x > 0)
             {
-              this.setValue(i, (j - x + c - 1), p1);
-              c = (c - 1);
+              this.setValue(i, j - x, p1);
+              x--;
             }
+            break;
           }
         }
       }
 
-      c = 0;
-
-      for (var x = 1; x <= 8; x = (x + 1))
+      if (this.matrix[i + 1][j + 1] == p2)
       {
-        if (this.matrix[(i + x)][(j + x)] == 0) {
-          break;
-        }
-        if (this.matrix[(i + x)][(j + x)] == p2)
+        for (x = 2; x < 7; x++)
         {
-          c = (c + 1);
-          if (this.matrix[(i + x + 1)][(j + x + 1)] == p1)
+          if ((i + x) > 8 || (j + x) > 8)
+            break;
+
+          if (this.matrix[i + x][j + x] == 0)
+            break;
+
+          if (this.matrix[i + x][j + x] == p1)
           {
-            while (c > 0)
+            x--;
+            while (x > 0)
             {
-              this.setValue((i + x - c + 1), (j + x - c + 1), p1);
-              c = (c - 1);
+              this.setValue(i + x, j + x, p1);
+              x--;
             }
+            break;
           }
         }
       }
 
-      c = 0;
-
-      for (var x = 1; x <= 8; x = (x + 1))
+      if (this.matrix[i - 1][j - 1] == p2)
       {
-        if (x > j) {
-          break;
-        }
-        if (this.matrix[(i + x)][(j - x)] == 0) {
-          break;
-        }
-        if (this.matrix[(i + x)][(j - x)] == p2)
+        for (x = 2; x < 7; x++)
         {
-          c = (c + 1);
-          if (this.matrix[(i + x + 1)][(j - x - 1)] == p1)
+          if ((i - x) < 1 || (j - x) < 1)
+            break;
+
+          if (this.matrix[i - x][j - x] == 0)
+            break;
+
+          if (this.matrix[i - x][j - x] == p1)
           {
-            while (c > 0)
+            x--;
+            while (x > 0)
             {
-              this.setValue((i + x - c + 1), (j - x + c - 1), p1);
-              c = (c - 1);
+              this.setValue(i - x, j - x, p1);
+              x--;
             }
+            break;
           }
         }
       }
 
-      c = 0;
-
-      for (var x = 1; x <= 8; x = (x + 1))
+      if (this.matrix[i + 1][j - 1] == p2)
       {
-        if (x > i) {
-          break;
-        }
-        if (this.matrix[(i - x)][(j + x)] == 0) {
-          break;
-        }
-        if (this.matrix[(i - x)][(j + x)] == p2)
+        for (x = 2; x < 7; x++)
         {
-          c = (c + 1);
-          if (this.matrix[(i - x - 1)][(j + x + 1)] == p1)
+          if ((i + x) > 8 || (j - x) < 1)
+            break;
+
+          if (this.matrix[i + x][j - x] == 0)
+            break;
+
+          if (this.matrix[i + x][j - x] == p1)
           {
-            while (c > 0)
+            x--;
+            while (x > 0)
             {
-              this.setValue((i - x + c - 1), (j + x - c + 1), p1);
-              c = (c - 1);
+              this.setValue(i + x, j - x, p1);
+              x--;
             }
+            break;
           }
         }
       }
 
-      c = 0;
-
-      for (var x = 1; x <= 8; x = (x + 1))
+      if (this.matrix[i - 1][j + 1] == p2)
       {
-        if ((x > i) || (x > i)) {
-          break;
-        }
-        if (this.matrix[(i - x)][(j - x)] == 0) {
-          break;
-        }
-        if (this.matrix[(i - x)][(j - x)] == p2)
+        for (x = 2; x < 7; x++)
         {
-          c = (c + 1);
-          if (this.matrix[(i - x - 1)][(j - x - 1)] == p1)
+          if ((i - x) < 1 || (j + x) > 8)
+            break;
+
+          if (this.matrix[i - x][j + x] == 0)
+            break;
+
+          if (this.matrix[i - x][j + x] == p1)
           {
-            while (c > 0)
+            x--;
+            while (x > 0)
             {
-              this.setValue((i - x + c - 1), (j - x + c - 1), p1);
-              c = (c - 1);
+              this.setValue(i - x, j + x, p1);
+              x--;
             }
+            break;
           }
         }
       }
-
-      c = 0;
     };
 
     this.calculateMove = function(id) {
