@@ -81,10 +81,16 @@ tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
 .score {
   display: inline-block;
   vertical-align: middle;
+
   border-radius: 50%;
   border: 1px solid #c1c1c1;
-  width: 25px;
-  height: 25px;
+
+  width: 40px;
+  height: 40px;
+
+  padding: 7px 0;
+
+  font-size: 16px;
 }
 
 .lead { font-size: 14px; }

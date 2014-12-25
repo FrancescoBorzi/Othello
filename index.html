@@ -15,15 +15,15 @@
   <body>
     <div class="container text-center" ng-controller="othelloController as othello">
       <div class="row">
-        <div class="col-xs-3">
+        <div class="col-xs-4">
           <span class="lead">
-            Player <div class="score disc-black"></div>&nbsp;:&nbsp;{{ black }}
+            <div class="score disc-black" style="color: white;">{{ black }}</div> Player
           </span>
         </div>
-        <div class="col-xs-6"><button id="btn-start" class="btn btn-lg btn-primary" ng-click="othello.init()">{{ start }}</button></div>
-        <div class="col-xs-3">
+        <div class="col-xs-4"><button id="btn-start" class="btn btn-lg btn-primary" ng-click="othello.init()">{{ start }}</button></div>
+        <div class="col-xs-4">
           <span class="lead">
-            CPU <div class="score disc-white"></div>&nbsp;:&nbsp;{{ white }}
+            CPU <div class="score disc-white" style="color: black;">{{ white }}</div>
           </span>
         </div>
       </div>
