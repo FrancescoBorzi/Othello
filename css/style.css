@@ -73,6 +73,11 @@ tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
   background: black;
 }
 
+.disc, .disc-white, .disc-black {
+  -webkit-transition: all ease-in-out 1s;
+  transition: all ease-in-out 1s;
+}
+
 .score {
   display: inline-block;
   vertical-align: middle;

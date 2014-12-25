@@ -5,19 +5,16 @@
     this.t = [1, 2, 3, 4, 5, 6, 7, 8];
     this.matrix = [];
 
+    $scope.classes = [];
+    for(var i = 0; i < 10; i++)
+      $scope.classes[i] = new Array(8);
+
     $scope.white = 0;
     $scope.black = 0;
     $scope.start = "Start";
 
     this.changeColor = function(x, y, color) {
-      var result = document.getElementById(x + "-" + y);
-      var wrappedResult = angular.element(result);
-
-      wrappedResult.removeClass("disc-empty");
-      wrappedResult.removeClass("disc-black");
-      wrappedResult.removeClass("disc-white");
-
-      wrappedResult.addClass("disc-" + color);
+      $scope.classes[x][y] = "disc-" + color;
     };
 
     this.setValue = function(x, y, val) {
