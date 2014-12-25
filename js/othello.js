@@ -113,7 +113,7 @@
 
         if (this.matrix[i + 1][j] == p2)
         {
-          for (x = 2; x < 7; x++)
+          for (x = 2; x < 8; x++)
           {
             if ((i + x) > 8)
               break;
@@ -128,7 +128,7 @@
 
         if (this.matrix[i][j + 1] == p2)
         {
-          for (x = 2; x < 7; x++)
+          for (x = 2; x < 8; x++)
           {
             if ((j + x) > 8)
               break;
@@ -143,7 +143,7 @@
 
         if (this.matrix[i - 1][j] == p2)
         {
-          for (x = 2; x < 7; x++)
+          for (x = 2; x < 8; x++)
           {
             if (i - j < 1)
               break;
@@ -158,7 +158,7 @@
 
         if (this.matrix[i][j - 1] == p2)
         {
-          for (x = 2; x < 7; x++)
+          for (x = 2; x < 8; x++)
           {
             if ((j - x) < 1)
               break;
@@ -173,7 +173,7 @@
 
         if (this.matrix[i + 1][j + 1] == p2)
         {
-          for (x = 2; x < 7; x++)
+          for (x = 2; x < 8; x++)
           {
             if ((i + x) > 8 || (j + x) > 8)
               break;
@@ -188,7 +188,7 @@
 
         if (this.matrix[i - 1][j - 1] == p2)
         {
-          for (x = 2; x < 7; x++)
+          for (x = 2; x < 8; x++)
           {
             if ((i - x) < 1 || (j - x) < 1)
               break;
@@ -203,7 +203,7 @@
 
         if (this.matrix[i + 1][j - 1] == p2)
         {
-          for (x = 2; x < 7; x++)
+          for (x = 2; x < 8; x++)
           {
             if ((i + x) > 8 || (j - x) < 1)
               break;
@@ -218,7 +218,7 @@
 
         if (this.matrix[i - 1][j + 1] == p2)
         {
-          for (x = 2; x < 7; x++)
+          for (x = 2; x < 8; x++)
           {
             if ((i - x) < 1 || (j + x) > 8)
               break;
@@ -256,7 +256,7 @@
 
       if (this.matrix[i + 1][j] == p2)
       {
-        for (x = 2; x < 7; x++)
+        for (x = 2; x < 8; x++)
         {
           if ((i + x) > 8)
             break;
@@ -279,7 +279,7 @@
 
       if (this.matrix[i][j + 1] == p2)
       {
-        for (x = 2; x < 7; x++)
+        for (x = 2; x < 8; x++)
         {
           if ((j + x) > 8)
             break;
@@ -302,7 +302,7 @@
 
       if (this.matrix[i - 1][j] == p2)
       {
-        for (x = 2; x < 7; x++)
+        for (x = 2; x < 8; x++)
         {
           if (i - j < 1)
             break;
@@ -325,7 +325,7 @@
 
       if (this.matrix[i][j - 1] == p2)
       {
-        for (x = 2; x < 7; x++)
+        for (x = 2; x < 8; x++)
         {
           if ((j - x) < 1)
             break;
@@ -348,7 +348,7 @@
 
       if (this.matrix[i + 1][j + 1] == p2)
       {
-        for (x = 2; x < 7; x++)
+        for (x = 2; x < 8; x++)
         {
           if ((i + x) > 8 || (j + x) > 8)
             break;
@@ -371,7 +371,7 @@
 
       if (this.matrix[i - 1][j - 1] == p2)
       {
-        for (x = 2; x < 7; x++)
+        for (x = 2; x < 8; x++)
         {
           if ((i - x) < 1 || (j - x) < 1)
             break;
@@ -394,7 +394,7 @@
 
       if (this.matrix[i + 1][j - 1] == p2)
       {
-        for (x = 2; x < 7; x++)
+        for (x = 2; x < 8; x++)
         {
           if ((i + x) > 8 || (j - x) < 1)
             break;
@@ -417,7 +417,7 @@
 
       if (this.matrix[i - 1][j + 1] == p2)
       {
-        for (x = 2; x < 7; x++)
+        for (x = 2; x < 8; x++)
         {
           if ((i - x) < 1 || (j + x) > 8)
             break;
