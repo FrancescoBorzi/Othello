@@ -1,10 +1,13 @@
 (function (){
   var app = angular.module('othello', [ ]);
-  app.controller("othelloController", function(){
+  app.controller("othelloController", function($scope) {
+
     this.t = [1,2,3,4,5,6,7, 8];
     this.matrix = [];
-    this.white = 0;
-    this.black = 0;
+
+    $scope.white = 0;
+    $scope.black = 0;
+    $scope.start = "Start";
 
     this.changeColor = function(x, y, color) {
       var result = document.getElementById(x + "-" + y);
@@ -58,11 +61,10 @@
       this.setValue(5, 4, 2);
       this.setValue(5, 5, 1);
 
-      this.black = this.calculateScore(1);
-      this.white = this.calculateScore(2);
+      $scope.black = this.calculateScore(1);
+      $scope.white = this.calculateScore(2);
 
-      var result = document.getElementById('btn-start');
-      result.innerHTML = "Restart";
+      $scope.start = "Restart";
     };
 
     this.calculateScore = function(val) {
@@ -710,9 +712,9 @@
     };
 
     this.endGame = function() {
-      if (this.white > this.black)
+      if ($scope.white > $scope.black)
         alert("White wins");
-      else if (this.black > this.white)
+      else if ($scope.black > $scope.white)
         alert("Black wins");
       else
         alert("Draw");
@@ -730,8 +732,8 @@
         return;
 
       this.stepProcess(x, y, 1);
-      this.black = this.calculateScore(1);
-      this.white = this.calculateScore(2);
+      $scope.black = this.calculateScore(1);
+      $scope.white = this.calculateScore(2);
 
       move = this.calculateMove(2);
 
@@ -746,8 +748,8 @@
       }
 
       this.stepProcess(move[0], move[1], 2);
-      this.black = this.calculateScore(1);
-      this.white = this.calculateScore(2);
+      $scope.black = this.calculateScore(1);
+      $scope.white = this.calculateScore(2);
 
       playermove = this.calculateMove(1);
       while(typeof playermove[0] == 'undefined' || typeof playermove[1] == 'undefined')
@@ -758,8 +760,8 @@
           this.endGame();
 
         this.stepProcess(move[0], move[1], 2);
-        this.black = this.calculateScore(1);
-        this.white = this.calculateScore(2);
+        $scope.black = this.calculateScore(1);
+        $scope.white = this.calculateScore(2);
 
         playermove = this.calculateMove(1)
       }
