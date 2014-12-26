@@ -145,12 +145,14 @@ tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
     height: 100px;
     margin-top: -50px;
     margin-left: -100px;
+    border: 2px solid #ededed;
   }
   to {
     width: 0px;
     height: 0px;
     margin-top: 0px;
     margin-left: 0px;
+    border: 0px;
   }
 }
 
@@ -160,12 +162,14 @@ tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
     height: 0px;
     margin-top: 0px;
     margin-left: 0px;
+    border: 0px;
   }
   to {
     width: 190px;
     height: 90px;
     margin-top: -50px;
     margin-left: -100px;
+    border: 2px solid #ededed;
   }
 }
 
@@ -175,12 +179,14 @@ tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
     height: 0px;
     margin-top: 0px;
     margin-left: 0px;
+    border: 0px;
   }
   to {
     width: 190px;
     height: 90px;
     margin-top: -50px;
     margin-left: -100px;
+    border: 2px solid #ededed;
   }
 }
 
