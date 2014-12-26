@@ -14,6 +14,7 @@
   </head>
   <body>
     <div class="container text-center" ng-controller="othelloController as othello">
+      <div ng-class="win" ng-click="othello.close()">{{winc}}</div>
       <div class="row">
         <div class="col-xs-4">
           <span class="lead">

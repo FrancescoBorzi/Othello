@@ -9,9 +9,16 @@
     for(var i = 0; i < 10; i++)
       $scope.classes[i] = new Array(8);
 
+    $scope.win = "win_disabled";
     $scope.white = 0;
     $scope.black = 0;
     $scope.start = "Start";
+
+    this.close = function()
+    {
+      $scope.win = "win_disabled";
+      $scope.winc = "";
+    };
 
     this.changeColor = function(x, y, color) {
       $scope.classes[x][y] = "disc-" + color;
@@ -62,6 +69,7 @@
       $scope.white = this.calculateScore(2);
 
       $scope.start = "Restart";
+      this.close();
     };
 
     this.calculateScore = function(val) {
@@ -746,11 +754,20 @@
 
     this.endGame = function() {
       if ($scope.white > $scope.black)
-        alert("White wins");
+      {
+        $scope.winc = "White wins!";
+        $scope.win = "win_white";
+      }
       else if ($scope.black > $scope.white)
-        alert("Black wins");
+      {
+        $scope.winc = "Black wins!";
+        $scope.win = "win_black";
+      }
       else
-        alert("Draw");
+      {
+        $scope.winc = "Draw!";
+        $scope.win = "win_white";
+      }
     };
 
     this.clickEvent = function(x, y) {

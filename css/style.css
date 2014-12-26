@@ -69,11 +69,6 @@ tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
   background: black;
 }
 
-.disc, .disc-white, .disc-black {
-  -webkit-transition: all ease-in-out 1s;
-  transition: all ease-in-out 1s;
-}
-
 .score {
   display: inline-block;
   vertical-align: middle;
@@ -90,3 +85,100 @@ tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
 }
 
 .lead { font-size: 14px; }
+
+.win_disabled {
+  padding: 0px;
+  border: 0px;
+  animation: win_anim 1s;
+  -webkit-animation: win_anim 1s;
+}
+.win_black, .win_white, .win_disabled {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -100px;
+}
+.win_black, .win_white {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  border: 2px solid #ededed;
+  padding: 30px;
+  -webkit-animation: win_anim2 1s;
+  animation: win_anim2 1s;  
+}
+.win_black {
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+}
+.win_white {
+  background-color: rgba(255,255,255,0.8);
+  color: black;
+}
+
+.disc, .disc-white, .disc-black, .win_black, .win_white, .win_disabled {
+  -webkit-transition: all ease-in-out 1s;
+  transition: all ease-in-out 1s;
+}
+
+@keyframes win_anim {
+  from {
+    width: 200px;
+    height: 100px;
+    margin-top: -50px;
+    margin-left: -100px;
+  }
+  to {
+    width: 0px;
+    height: 0px;
+    margin-top: 0px;
+    margin-left: 0px;
+  }
+}
+
+@-webkit-keyframes win_anim {
+  from {
+    width: 200px;
+    height: 100px;
+    margin-top: -50px;
+    margin-left: -100px;
+  }
+  to {
+    width: 0px;
+    height: 0px;
+    margin-top: 0px;
+    margin-left: 0px;
+  }
+}
+
+@keyframes win_anim2 {
+  from {
+    width: 0px;
+    height: 0px;
+    margin-top: 0px;
+    margin-left: 0px;
+  }
+  to {
+    width: 190px;
+    height: 90px;
+    margin-top: -50px;
+    margin-left: -100px;
+  }
+}
+
+@-webkit-keyframes win_anim2 {
+  from {
+    width: 0px;
+    height: 0px;
+    margin-top: 0px;
+    margin-left: 0px;
+  }
+  to {
+    width: 190px;
+    height: 90px;
+    margin-top: -50px;
+    margin-left: -100px;
+  }
+}
+
