@@ -1,14 +1,15 @@
 (function (){
   var app = angular.module('othello', [ ]);
-  app.controller("othelloController", function($scope) {
+  app.controller("othelloController", function($scope, $timeout) {
 
     this.t = [1, 2, 3, 4, 5, 6, 7, 8];
-    this.matrix = [];
+    $scope.matrix = [];
 
     $scope.classes = [];
     for(var i = 0; i < 10; i++)
       $scope.classes[i] = new Array(8);
 
+    $scope.turn = 1;
     $scope.win = "win_disabled";
     $scope.white = 0;
     $scope.black = 0;
@@ -20,11 +21,11 @@
       $scope.winc = "";
     };
 
-    this.changeColor = function(x, y, color) {
+    $scope.changeColor = function(x, y, color) {
       $scope.classes[x][y] = "disc-" + color;
     };
 
-    this.setValue = function(x, y, val) {
+    $scope.setValue = function(x, y, val) {
       var color;
 
       switch (val)
@@ -43,8 +44,8 @@
           return;
       };
 
-      this.changeColor(x, y, color);
-      this.matrix[x][y] = val;
+      $scope.changeColor(x, y, color);
+      $scope.matrix[x][y] = val;
     }
 
     this.init = function() {
@@ -53,33 +54,35 @@
 
       for(i = 0; i < 10; i++)
       {
-        this.matrix[i] = new Array(8);
+        $scope.matrix[i] = new Array(8);
         for(j = 0; j < 10; j++)
         {
-          this.setValue(i, j, 0);
+          $scope.setValue(i, j, 0);
         }
       }
 
-      this.setValue(4, 4, 1);
-      this.setValue(4, 5, 2);
-      this.setValue(5, 4, 2);
-      this.setValue(5, 5, 1);
+      $scope.setValue(4, 4, 1);
+      $scope.setValue(4, 5, 2);
+      $scope.setValue(5, 4, 2);
+      $scope.setValue(5, 5, 1);
 
-      $scope.black = this.calculateScore(1);
-      $scope.white = this.calculateScore(2);
+      $scope.black = $scope.calculateScore(1);
+      $scope.white = $scope.calculateScore(2);
 
       $scope.start = "Restart";
+      $scope.turn = 1;
+
       this.close();
     };
 
-    this.calculateScore = function(val) {
+    $scope.calculateScore = function(val) {
       var count = 0;
 
       for (var i = 1; i < 9; i++)
       {
         for (var j = 1; j < 9; j++)
         {
-          if (this.matrix[i][j] == val)
+          if ($scope.matrix[i][j] == val)
             count++;
         }
       }
@@ -87,9 +90,9 @@
       return count;
     };
 
-    this.stepControl = function(i, j, id) {
+    $scope.stepControl = function(i, j, id) {
 
-      if (this.matrix[i][j] == 0)
+      if ($scope.matrix[i][j] == 0)
       {
         var p2;
         var p1;
@@ -105,136 +108,136 @@
           p2 = 1;
         }
 
-        if ((this.matrix[(i + 1)][j] != p2) &&
-            (this.matrix[i][(j + 1)] != p2) &&
-            (this.matrix[(i + 1)][(j + 1)] != p2) &&
-            (this.matrix[(i - 1)][j] != p2) &&
-            (this.matrix[i][(j - 1)] != p2) &&
-            (this.matrix[(i - 1)][(j - 1)] != p2) &&
-            (this.matrix[(i + 1)][(j - 1)] != p2) &&
-            (this.matrix[(i - 1)][(j + 1)] != p2))
+        if (($scope.matrix[(i + 1)][j] != p2) &&
+            ($scope.matrix[i][(j + 1)] != p2) &&
+            ($scope.matrix[(i + 1)][(j + 1)] != p2) &&
+            ($scope.matrix[(i - 1)][j] != p2) &&
+            ($scope.matrix[i][(j - 1)] != p2) &&
+            ($scope.matrix[(i - 1)][(j - 1)] != p2) &&
+            ($scope.matrix[(i + 1)][(j - 1)] != p2) &&
+            ($scope.matrix[(i - 1)][(j + 1)] != p2))
         {
           return false;
         }
 
         var x;
 
-        if (this.matrix[i + 1][j] == p2)
+        if ($scope.matrix[i + 1][j] == p2)
         {
           for (x = 2; x < 8; x++)
           {
             if ((i + x) > 8)
               break;
 
-            if (this.matrix[i + x][j] == 0)
+            if ($scope.matrix[i + x][j] == 0)
               break;
 
-            if (this.matrix[i + x][j] == p1)
+            if ($scope.matrix[i + x][j] == p1)
               return true;
           }
         }
 
-        if (this.matrix[i][j + 1] == p2)
+        if ($scope.matrix[i][j + 1] == p2)
         {
           for (x = 2; x < 8; x++)
           {
             if ((j + x) > 8)
               break;
 
-            if (this.matrix[i][j + x] == 0)
+            if ($scope.matrix[i][j + x] == 0)
               break;
 
-            if (this.matrix[i][j + x] == p1)
+            if ($scope.matrix[i][j + x] == p1)
               return true;
           }
         }
 
-        if (this.matrix[i - 1][j] == p2)
+        if ($scope.matrix[i - 1][j] == p2)
         {
           for (x = 2; x < 8; x++)
           {
             if (i - x < 1)
               break;
 
-            if (this.matrix[i - x][j] == 0)
+            if ($scope.matrix[i - x][j] == 0)
               break;
 
-            if (this.matrix[i - x][j] == p1)
+            if ($scope.matrix[i - x][j] == p1)
               return true;
           }
         }
 
-        if (this.matrix[i][j - 1] == p2)
+        if ($scope.matrix[i][j - 1] == p2)
         {
           for (x = 2; x < 8; x++)
           {
             if ((j - x) < 1)
               break;
 
-            if (this.matrix[i][j - x] == 0)
+            if ($scope.matrix[i][j - x] == 0)
               break;
 
-            if (this.matrix[i][j - x] == p1)
+            if ($scope.matrix[i][j - x] == p1)
               return true;
           }
         }
 
-        if (this.matrix[i + 1][j + 1] == p2)
+        if ($scope.matrix[i + 1][j + 1] == p2)
         {
           for (x = 2; x < 8; x++)
           {
             if ((i + x) > 8 || (j + x) > 8)
               break;
 
-            if (this.matrix[i + x][j + x] == 0)
+            if ($scope.matrix[i + x][j + x] == 0)
               break;
 
-            if (this.matrix[i + x][j + x] == p1)
+            if ($scope.matrix[i + x][j + x] == p1)
               return true;
           }
         }
 
-        if (this.matrix[i - 1][j - 1] == p2)
+        if ($scope.matrix[i - 1][j - 1] == p2)
         {
           for (x = 2; x < 8; x++)
           {
             if ((i - x) < 1 || (j - x) < 1)
               break;
 
-            if (this.matrix[i - x][j - x] == 0)
+            if ($scope.matrix[i - x][j - x] == 0)
               break;
 
-            if (this.matrix[i - x][j - x] == p1)
+            if ($scope.matrix[i - x][j - x] == p1)
               return true;
           }
         }
 
-        if (this.matrix[i + 1][j - 1] == p2)
+        if ($scope.matrix[i + 1][j - 1] == p2)
         {
           for (x = 2; x < 8; x++)
           {
             if ((i + x) > 8 || (j - x) < 1)
               break;
 
-            if (this.matrix[i + x][j - x] == 0)
+            if ($scope.matrix[i + x][j - x] == 0)
               break;
 
-            if (this.matrix[i + x][j - x] == p1)
+            if ($scope.matrix[i + x][j - x] == p1)
               return true;
           }
         }
 
-        if (this.matrix[i - 1][j + 1] == p2)
+        if ($scope.matrix[i - 1][j + 1] == p2)
         {
           for (x = 2; x < 8; x++)
           {
             if ((i - x) < 1 || (j + x) > 8)
               break;
 
-            if (this.matrix[i - x][j + x] == 0)
+            if ($scope.matrix[i - x][j + x] == 0)
               break;
 
-            if (this.matrix[i - x][j + x] == p1)
+            if ($scope.matrix[i - x][j + x] == p1)
               return true;
           }
         }
@@ -243,8 +246,8 @@
       return false;
     };
 
-    this.stepProcess = function(i, j, id) {
-      this.setValue(i, j, id);
+    $scope.stepProcess = function(i, j, id) {
+      $scope.setValue(i, j, id);
 
       var p2;
       var p1;
@@ -262,22 +265,22 @@
 
       var x;
 
-      if (this.matrix[i + 1][j] == p2)
+      if ($scope.matrix[i + 1][j] == p2)
       {
         for (x = 2; x < 8; x++)
         {
           if ((i + x) > 8)
             break;
 
-          if (this.matrix[i + x][j] == 0)
+          if ($scope.matrix[i + x][j] == 0)
             break;
 
-          if (this.matrix[i + x][j] == p1)
+          if ($scope.matrix[i + x][j] == p1)
           {
             x--;
             while (x > 0)
             {
-              this.setValue(i + x, j, p1);
+              $scope.setValue(i + x, j, p1);
               x--;
             }
             break;
@@ -285,22 +288,22 @@
         }
       }
 
-      if (this.matrix[i][j + 1] == p2)
+      if ($scope.matrix[i][j + 1] == p2)
       {
         for (x = 2; x < 8; x++)
         {
           if ((j + x) > 8)
             break;
 
-          if (this.matrix[i][j + x] == 0)
+          if ($scope.matrix[i][j + x] == 0)
             break;
 
-          if (this.matrix[i][j + x] == p1)
+          if ($scope.matrix[i][j + x] == p1)
           {
             x--;
             while (x > 0)
             {
-              this.setValue(i, j + x, p1);
+              $scope.setValue(i, j + x, p1);
               x--;
             }
             break;
@@ -308,22 +311,22 @@
         }
       }
 
-      if (this.matrix[i - 1][j] == p2)
+      if ($scope.matrix[i - 1][j] == p2)
       {
         for (x = 2; x < 8; x++)
         {
           if (i - x < 1)
             break;
 
-          if (this.matrix[i - x][j] == 0)
+          if ($scope.matrix[i - x][j] == 0)
             break;
 
-          if (this.matrix[i - x][j] == p1)
+          if ($scope.matrix[i - x][j] == p1)
           {
             x--;
             while (x > 0)
             {
-              this.setValue(i - x, j, p1);
+              $scope.setValue(i - x, j, p1);
               x--;
             }
             break;
@@ -331,22 +334,22 @@
         }
       }
 
-      if (this.matrix[i][j - 1] == p2)
+      if ($scope.matrix[i][j - 1] == p2)
       {
         for (x = 2; x < 8; x++)
         {
           if ((j - x) < 1)
             break;
 
-          if (this.matrix[i][j - x] == 0)
+          if ($scope.matrix[i][j - x] == 0)
             break;
 
-          if (this.matrix[i][j - x] == p1)
+          if ($scope.matrix[i][j - x] == p1)
           {
             x--;
             while (x > 0)
             {
-              this.setValue(i, j - x, p1);
+              $scope.setValue(i, j - x, p1);
               x--;
             }
             break;
@@ -354,22 +357,22 @@
         }
       }
 
-      if (this.matrix[i + 1][j + 1] == p2)
+      if ($scope.matrix[i + 1][j + 1] == p2)
       {
         for (x = 2; x < 8; x++)
         {
           if ((i + x) > 8 || (j + x) > 8)
             break;
 
-          if (this.matrix[i + x][j + x] == 0)
+          if ($scope.matrix[i + x][j + x] == 0)
             break;
 
-          if (this.matrix[i + x][j + x] == p1)
+          if ($scope.matrix[i + x][j + x] == p1)
           {
             x--;
             while (x > 0)
             {
-              this.setValue(i + x, j + x, p1);
+              $scope.setValue(i + x, j + x, p1);
               x--;
             }
             break;
@@ -377,22 +380,22 @@
         }
       }
 
-      if (this.matrix[i - 1][j - 1] == p2)
+      if ($scope.matrix[i - 1][j - 1] == p2)
       {
         for (x = 2; x < 8; x++)
         {
           if ((i - x) < 1 || (j - x) < 1)
             break;
 
-          if (this.matrix[i - x][j - x] == 0)
+          if ($scope.matrix[i - x][j - x] == 0)
             break;
 
-          if (this.matrix[i - x][j - x] == p1)
+          if ($scope.matrix[i - x][j - x] == p1)
           {
             x--;
             while (x > 0)
             {
-              this.setValue(i - x, j - x, p1);
+              $scope.setValue(i - x, j - x, p1);
               x--;
             }
             break;
@@ -400,22 +403,22 @@
         }
       }
 
-      if (this.matrix[i + 1][j - 1] == p2)
+      if ($scope.matrix[i + 1][j - 1] == p2)
       {
         for (x = 2; x < 8; x++)
         {
           if ((i + x) > 8 || (j - x) < 1)
             break;
 
-          if (this.matrix[i + x][j - x] == 0)
+          if ($scope.matrix[i + x][j - x] == 0)
             break;
 
-          if (this.matrix[i + x][j - x] == p1)
+          if ($scope.matrix[i + x][j - x] == p1)
           {
             x--;
             while (x > 0)
             {
-              this.setValue(i + x, j - x, p1);
+              $scope.setValue(i + x, j - x, p1);
               x--;
             }
             break;
@@ -423,22 +426,22 @@
         }
       }
 
-      if (this.matrix[i - 1][j + 1] == p2)
+      if ($scope.matrix[i - 1][j + 1] == p2)
       {
         for (x = 2; x < 8; x++)
         {
           if ((i - x) < 1 || (j + x) > 8)
             break;
 
-          if (this.matrix[i - x][j + x] == 0)
+          if ($scope.matrix[i - x][j + x] == 0)
             break;
 
-          if (this.matrix[i - x][j + x] == p1)
+          if ($scope.matrix[i - x][j + x] == p1)
           {
             x--;
             while (x > 0)
             {
-              this.setValue(i - x, j + x, p1);
+              $scope.setValue(i - x, j + x, p1);
               x--;
             }
             break;
@@ -447,7 +450,7 @@
       }
     };
 
-    this.calculateMove = function(id) {
+    $scope.calculateMove = function(id) {
 
       var coords = Array(2);
 
@@ -462,22 +465,22 @@
         p2 = 1;
       }
 
-      if (this.stepControl(1, 8, id))
+      if ($scope.stepControl(1, 8, id))
       {
         coords[0] = 1;
         coords[1] = 8;
       }
-      else if (this.stepControl(8, 1, id))
+      else if ($scope.stepControl(8, 1, id))
       {
         coords[0] = 8;
         coords[1] = 1;
       }
-      else if (this.stepControl(1, 1, id))
+      else if ($scope.stepControl(1, 1, id))
       {
         coords[0] = 1;
         coords[1] = 1;
       }
-      else if (this.stepControl(8, 8, id))
+      else if ($scope.stepControl(8, 8, id))
       {
         coords[0] = 8;
         coords[1] = 8;
@@ -489,7 +492,7 @@
         {
           for (var m = 1; m <= 8; m = (m + 1))
           {
-            if (this.stepControl(n, m, id))
+            if ($scope.stepControl(n, m, id))
             {
               count = (count + 1);
             }
@@ -515,7 +518,7 @@
         {
           for (var m = 1; m <= 8; m = (m + 1))
           {
-            if (this.stepControl(n, m, id))
+            if ($scope.stepControl(n, m, id))
             {
               cordM[k] = m;
               cordN[k] = n;
@@ -543,17 +546,17 @@
             if ((cordN[k] + x) > 9)
               break;
 
-            if (this.matrix[(cordN[k] + x)][cordM[k]] == 0)
+            if ($scope.matrix[(cordN[k] + x)][cordM[k]] == 0)
             {
               score1 = 0;
               break;
             }
 
-            if (this.matrix[(cordN[k] + x)][cordM[k]] == p2)
+            if ($scope.matrix[(cordN[k] + x)][cordM[k]] == p2)
             {
               score1++;
 
-              if (this.matrix[(cordN[k] + x + 1)][cordM[k]] == p1)
+              if ($scope.matrix[(cordN[k] + x + 1)][cordM[k]] == p1)
                 break;
             }
           }
@@ -565,17 +568,17 @@
             if ((cordM[k] + x) > 9)
               break;
 
-            if (this.matrix[(cordN[k])][cordM[k] + x] == 0)
+            if ($scope.matrix[(cordN[k])][cordM[k] + x] == 0)
             {
               score2 = 0;
               break;
             }
 
-            if (this.matrix[(cordN[k])][cordM[k] + x] == p2)
+            if ($scope.matrix[(cordN[k])][cordM[k] + x] == p2)
             {
               score2++;
 
-              if (this.matrix[(cordN[k])][cordM[k] + x + 1] == p1)
+              if ($scope.matrix[(cordN[k])][cordM[k] + x + 1] == p1)
                 break;
             }
           }
@@ -587,17 +590,17 @@
             if ((cordM[k] - x) < 0)
               break;
 
-            if (this.matrix[(cordN[k])][cordM[k] - x] == 0)
+            if ($scope.matrix[(cordN[k])][cordM[k] - x] == 0)
             {
               score3 = 0;
               break;
             }
 
-            if (this.matrix[(cordN[k])][cordM[k] - x] == p2)
+            if ($scope.matrix[(cordN[k])][cordM[k] - x] == p2)
             {
               score3++;
 
-              if (this.matrix[(cordN[k])][cordM[k] - x - 1] == p1)
+              if ($scope.matrix[(cordN[k])][cordM[k] - x - 1] == p1)
                 break;
             }
           }
@@ -609,17 +612,17 @@
             if ((cordN[k] - x) < 0)
               break;
 
-            if (this.matrix[(cordN[k]) - x][cordM[k]] == 0)
+            if ($scope.matrix[(cordN[k]) - x][cordM[k]] == 0)
             {
               score4 = 0;
               break;
             }
 
-            if (this.matrix[(cordN[k]) - x][cordM[k]] == p2)
+            if ($scope.matrix[(cordN[k]) - x][cordM[k]] == p2)
             {
               score4++;
 
-              if (this.matrix[(cordN[k]) - x - 1][cordM[k]] == p1)
+              if ($scope.matrix[(cordN[k]) - x - 1][cordM[k]] == p1)
                 break;
             }
           }
@@ -631,17 +634,17 @@
             if ((cordN[k] + x) > 9 || (cordM[k] + x) > 9)
               break;
 
-            if (this.matrix[(cordN[k]) + x][cordM[k] + x] == 0)
+            if ($scope.matrix[(cordN[k]) + x][cordM[k] + x] == 0)
             {
               score5 = 0;
               break;
             }
 
-            if (this.matrix[(cordN[k]) + x][cordM[k] + x] == p2)
+            if ($scope.matrix[(cordN[k]) + x][cordM[k] + x] == p2)
             {
               score5++;
 
-              if (this.matrix[(cordN[k]) + x + 1][cordM[k] + x + 1] == p1)
+              if ($scope.matrix[(cordN[k]) + x + 1][cordM[k] + x + 1] == p1)
                 break;
             }
           }
@@ -653,17 +656,17 @@
             if ((cordN[k] - x) < 0 || (cordM[k] - x) < 0)
               break;
 
-            if (this.matrix[cordN[k] - x][cordM[k] - x] == 0)
+            if ($scope.matrix[cordN[k] - x][cordM[k] - x] == 0)
             {
               score6 = 0;
               break;
             }
 
-            if (this.matrix[(cordN[k]) - x][cordM[k] - x] == p2)
+            if ($scope.matrix[(cordN[k]) - x][cordM[k] - x] == p2)
             {
               score6++;
 
-              if (this.matrix[cordN[k] - x - 1][cordM[k] - x - 1] == p1)
+              if ($scope.matrix[cordN[k] - x - 1][cordM[k] - x - 1] == p1)
                 break;
             }
           }
@@ -675,17 +678,17 @@
             if ((cordN[k] + x) > 9 || (cordM[k] - x) < 0)
               break;
 
-            if (this.matrix[(cordN[k]) + x][cordM[k] - x] == 0)
+            if ($scope.matrix[(cordN[k]) + x][cordM[k] - x] == 0)
             {
               score7 = 0;
               break;
             }
 
-            if (this.matrix[(cordN[k]) + x][cordM[k] - x] == p2)
+            if ($scope.matrix[(cordN[k]) + x][cordM[k] - x] == p2)
             {
               score7++;
 
-              if (this.matrix[(cordN[k]) + x + 1][cordM[k] - x - 1] == p1)
+              if ($scope.matrix[(cordN[k]) + x + 1][cordM[k] - x - 1] == p1)
                 break;
             }
           }
@@ -697,17 +700,17 @@
             if ((cordN[k] - x) < 0 || (cordM[k] + x) > 9)
               break;
 
-            if (this.matrix[(cordN[k]) - x][cordM[k] + x] == 0)
+            if ($scope.matrix[(cordN[k]) - x][cordM[k] + x] == 0)
             {
               score8 = 0;
               break;
             }
 
-            if (this.matrix[(cordN[k]) - x][cordM[k] + x] == p2)
+            if ($scope.matrix[(cordN[k]) - x][cordM[k] + x] == p2)
             {
               score8++;
 
-              if (this.matrix[(cordN[k]) - x - 1][cordM[k] + x + 1] == p1)
+              if ($scope.matrix[(cordN[k]) - x - 1][cordM[k] + x + 1] == p1)
                 break;
             }
           }
@@ -752,7 +755,7 @@
       return coords;
     };
 
-    this.endGame = function() {
+    $scope.endGame = function() {
       if ($scope.white > $scope.black)
       {
         $scope.winc = "White wins!";
@@ -771,49 +774,62 @@
     };
 
     this.clickEvent = function(x, y) {
-
-      if (typeof this.matrix[x] == 'undefined')
-        return;
-
-      var playermove;
-      var move;
-
-      if (!this.stepControl(x, y, 1))
-        return;
-
-      this.stepProcess(x, y, 1);
-      $scope.black = this.calculateScore(1);
-      $scope.white = this.calculateScore(2);
-
-      move = this.calculateMove(2);
-
-      if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined')
+      if($scope.turn == 1)
       {
-        playermove = this.calculateMove(1);
+        if (typeof $scope.matrix[x] == 'undefined')
+          return;
 
-        if (typeof playermove[0] == 'undefined' || typeof playermove[1] == 'undefined')
-          this.endGame();
+        var playermove;
+        var move;
 
-        return;
+        if (!$scope.stepControl(x, y, 1))
+          return;
+
+        $scope.stepProcess(x, y, 1);
+        $scope.black = $scope.calculateScore(1);
+        $scope.white = $scope.calculateScore(2);
+        $scope.turn = 2;
+
+        $timeout(function(){ $scope.CPUmove() }, 1000);
       }
-
-      this.stepProcess(move[0], move[1], 2);
-      $scope.black = this.calculateScore(1);
-      $scope.white = this.calculateScore(2);
-
-      playermove = this.calculateMove(1);
-      while(typeof playermove[0] == 'undefined' || typeof playermove[1] == 'undefined')
+    };
+    
+    $scope.CPUmove = function()
+    {
+      if($scope.turn == 2)
       {
-        move = this.calculateMove(2);
+       move = $scope.calculateMove(2);
 
         if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined')
-          this.endGame();
+        {
+          $scope.turn = 1;
+          playermove = $scope.calculateMove(1);
 
-        this.stepProcess(move[0], move[1], 2);
-        $scope.black = this.calculateScore(1);
-        $scope.white = this.calculateScore(2);
+          if (typeof playermove[0] == 'undefined' || typeof playermove[1] == 'undefined')
+            $scope.endGame();
 
-        playermove = this.calculateMove(1)
+          return;
+        }
+
+        $scope.stepProcess(move[0], move[1], 2);
+        $scope.black = $scope.calculateScore(1);
+        $scope.white = $scope.calculateScore(2);
+        $scope.turn = 1;
+
+        playermove = $scope.calculateMove(1);
+        while(typeof playermove[0] == 'undefined' || typeof playermove[1] == 'undefined')
+        {
+          move = $scope.calculateMove(2);
+
+          if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined')
+            $scope.endGame();
+
+          $scope.stepProcess(move[0], move[1], 2);
+          $scope.black = $scope.calculateScore(1);
+          $scope.white = $scope.calculateScore(2);
+
+          playermove = $scope.calculateMove(1)
+        }
       }
     };
 
