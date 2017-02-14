@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="othello">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,31 +10,12 @@
     <link href="css/style.css" rel="stylesheet">
 
     <script src="bower_components/angular/angular.js"></script>
+    <script src="index.js"></script>
     <script src="othello.js"></script>
   </head>
-  <body>
-    <div class="container text-center" ng-controller="othelloController as othello">
-      <div ng-class="win" ng-click="othello.close()">{{winc}}</div>
-      <div class="row">
-        <div class="col-xs-4">
-          <span class="lead">
-            <div class="score disc-black" style="color: white;">{{ black }}</div> Player
-          </span>
-        </div>
-        <div class="col-xs-4"><button id="btn-start" class="btn btn-lg btn-primary" ng-click="othello.init()">{{ start }}</button></div>
-        <div class="col-xs-4">
-          <span class="lead">
-            CPU <div class="score disc-white" style="color: black;">{{ white }}</div>
-          </span>
-        </div>
-      </div>
-      <table class="text-center">
-        <tr ng-repeat="x in othello.t">
-          <td ng-repeat="y in othello.t" ng-click="othello.clickEvent(x, y, 1)">
-            <figure id="{{ x }}-{{ y }}" ng-class="classes[{{x}}][{{y}}]" class="disc"></figure>
-          </td>
-        </tr>
-      </table>
+  <body ng-app="othelloApp">
+    <div class="container text-center">
+      <othello></othello>
       <br>
       <span id="credits" class="lead">Coded by <a target="_blank" href="https://github.com/ShinDarth">ShinDarth</a> && <a target="_blank" href="https://github.com/Helias">Helias</a></span>
       <br>

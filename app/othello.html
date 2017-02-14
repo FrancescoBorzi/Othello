@@ -1,0 +1,21 @@
+<div ng-class="win" ng-click="$ctrl.close()">{{$ctrl.winc}}</div>
+<div class="row">
+    <div class="col-xs-4">
+    <span class="lead">
+        <div class="score disc-black" style="color: white;">{{$ctrl.black}}</div> Player
+    </span>
+    </div>
+    <div class="col-xs-4"><button id="btn-start" class="btn btn-lg btn-primary" ng-click="$ctrl.init()">{{$ctrl.start }}</button></div>
+    <div class="col-xs-4">
+    <span class="lead">
+        CPU <div class="score disc-white" style="color: black;">{{$ctrl.white}}</div>
+    </span>
+    </div>
+</div>
+<table class="text-center">
+    <tr ng-repeat="x in $ctrl.t">
+    <td ng-repeat="y in $ctrl.t" ng-click="$ctrl.clickEvent(x, y, 1)">
+        <figure id="{{x}}-{{y}}" ng-class="$ctrl.classes[{{x}}][{{y}}]" class="disc"></figure>
+    </td>
+    </tr>
+</table>
