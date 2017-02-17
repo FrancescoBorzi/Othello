@@ -5,7 +5,9 @@
         <div class="score disc-black" style="color: white;">{{$ctrl.black}}</div> Player
     </span>
     </div>
-    <div class="col-xs-4"><button id="btn-start" class="btn btn-lg btn-primary" ng-click="$ctrl.init()">{{$ctrl.start }}</button></div>
+    <div class="col-xs-4">
+        <btn-start is-playing="$ctrl.playing" ng-click="$ctrl.start()"></btn-start>
+    </div>
     <div class="col-xs-4">
     <span class="lead">
         CPU <div class="score disc-white" style="color: black;">{{$ctrl.white}}</div>

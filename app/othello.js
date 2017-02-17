@@ -21,8 +21,33 @@
       ctrl.win = "win_disabled";
       ctrl.white = 0;
       ctrl.black = 0;
-      ctrl.start = "Start";
+      ctrl.playing = false;
     }
+
+    ctrl.start = function () {
+
+      var i, j;
+
+      for (i = 0; i < 10; i++) {
+        ctrl.matrix[i] = new Array(8);
+        for (j = 0; j < 10; j++) {
+          ctrl.setValue(i, j, 0);
+        }
+      }
+
+      ctrl.setValue(4, 4, 1);
+      ctrl.setValue(4, 5, 2);
+      ctrl.setValue(5, 4, 2);
+      ctrl.setValue(5, 5, 1);
+
+      ctrl.black = ctrl.calculateScore(1);
+      ctrl.white = ctrl.calculateScore(2);
+
+      ctrl.playing = true;
+      ctrl.turn = 1;
+
+      ctrl.close();
+    };
 
     ctrl.close = function () {
       ctrl.win = "win_disabled";
@@ -54,31 +79,6 @@
       ctrl.changeColor(x, y, color);
       ctrl.matrix[x][y] = val;
     }
-
-    ctrl.init = function () {
-
-      var i, j;
-
-      for (i = 0; i < 10; i++) {
-        ctrl.matrix[i] = new Array(8);
-        for (j = 0; j < 10; j++) {
-          ctrl.setValue(i, j, 0);
-        }
-      }
-
-      ctrl.setValue(4, 4, 1);
-      ctrl.setValue(4, 5, 2);
-      ctrl.setValue(5, 4, 2);
-      ctrl.setValue(5, 5, 1);
-
-      ctrl.black = ctrl.calculateScore(1);
-      ctrl.white = ctrl.calculateScore(2);
-
-      ctrl.start = "Restart";
-      ctrl.turn = 1;
-
-      ctrl.close();
-    };
 
     ctrl.calculateScore = function (val) {
       var count = 0;
@@ -675,6 +675,8 @@
         ctrl.winc = "Draw!";
         ctrl.win = "win_white";
       }
+
+      ctrl.playing = false;
     };
 
     ctrl.clickEvent = function (x, y) {
