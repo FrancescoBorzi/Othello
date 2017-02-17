@@ -45,10 +45,6 @@
       ctrl.playing = true;
       ctrl.turn = 1;
 
-      ctrl.close();
-    };
-
-    ctrl.close = function () {
       ctrl.win = "win_disabled";
       ctrl.winc = "";
     };

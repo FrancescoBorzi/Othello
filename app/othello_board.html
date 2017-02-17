@@ -1,0 +1,7 @@
+<table class="text-center">
+    <tr ng-repeat="x in [1, 2, 3, 4, 5, 6, 7, 8]">
+        <td ng-repeat="y in [1, 2, 3, 4, 5, 6, 7, 8]" ng-click="$ctrl.onClick(x, y, 1)">
+            <figure id="{{x}}-{{y}}" ng-class="$ctrl.getClass(x,y)" class="disc"></figure>
+        </td>
+    </tr>
+</table>
