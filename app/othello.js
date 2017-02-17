@@ -10,7 +10,6 @@
     var ctrl = this;
 
     ctrl.$onInit = function () {
-      ctrl.t = [1, 2, 3, 4, 5, 6, 7, 8];
       ctrl.matrix = [];
 
       ctrl.classes = [];
