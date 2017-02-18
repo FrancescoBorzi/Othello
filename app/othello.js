@@ -12,10 +12,6 @@
     ctrl.$onInit = function () {
       ctrl.matrix = [];
 
-      ctrl.classes = [];
-      for (var i = 0; i < 10; i++)
-        ctrl.classes[i] = new Array(8);
-
       ctrl.turn = 1;
       ctrl.win = "win_disabled";
       ctrl.white = 0;
@@ -28,7 +24,7 @@
       var i, j;
 
       for (i = 0; i < 10; i++) {
-        ctrl.matrix[i] = new Array(8);
+        ctrl.matrix[i] = [];
         for (j = 0; j < 10; j++) {
           ctrl.setValue(i, j, 0);
         }
@@ -42,36 +38,16 @@
       ctrl.black = ctrl.calculateScore(1);
       ctrl.white = ctrl.calculateScore(2);
 
-      ctrl.playing = true;
       ctrl.turn = 1;
 
       ctrl.win = "win_disabled";
       ctrl.winc = "";
-    };
 
-    ctrl.changeColor = function (x, y, color) {
-      ctrl.classes[x][y] = "disc-" + color;
+      ctrl.playing = true;
     };
 
     ctrl.setValue = function (x, y, val) {
-      var color;
-
-      switch (val) {
-        case 0:
-          color = 'empty';
-          break;
-        case 1:
-          color = 'black';
-          break;
-        case 2:
-          color = 'white';
-          break;
-        default:
-          alert('Error: passed wrong color value');
-          return;
-      };
-
-      ctrl.changeColor(x, y, color);
+      // TODO: this function can now be deleted
       ctrl.matrix[x][y] = val;
     }
 
@@ -674,7 +650,7 @@
       ctrl.playing = false;
     };
 
-    ctrl.clickEvent = function (x, y) {
+    ctrl.select = function (x, y) {
       if (ctrl.turn == 1) {
         if (typeof ctrl.matrix[x] == 'undefined')
           return;
