@@ -26,14 +26,14 @@
       for (i = 0; i < 10; i++) {
         ctrl.matrix[i] = [];
         for (j = 0; j < 10; j++) {
-          ctrl.setValue(i, j, 0);
+          ctrl.matrix[i][j] = 0;
         }
       }
 
-      ctrl.setValue(4, 4, 1);
-      ctrl.setValue(4, 5, 2);
-      ctrl.setValue(5, 4, 2);
-      ctrl.setValue(5, 5, 1);
+      ctrl.matrix[4][4] = 1;
+      ctrl.matrix[4][5] = 2;
+      ctrl.matrix[5][4] = 2;
+      ctrl.matrix[5][5] = 1;
 
       ctrl.black = ctrl.calculateScore(1);
       ctrl.white = ctrl.calculateScore(2);
@@ -45,11 +45,6 @@
 
       ctrl.playing = true;
     };
-
-    ctrl.setValue = function (x, y, val) {
-      // TODO: this function can now be deleted
-      ctrl.matrix[x][y] = val;
-    }
 
     ctrl.calculateScore = function (val) {
       var count = 0;
@@ -201,7 +196,7 @@
     };
 
     ctrl.stepProcess = function (i, j, id) {
-      ctrl.setValue(i, j, id);
+      ctrl.matrix[i][j] = id;
 
       var p2;
       var p1;
@@ -228,7 +223,7 @@
           if (ctrl.matrix[i + x][j] == p1) {
             x--;
             while (x > 0) {
-              ctrl.setValue(i + x, j, p1);
+              ctrl.matrix[i + x][j] = p1;
               x--;
             }
             break;
@@ -247,7 +242,7 @@
           if (ctrl.matrix[i][j + x] == p1) {
             x--;
             while (x > 0) {
-              ctrl.setValue(i, j + x, p1);
+              ctrl.matrix[i][j + x] = p1;
               x--;
             }
             break;
@@ -266,7 +261,7 @@
           if (ctrl.matrix[i - x][j] == p1) {
             x--;
             while (x > 0) {
-              ctrl.setValue(i - x, j, p1);
+              ctrl.matrix[i - x][j] = p1;
               x--;
             }
             break;
@@ -285,7 +280,7 @@
           if (ctrl.matrix[i][j - x] == p1) {
             x--;
             while (x > 0) {
-              ctrl.setValue(i, j - x, p1);
+              ctrl.matrix[i][j - x] = p1;
               x--;
             }
             break;
@@ -304,7 +299,7 @@
           if (ctrl.matrix[i + x][j + x] == p1) {
             x--;
             while (x > 0) {
-              ctrl.setValue(i + x, j + x, p1);
+              ctrl.matrix[i + x][j + x] =  p1;
               x--;
             }
             break;
@@ -323,7 +318,7 @@
           if (ctrl.matrix[i - x][j - x] == p1) {
             x--;
             while (x > 0) {
-              ctrl.setValue(i - x, j - x, p1);
+              ctrl.matrix[i - x][j - x] = p1;
               x--;
             }
             break;
@@ -342,7 +337,7 @@
           if (ctrl.matrix[i + x][j - x] == p1) {
             x--;
             while (x > 0) {
-              ctrl.setValue(i + x, j - x, p1);
+              ctrl.matrix[i + x][j - x] = p1;
               x--;
             }
             break;
@@ -361,7 +356,7 @@
           if (ctrl.matrix[i - x][j + x] == p1) {
             x--;
             while (x > 0) {
-              ctrl.setValue(i - x, j + x, p1);
+              ctrl.matrix[i - x][j + x] = p1;
               x--;
             }
             break;
