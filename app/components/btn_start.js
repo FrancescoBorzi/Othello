@@ -2,7 +2,7 @@
 
     angular.module('othelloApp')
         .component('btnStart', {
-            templateUrl: 'btn_start.html',
+            templateUrl: 'components/btn_start.html',
             bindings: {
                 isPlaying: '<'
             }

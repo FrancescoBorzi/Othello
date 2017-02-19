@@ -2,7 +2,7 @@
 
     angular.module('othelloApp')
         .component('othelloBoard', {
-            templateUrl: 'othello_board.html',
+            templateUrl: 'components/othello_board.html',
             controller: OthelloBoardController,
             bindings: {
                 matrix: '<',
