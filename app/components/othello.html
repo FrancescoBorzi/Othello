@@ -1,8 +1,8 @@
-<div ng-class="win">{{$ctrl.winc}}</div>
+<div ng-class="$ctrl.endingAnimation.class">{{ $ctrl.endingAnimation.label }}</div>
 <div class="row">
   <div class="col-xs-4">
     <span class="lead">
-      <div class="score disc-black" style="color: white;">{{$ctrl.black}}</div> Player
+      <div class="score disc-black" style="color: white;">{{ $ctrl.black }}</div> Player
     </span>
   </div>
   <div class="col-xs-4">
@@ -10,7 +10,7 @@
   </div>
   <div class="col-xs-4">
     <span class="lead">
-      CPU <div class="score disc-white" style="color: black;">{{$ctrl.white}}</div>
+      CPU <div class="score disc-white" style="color: black;">{{ $ctrl.white }}</div>
     </span>
   </div>
 </div>

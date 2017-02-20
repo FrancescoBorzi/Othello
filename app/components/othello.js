@@ -13,7 +13,12 @@
       ctrl.matrix = [];
 
       ctrl.turn = 1;
-      ctrl.win = "win_disabled";
+
+      ctrl.endingAnimation = {
+        class: 'win_disable',
+        label: ''
+      }
+
       ctrl.white = 0;
       ctrl.black = 0;
       ctrl.playing = false;
@@ -40,24 +45,24 @@
 
       ctrl.turn = 1;
 
-      ctrl.win = "win_disabled";
-      ctrl.winc = "";
+      ctrl.endingAnimation.label = '';
+      ctrl.endingAnimation.class = 'win_disable';
 
       ctrl.playing = true;
     };
 
     ctrl.endGame = function () {
       if (ctrl.white > ctrl.black) {
-        ctrl.winc = "White wins!";
-        ctrl.win = "win_white";
+        ctrl.endingAnimation.label = "White wins!";
+        ctrl.endingAnimation.class = "win_white";
       }
       else if (ctrl.black > ctrl.white) {
-        ctrl.winc = "Black wins!";
-        ctrl.win = "win_black";
+        ctrl.endingAnimation.label = "Black wins!";
+        ctrl.endingAnimation.class = "win_black";
       }
       else {
-        ctrl.winc = "Draw!";
-        ctrl.win = "win_white";
+        ctrl.endingAnimation.label = "Draw!";
+        ctrl.endingAnimation.class = "win_white";
       }
 
       ctrl.playing = false;
