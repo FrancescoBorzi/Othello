@@ -19,8 +19,8 @@
         label: ''
       }
 
-      ctrl.white = 0;
-      ctrl.black = 0;
+      ctrl.scoreWhite = 0;
+      ctrl.scoreBlack = 0;
       ctrl.playing = false;
     }
 
@@ -40,8 +40,8 @@
       ctrl.matrix[5][4] = 2;
       ctrl.matrix[5][5] = 1;
 
-      ctrl.black = OthelloHandlerService.calculateScore(ctrl.matrix, 1);
-      ctrl.white = OthelloHandlerService.calculateScore(ctrl.matrix, 2);
+      ctrl.scoreBlack = OthelloHandlerService.calculateScore(ctrl.matrix, 1);
+      ctrl.scoreWhite = OthelloHandlerService.calculateScore(ctrl.matrix, 2);
 
       ctrl.turn = 1;
 
@@ -52,11 +52,11 @@
     };
 
     ctrl.endGame = function () {
-      if (ctrl.white > ctrl.black) {
+      if (ctrl.scoreWhite > ctrl.scoreBlack) {
         ctrl.endingAnimation.label = "White wins!";
         ctrl.endingAnimation.class = "win_white";
       }
-      else if (ctrl.black > ctrl.white) {
+      else if (ctrl.scoreBlack > ctrl.scoreWhite) {
         ctrl.endingAnimation.label = "Black wins!";
         ctrl.endingAnimation.class = "win_black";
       }
@@ -80,8 +80,8 @@
           return;
 
         OthelloHandlerService.stepProcess(ctrl.matrix, x, y, 1);
-        ctrl.black = OthelloHandlerService.calculateScore(ctrl.matrix, 1);
-        ctrl.white = OthelloHandlerService.calculateScore(ctrl.matrix, 2);
+        ctrl.scoreBlack = OthelloHandlerService.calculateScore(ctrl.matrix, 1);
+        ctrl.scoreWhite = OthelloHandlerService.calculateScore(ctrl.matrix, 2);
         ctrl.turn = 2;
 
         $timeout(function () { ctrl.CPUmove() }, 1000);
@@ -103,8 +103,8 @@
         }
 
         OthelloHandlerService.stepProcess(ctrl.matrix, move[0], move[1], 2);
-        ctrl.black = OthelloHandlerService.calculateScore(ctrl.matrix, 1);
-        ctrl.white = OthelloHandlerService.calculateScore(ctrl.matrix, 2);
+        ctrl.scoreBlack = OthelloHandlerService.calculateScore(ctrl.matrix, 1);
+        ctrl.scoreWhite = OthelloHandlerService.calculateScore(ctrl.matrix, 2);
         ctrl.turn = 1;
 
         playermove = OthelloAIService.calculateMove(ctrl.matrix, 1);
@@ -115,8 +115,8 @@
             ctrl.endGame();
 
           OthelloHandlerService.stepProcess(ctrl.matrix, move[0], move[1], 2);
-          ctrl.black = OthelloHandlerService.calculateScore(ctrl.matrix, 1);
-          ctrl.white = OthelloHandlerService.calculateScore(ctrl.matrix, 2);
+          ctrl.scoreBlack = OthelloHandlerService.calculateScore(ctrl.matrix, 1);
+          ctrl.scoreWhite = OthelloHandlerService.calculateScore(ctrl.matrix, 2);
 
           playermove = OthelloAIService.calculateMove(ctrl.matrix, 1)
         }
