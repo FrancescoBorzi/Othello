@@ -63,10 +63,12 @@ tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
 
 .disc-white {
   background: white;
+  color: black;
 }
 
 .disc-black {
   background: black;
+  color: white;
 }
 
 .score-container {

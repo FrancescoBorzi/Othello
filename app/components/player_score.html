@@ -1,0 +1,10 @@
+<div class="score-container">
+    <div class="score text-center" 
+        ng-class="$ctrl.playerId == 1 ? 'pull-left disc-black' : 'pull-right disc-white'">
+        {{ $ctrl.score }}
+    </div>
+    <span class="score-text"
+        ng-class="$ctrl.playerId == 1 ? 'pull-left' : 'pull-right'">
+        {{ $ctrl.playerId == 1 ? 'Player' : 'CPU' }}
+    </span>
+</div>
