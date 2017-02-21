@@ -69,12 +69,30 @@ tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
   background: black;
 }
 
+.score-container {
+  margin: auto 4px;
+  height: 50px;
+}
+
 .score {
   display: inline-block;
   vertical-align: middle;
 
   border-radius: 50%;
   border: 1px solid #c1c1c1;
+
+  width: 40px;
+  height: 40px;
+
+  padding: 7px 0;
+
+  font-size: 16px;
+}
+
+.score-text {
+  margin: auto 6px;
+  display: inline-block;
+  vertical-align: middle;
 
   width: 40px;
   height: 40px;

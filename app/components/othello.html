@@ -1,17 +1,19 @@
 <div ng-class="$ctrl.endingAnimation.class">{{ $ctrl.endingAnimation.label }}</div>
 <div class="row">
   <div class="col-xs-4">
-    <span class="lead">
-      <div class="score disc-black" style="color: white;">{{ $ctrl.black }}</div> Player
-    </span>
+    <div class="score-container">
+      <div class="score text-center pull-left disc-black" style="color: white;">{{ $ctrl.black }}</div>
+      <span class="score-text pull-left">Player</span>
+    </div>
   </div>
   <div class="col-xs-4">
     <btn-start is-playing="$ctrl.playing" ng-click="$ctrl.start()"></btn-start>
   </div>
   <div class="col-xs-4">
-    <span class="lead">
-      CPU <div class="score disc-white" style="color: black;">{{ $ctrl.white }}</div>
-    </span>
+    <div class="score-container">
+      <div class="score text-center pull-right disc-white" style="color: black;">{{ $ctrl.white }}</div>
+      <span class="score-text pull-right">CPU</span>
+    </div>
   </div>
 </div>
 <othello-board matrix="$ctrl.matrix" is-playing="$ctrl.playing" on-selection="$ctrl.select(x, y)"></othello-board>
