@@ -24,7 +24,7 @@
       ctrl.playing = false;
     }
 
-    ctrl.start = function () {
+    ctrl.startGame = function () {
 
       var i, j;
 
@@ -84,11 +84,11 @@
         ctrl.scoreWhite = OthelloHandlerService.calculateScore(ctrl.matrix, 2);
         ctrl.turn = 2;
 
-        $timeout(function () { ctrl.CPUmove() }, 1000);
+        $timeout(function () { ctrl.cpuMove() }, 1000);
       }
     };
 
-    ctrl.CPUmove = function () {
+    ctrl.cpuMove = function () {
       if (ctrl.turn == 2) {
         move = OthelloAIService.calculateMove(ctrl.matrix, 2);
 
@@ -118,7 +118,7 @@
           ctrl.scoreBlack = OthelloHandlerService.calculateScore(ctrl.matrix, 1);
           ctrl.scoreWhite = OthelloHandlerService.calculateScore(ctrl.matrix, 2);
 
-          playermove = OthelloAIService.calculateMove(ctrl.matrix, 1)
+          playermove = OthelloAIService.calculateMove(ctrl.matrix, 1000)
         }
       }
     };
