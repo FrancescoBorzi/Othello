@@ -319,6 +319,21 @@
                 }
             }
         };
+
+        getSuggestions(matrix, id) {
+            var suggestions = [];
+            for (var i = 1; i < 9; i++) {
+                for (var j = 1; j < 9; j++) {
+                    if (this.stepControl(matrix, i, j, id)) {
+                        suggestions.push({
+                            x: i,
+                            y: j
+                        });
+                    }
+                }
+            }
+            return suggestions;
+        }
     }
 
     angular.module('othelloApp').service('OthelloHandlerService', OthelloHandlerService);

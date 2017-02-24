@@ -84,7 +84,7 @@
         ctrl.scoreWhite = OthelloHandlerService.calculateScore(ctrl.matrix, 2);
         ctrl.turn = 2;
 
-        $timeout(function () { ctrl.cpuMove() }, 1000);
+        $timeout(() => { ctrl.cpuMove() }, 1000);
       }
     };
 

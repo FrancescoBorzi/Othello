@@ -71,6 +71,12 @@ tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
   color: white;
 }
 
+.disc-suggestion {
+  background: rgba(50, 50, 50, 0.5);
+  width: 10%;
+  height: 10%;
+}
+
 .score-container {
   margin: auto 4px;
   height: 50px;
