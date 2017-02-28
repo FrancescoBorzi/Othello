@@ -17,6 +17,7 @@ export default angular.module('othello.components.board', [])
  */
 function OthelloBoardController(OthelloHandlerService, $timeout) {
     let ctrl = this;
+    let handler = OthelloHandlerService;
 
     ctrl.$onInit = () => {
         ctrl.highlights = [];
@@ -49,12 +50,12 @@ function OthelloBoardController(OthelloHandlerService, $timeout) {
 
     ctrl.click = (x, y, player) => {
         if (ctrl.isPlaying) {
-            if (OthelloHandlerService.stepControl(ctrl.matrix, x, y, player)) {
+            if (handler.stepControl(ctrl.matrix, x, y, player)) {
                 // emit the selection event
                 ctrl.onSelection({"x": x, "y": y});
             } else if (ctrl.matrix[x][y] == 0) {
                 // show suggestions
-                let suggestions = OthelloHandlerService.getSuggestions(ctrl.matrix, player);
+                let suggestions = handler.getSuggestions(ctrl.matrix, player);
                 angular.forEach(suggestions, (suggestionCoords) => {
                     ctrl.highlights[ctrl.matrix.length * suggestionCoords.x + suggestionCoords.y] = true;
                 });

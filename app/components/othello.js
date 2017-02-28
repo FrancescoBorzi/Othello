@@ -13,6 +13,8 @@ export default angular.module('othello.components.othello', [])
  */
 function OthelloController(OthelloHandlerService, OthelloAIService, $timeout) {
     let ctrl = this;
+    let handler = OthelloHandlerService;
+    let ai = OthelloAIService;
 
     ctrl.$onInit = () =>{
         ctrl.matrix = [];
@@ -45,8 +47,8 @@ function OthelloController(OthelloHandlerService, OthelloAIService, $timeout) {
         ctrl.matrix[5][4] = 2;
         ctrl.matrix[5][5] = 1;
 
-        ctrl.scoreBlack = OthelloHandlerService.calculateScore(ctrl.matrix, 1);
-        ctrl.scoreWhite = OthelloHandlerService.calculateScore(ctrl.matrix, 2);
+        ctrl.scoreBlack = handler.calculateScore(ctrl.matrix, 1);
+        ctrl.scoreWhite = handler.calculateScore(ctrl.matrix, 2);
 
         ctrl.turn = 1;
 
@@ -78,12 +80,12 @@ function OthelloController(OthelloHandlerService, OthelloAIService, $timeout) {
             if (typeof ctrl.matrix[x] == 'undefined')
                 return;
 
-            if (!OthelloHandlerService.stepControl(ctrl.matrix, x, y, 1))
+            if (!handler.stepControl(ctrl.matrix, x, y, 1))
                 return;
 
-            OthelloHandlerService.stepProcess(ctrl.matrix, x, y, 1);
-            ctrl.scoreBlack = OthelloHandlerService.calculateScore(ctrl.matrix, 1);
-            ctrl.scoreWhite = OthelloHandlerService.calculateScore(ctrl.matrix, 2);
+            handler.stepProcess(ctrl.matrix, x, y, 1);
+            ctrl.scoreBlack = handler.calculateScore(ctrl.matrix, 1);
+            ctrl.scoreWhite = handler.calculateScore(ctrl.matrix, 2);
             ctrl.turn = 2;
 
             $timeout(() => { ctrl.cpuMove() }, 1000);
@@ -94,11 +96,11 @@ function OthelloController(OthelloHandlerService, OthelloAIService, $timeout) {
         let playerMove;
 
         if (ctrl.turn == 2) {
-            let move = OthelloAIService.calculateMove(ctrl.matrix, 2);
+            let move = ai.calculateMove(ctrl.matrix, 2);
 
             if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined') {
                 ctrl.turn = 1;
-                playerMove = OthelloAIService.calculateMove(ctrl.matrix, 1);
+                playerMove = ai.calculateMove(ctrl.matrix, 1);
 
                 if (typeof playerMove[0] == 'undefined' || typeof playerMove[1] == 'undefined')
                     ctrl.endGame();
@@ -106,23 +108,23 @@ function OthelloController(OthelloHandlerService, OthelloAIService, $timeout) {
                 return;
             }
 
-            OthelloHandlerService.stepProcess(ctrl.matrix, move[0], move[1], 2);
-            ctrl.scoreBlack = OthelloHandlerService.calculateScore(ctrl.matrix, 1);
-            ctrl.scoreWhite = OthelloHandlerService.calculateScore(ctrl.matrix, 2);
+            handler.stepProcess(ctrl.matrix, move[0], move[1], 2);
+            ctrl.scoreBlack = handler.calculateScore(ctrl.matrix, 1);
+            ctrl.scoreWhite = handler.calculateScore(ctrl.matrix, 2);
             ctrl.turn = 1;
 
-            playerMove = OthelloAIService.calculateMove(ctrl.matrix, 1);
+            playerMove = ai.calculateMove(ctrl.matrix, 1);
             while (typeof playerMove[0] == 'undefined' || typeof playerMove[1] == 'undefined') {
-                move = OthelloAIService.calculateMove(ctrl.matrix, 2);
+                move = ai.calculateMove(ctrl.matrix, 2);
 
                 if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined')
                     ctrl.endGame();
 
-                OthelloHandlerService.stepProcess(ctrl.matrix, move[0], move[1], 2);
-                ctrl.scoreBlack = OthelloHandlerService.calculateScore(ctrl.matrix, 1);
-                ctrl.scoreWhite = OthelloHandlerService.calculateScore(ctrl.matrix, 2);
+                handler.stepProcess(ctrl.matrix, move[0], move[1], 2);
+                ctrl.scoreBlack = handler.calculateScore(ctrl.matrix, 1);
+                ctrl.scoreWhite = handler.calculateScore(ctrl.matrix, 2);
 
-                playerMove = OthelloAIService.calculateMove(ctrl.matrix, 1000)
+                playerMove = ai.calculateMove(ctrl.matrix, 1000)
             }
         }
     };
