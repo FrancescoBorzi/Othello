@@ -2,15 +2,17 @@ import angular from 'angular';
 
 class OthelloAIService {
 
-    constructor($http, OthelloHandlerService) {
-        'ngInject';
+    /**
+     * @param {OthelloHandlerService} OthelloHandlerService
+     */
+    constructor(OthelloHandlerService) {
         this.othelloHandlerService = OthelloHandlerService;
     }
 
     calculateMove(matrix, id) {
 
-        var coords = Array(2);
-        var p1, p2;
+        let coords = [];
+        let p1, p2;
 
         if (id == 1) {
             p1 = 1;
@@ -38,32 +40,31 @@ class OthelloAIService {
             coords[1] = 8;
         }
         else {
-            var count = 0;
-            for (var n = 1; n <= 8; n = (n + 1)) {
-                for (var m = 1; m <= 8; m = (m + 1)) {
+            let count = 0;
+            for (let n = 1; n <= 8; n = (n + 1)) {
+                for (let m = 1; m <= 8; m = (m + 1)) {
                     if (this.othelloHandlerService.stepControl(matrix, n, m, id)) {
                         count = (count + 1);
                     }
                 }
             }
 
-            var moveScore = Array(count);
-            var cordM = Array(count);
-            var cordN = Array(count);
-            var k = 0;
-            var x;
-            var y;
-            var score1;
-            var score2;
-            var score3;
-            var score4;
-            var score5;
-            var score6;
-            var score7;
-            var score8;
+            let moveScore = [];
+            let cordM = [];
+            let cordN = [];
+            let k = 0;
+            let x;
+            let score1;
+            let score2;
+            let score3;
+            let score4;
+            let score5;
+            let score6;
+            let score7;
+            let score8;
 
-            for (var n = 1; n <= 8; n = (n + 1)) {
-                for (var m = 1; m <= 8; m = (m + 1)) {
+            for (let n = 1; n <= 8; n = (n + 1)) {
+                for (let m = 1; m <= 8; m = (m + 1)) {
                     if (this.othelloHandlerService.stepControl(matrix, n, m, id)) {
                         cordM[k] = m;
                         cordN[k] = n;
@@ -238,7 +239,7 @@ class OthelloAIService {
                 moveScore[k] += score8;
             }
 
-            var max_k = 0;
+            let max_k = 0;
 
             for (k = 0; k < count; k = (k + 1)) {
                 if ((cordN[k] == 1) ||

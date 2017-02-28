@@ -1,11 +1,12 @@
 import angular from 'angular';
 
 class OthelloHandlerService {
-    calculateScore(matrix, val) {
-        var count = 0;
 
-        for (var i = 1; i < 9; i++) {
-            for (var j = 1; j < 9; j++) {
+    calculateScore(matrix, val) {
+        let count = 0;
+
+        for (let i = 1; i < 9; i++) {
+            for (let j = 1; j < 9; j++) {
                 if (matrix[i][j] == val)
                     count++;
             }
@@ -17,8 +18,8 @@ class OthelloHandlerService {
     stepControl(matrix, i, j, id) {
 
         if (matrix[i][j] == 0) {
-            var p2;
-            var p1;
+            let p2;
+            let p1;
 
             if (id == 1) {
                 p1 = 1;
@@ -40,7 +41,7 @@ class OthelloHandlerService {
                 return false;
             }
 
-            var x;
+            let x;
 
             if (matrix[i + 1][j] == p2) {
                 for (x = 2; x < 8; x++) {
@@ -153,8 +154,8 @@ class OthelloHandlerService {
     stepProcess(matrix, i, j, id) {
         matrix[i][j] = id;
 
-        var p2;
-        var p1;
+        let p2;
+        let p1;
 
         if (id == 1) {
             p1 = 1;
@@ -165,7 +166,7 @@ class OthelloHandlerService {
             p2 = 1;
         }
 
-        var x;
+        let x;
 
         if (matrix[i + 1][j] == p2) {
             for (x = 2; x < 8; x++) {
@@ -321,9 +322,9 @@ class OthelloHandlerService {
     };
 
     getSuggestions(matrix, id) {
-        var suggestions = [];
-        for (var i = 1; i < 9; i++) {
-            for (var j = 1; j < 9; j++) {
+        let suggestions = [];
+        for (let i = 1; i < 9; i++) {
+            for (let j = 1; j < 9; j++) {
                 if (this.stepControl(matrix, i, j, id)) {
                     suggestions.push({
                         x: i,

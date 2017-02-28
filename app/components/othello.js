@@ -6,8 +6,13 @@ export default angular.module('othello.components.othello', [])
         controller: OthelloController
     }).name;
 
+/**
+ * @param $timeout
+ * @param {OthelloHandlerService} OthelloHandlerService
+ * @param {OthelloAIService} OthelloAIService
+ */
 function OthelloController(OthelloHandlerService, OthelloAIService, $timeout) {
-    var ctrl = this;
+    let ctrl = this;
 
     ctrl.$onInit = function () {
         ctrl.matrix = [];
@@ -17,16 +22,16 @@ function OthelloController(OthelloHandlerService, OthelloAIService, $timeout) {
         ctrl.endingAnimation = {
             class: 'win_disable',
             label: ''
-        }
+        };
 
         ctrl.scoreWhite = 0;
         ctrl.scoreBlack = 0;
         ctrl.playing = false;
-    }
+    };
 
     ctrl.startGame = function () {
 
-        var i, j;
+        let i, j;
 
         for (i = 0; i < 10; i++) {
             ctrl.matrix[i] = [];
@@ -72,9 +77,6 @@ function OthelloController(OthelloHandlerService, OthelloAIService, $timeout) {
         if (ctrl.turn == 1) {
             if (typeof ctrl.matrix[x] == 'undefined')
                 return;
-
-            var playermove;
-            var move;
 
             if (!OthelloHandlerService.stepControl(ctrl.matrix, x, y, 1))
                 return;

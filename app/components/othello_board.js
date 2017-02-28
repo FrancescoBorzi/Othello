@@ -11,19 +11,23 @@ export default angular.module('othello.components.board', [])
         }
     }).name;
 
+/**
+ * @param $timeout
+ * @param {OthelloHandlerService} OthelloHandlerService
+ */
 function OthelloBoardController(OthelloHandlerService, $timeout) {
-    var ctrl = this;
+    let ctrl = this;
 
     ctrl.$onInit = () => {
         ctrl.highlights = [];
-    }
+    };
 
     ctrl.getClass = (x, y) => {
         if (!ctrl.isPlaying) {
             return 'disc-empty';
         }
 
-        var classes;
+        let classes;
 
         switch (ctrl.matrix[x][y]) {
             case 1:
@@ -34,14 +38,14 @@ function OthelloBoardController(OthelloHandlerService, $timeout) {
                 break;
             default:
                 classes = 'disc-empty';
-        };
+        }
 
         if (ctrl.highlights[ctrl.matrix.length * x + y]) {
             classes += ' disc-suggestion';
         }
 
         return classes;
-    }
+    };
 
     ctrl.click = (x, y, player) => {
         if (ctrl.isPlaying) {
@@ -50,7 +54,7 @@ function OthelloBoardController(OthelloHandlerService, $timeout) {
                 ctrl.onSelection({"x": x, "y": y});
             } else if (ctrl.matrix[x][y] == 0) {
                 // show suggestions
-                var suggestions = OthelloHandlerService.getSuggestions(ctrl.matrix, player);
+                let suggestions = OthelloHandlerService.getSuggestions(ctrl.matrix, player);
                 angular.forEach(suggestions, (suggestionCoords) => {
                     ctrl.highlights[ctrl.matrix.length * suggestionCoords.x + suggestionCoords.y] = true;
                 });
