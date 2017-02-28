@@ -3,4 +3,13 @@ Othello
 
 This is our first experiment with AngularJS
 
-In order to install run ```npm install``` then ```npm start```.
+## Installation instructions
+
+In order to install run:
+
+- ```npm install```
+- ```npm run build```
+
+Then start the web application using:
+
+- ```npm start```
