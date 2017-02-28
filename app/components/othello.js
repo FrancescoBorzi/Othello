@@ -14,7 +14,7 @@ export default angular.module('othello.components.othello', [])
 function OthelloController(OthelloHandlerService, OthelloAIService, $timeout) {
     let ctrl = this;
 
-    ctrl.$onInit = function () {
+    ctrl.$onInit = () =>{
         ctrl.matrix = [];
 
         ctrl.turn = 1;
@@ -91,16 +91,16 @@ function OthelloController(OthelloHandlerService, OthelloAIService, $timeout) {
     };
 
     ctrl.cpuMove = function () {
-        let playermove;
+        let playerMove;
 
         if (ctrl.turn == 2) {
             let move = OthelloAIService.calculateMove(ctrl.matrix, 2);
 
             if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined') {
                 ctrl.turn = 1;
-                playermove = OthelloAIService.calculateMove(ctrl.matrix, 1);
+                playerMove = OthelloAIService.calculateMove(ctrl.matrix, 1);
 
-                if (typeof playermove[0] == 'undefined' || typeof playermove[1] == 'undefined')
+                if (typeof playerMove[0] == 'undefined' || typeof playerMove[1] == 'undefined')
                     ctrl.endGame();
 
                 return;
@@ -111,8 +111,8 @@ function OthelloController(OthelloHandlerService, OthelloAIService, $timeout) {
             ctrl.scoreWhite = OthelloHandlerService.calculateScore(ctrl.matrix, 2);
             ctrl.turn = 1;
 
-            playermove = OthelloAIService.calculateMove(ctrl.matrix, 1);
-            while (typeof playermove[0] == 'undefined' || typeof playermove[1] == 'undefined') {
+            playerMove = OthelloAIService.calculateMove(ctrl.matrix, 1);
+            while (typeof playerMove[0] == 'undefined' || typeof playerMove[1] == 'undefined') {
                 move = OthelloAIService.calculateMove(ctrl.matrix, 2);
 
                 if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined')
@@ -122,7 +122,7 @@ function OthelloController(OthelloHandlerService, OthelloAIService, $timeout) {
                 ctrl.scoreBlack = OthelloHandlerService.calculateScore(ctrl.matrix, 1);
                 ctrl.scoreWhite = OthelloHandlerService.calculateScore(ctrl.matrix, 2);
 
-                playermove = OthelloAIService.calculateMove(ctrl.matrix, 1000)
+                playerMove = OthelloAIService.calculateMove(ctrl.matrix, 1000)
             }
         }
     };
