@@ -113,8 +113,8 @@ tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
 .lead { font-size: 14px; }
 
 .win_disabled {
-  padding: 0px;
-  border: 0px;
+  padding: 0;
+  border: 0;
   animation: win_anim 1s;
   -webkit-animation: win_anim 1s;
 }
@@ -132,7 +132,7 @@ tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
   border: 2px solid #ededed;
   padding: 30px;
   -webkit-animation: win_anim2 1s;
-  animation: win_anim2 1s;  
+  animation: win_anim2 1s;
 }
 .win_black {
   background-color: rgba(0,0,0,0.5);
@@ -157,11 +157,11 @@ tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
     border: 2px solid #ededed;
   }
   to {
-    width: 0px;
-    height: 0px;
-    margin-top: 0px;
-    margin-left: 0px;
-    border: 0px;
+    width: 0;
+    height: 0;
+    margin-top: 0;
+    margin-left: 0;
+    border: 0;
   }
 }
 
@@ -174,21 +174,21 @@ tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
     border: 2px solid #ededed;
   }
   to {
-    width: 0px;
-    height: 0px;
-    margin-top: 0px;
-    margin-left: 0px;
-    border: 0px;
+    width: 0;
+    height: 0;
+    margin-top: 0;
+    margin-left: 0;
+    border: 0;
   }
 }
 
 @keyframes win_anim2 {
   from {
-    width: 0px;
-    height: 0px;
-    margin-top: 0px;
-    margin-left: 0px;
-    border: 0px;
+    width: 0;
+    height: 0;
+    margin-top: 0;
+    margin-left: 0;
+    border: 0;
   }
   to {
     width: 190px;
@@ -201,11 +201,11 @@ tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
 
 @-webkit-keyframes win_anim2 {
   from {
-    width: 0px;
-    height: 0px;
-    margin-top: 0px;
-    margin-left: 0px;
-    border: 0px;
+    width: 0;
+    height: 0;
+    margin-top: 0;
+    margin-left: 0;
+    border: 0;
   }
   to {
     width: 190px;
