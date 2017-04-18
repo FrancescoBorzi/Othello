@@ -5,7 +5,7 @@ class OthelloAIService {
     private othelloHandlerService;
 
     /**
-     * @param OthelloHandlerService
+     * @param {OthelloHandlerService} OthelloHandlerService
      */
     constructor(OthelloHandlerService) {
         this.othelloHandlerService = OthelloHandlerService;
