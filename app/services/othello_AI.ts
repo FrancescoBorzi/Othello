@@ -1,9 +1,11 @@
+import * as angular from 'angular';
+
 export class OthelloAIService {
 
     /**
-     * @param othelloHandlerService
+     * @param OthelloHandlerService
      */
-    constructor(private othelloHandlerService) {}
+    constructor(private OthelloHandlerService) {}
 
     calculateMove(matrix, id) {
 
@@ -19,19 +21,19 @@ export class OthelloAIService {
             p2 = 1;
         }
 
-        if (this.othelloHandlerService.stepControl(matrix, 1, 8, id)) {
+        if (this.OthelloHandlerService.stepControl(matrix, 1, 8, id)) {
             coords[0] = 1;
             coords[1] = 8;
         }
-        else if (this.othelloHandlerService.stepControl(matrix, 8, 1, id)) {
+        else if (this.OthelloHandlerService.stepControl(matrix, 8, 1, id)) {
             coords[0] = 8;
             coords[1] = 1;
         }
-        else if (this.othelloHandlerService.stepControl(matrix, 1, 1, id)) {
+        else if (this.OthelloHandlerService.stepControl(matrix, 1, 1, id)) {
             coords[0] = 1;
             coords[1] = 1;
         }
-        else if (this.othelloHandlerService.stepControl(matrix, 8, 8, id)) {
+        else if (this.OthelloHandlerService.stepControl(matrix, 8, 8, id)) {
             coords[0] = 8;
             coords[1] = 8;
         }
@@ -39,7 +41,7 @@ export class OthelloAIService {
             let count = 0;
             for (let n = 1; n <= 8; n = (n + 1)) {
                 for (let m = 1; m <= 8; m = (m + 1)) {
-                    if (this.othelloHandlerService.stepControl(matrix, n, m, id)) {
+                    if (this.OthelloHandlerService.stepControl(matrix, n, m, id)) {
                         count = (count + 1);
                     }
                 }
@@ -61,7 +63,7 @@ export class OthelloAIService {
 
             for (let n = 1; n <= 8; n = (n + 1)) {
                 for (let m = 1; m <= 8; m = (m + 1)) {
-                    if (this.othelloHandlerService.stepControl(matrix, n, m, id)) {
+                    if (this.OthelloHandlerService.stepControl(matrix, n, m, id)) {
                         cordM[k] = m;
                         cordN[k] = n;
                         k = (k + 1);
@@ -268,3 +270,5 @@ export class OthelloAIService {
         return coords;
     };
 }
+
+export default angular.module('othello.services.ai', []).service('OthelloAIService', OthelloAIService).name;

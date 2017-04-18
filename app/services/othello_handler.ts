@@ -1,3 +1,5 @@
+import * as angular from 'angular';
+
 export class OthelloHandlerService {
 
     calculateScore(matrix, val) {
@@ -334,3 +336,5 @@ export class OthelloHandlerService {
         return suggestions;
     }
 }
+
+export default angular.module('othello.services.handler', []).service('OthelloHandlerService', OthelloHandlerService).name;

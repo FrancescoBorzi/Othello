@@ -1,4 +1,4 @@
-import angular from 'angular/angular';
+import * as angular from 'angular';
 
 export default angular.module('othello.components.player_score', [])
     .component('playerScore', {
