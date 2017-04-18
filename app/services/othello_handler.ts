@@ -1,6 +1,6 @@
 import * as angular from 'angular';
 
-export class OthelloHandlerService {
+class OthelloHandlerService {
 
     calculateScore(matrix, val) {
         let count = 0;
