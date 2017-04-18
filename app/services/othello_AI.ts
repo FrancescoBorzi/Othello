@@ -1,6 +1,8 @@
-import angular from 'angular';
+import * as angular from 'angular';
 
 class OthelloAIService {
+
+    private othelloHandlerService;
 
     /**
      * @param {OthelloHandlerService} OthelloHandlerService

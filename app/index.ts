@@ -1,4 +1,4 @@
-import angular from 'angular';
+import * as angular from 'angular';
 import OthelloHandlerService from './services/othello_handler';
 import OthelloAIService from './services/othello_AI';
 import BtnStart from './components/btn_start';
