@@ -1,6 +1,4 @@
-import angular from 'angular';
-
-class OthelloHandlerService {
+export class OthelloHandlerService {
 
     calculateScore(matrix, val) {
         let count = 0;
@@ -336,5 +334,3 @@ class OthelloHandlerService {
         return suggestions;
     }
 }
-
-export default angular.module('othello.services.handler', []).service('OthelloHandlerService', OthelloHandlerService).name;

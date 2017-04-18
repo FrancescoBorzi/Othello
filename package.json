@@ -9,6 +9,7 @@
     "angular": "~1.6"
   },
   "devDependencies": {
+    "awesome-typescript-loader": "^3.1.2",
     "bower": "^1.7.7",
     "http-server": "^0.9.0",
     "jasmine-core": "^2.4.1",
@@ -18,6 +19,8 @@
     "karma-jasmine": "^0.3.8",
     "karma-junit-reporter": "^0.4.1",
     "protractor": "^4.0.9",
+    "source-map-loader": "^0.2.1",
+    "typescript": "^2.2.2",
     "webpack": "^2.2.1"
   },
   "scripts": {

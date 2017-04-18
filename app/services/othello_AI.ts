@@ -1,13 +1,9 @@
-import angular from 'angular';
-
-class OthelloAIService {
+export class OthelloAIService {
 
     /**
-     * @param {OthelloHandlerService} OthelloHandlerService
+     * @param othelloHandlerService
      */
-    constructor(OthelloHandlerService) {
-        this.othelloHandlerService = OthelloHandlerService;
-    }
+    constructor(private othelloHandlerService) {}
 
     calculateMove(matrix, id) {
 
@@ -272,5 +268,3 @@ class OthelloAIService {
         return coords;
     };
 }
-
-export default angular.module('othello.services.ai', []).service('OthelloAIService', OthelloAIService).name;
