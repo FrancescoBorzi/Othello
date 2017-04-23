@@ -2,7 +2,7 @@
   "name": "Othello",
   "private": true,
   "version": "1.0.0",
-  "description": "My first AngularJS project",
+  "description": "A modernised AngularJS app featuring the Othello game",
   "repository": "https://github.com/ShinDarth/Othello",
   "license": "GNU AGPL",
   "dependencies": {
