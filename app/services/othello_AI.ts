@@ -11,7 +11,7 @@ class OthelloAIService {
         this.othelloHandlerService = OthelloHandlerService;
     }
 
-    private checkEdges(matrix: number[][], id: number) : Coord | null {
+    private checkEdges(matrix: number[][], id: number): Coord | null {
 
         if (this.othelloHandlerService.stepControl(matrix, 1, 8, id)) {
             return { x: 1, y: 8};
@@ -36,7 +36,7 @@ class OthelloAIService {
             return edgeCoords;
         }
 
-        let coords : Coord = { x: 0, y: 0};
+        let coords: Coord = { x: 0, y: 0};
 
         let p1: number, p2: number;
 
@@ -58,17 +58,19 @@ class OthelloAIService {
             }
         }
 
-        let moveScore : number[] = [];
-        let cordM : number[] = [];
-        let cordN : number[] = [];
+        let moves: CoordScore[] = [];
+
         let k = 0;
         let directionScore: number[] = [];
 
-        for (let n = 1; n <= 8; n = (n + 1)) {
-            for (let m = 1; m <= 8; m = (m + 1)) {
-                if (this.othelloHandlerService.stepControl(matrix, n, m, id)) {
-                    cordM[k] = m;
-                    cordN[k] = n;
+        for (let m = 1; m <= 8; m = (m + 1)) {
+            for (let n = 1; n <= 8; n = (n + 1)) {
+                if (this.othelloHandlerService.stepControl(matrix, m, n, id)) {
+                    moves[k] = {
+                        x: m,
+                        y: n,
+                        score: 0
+                    };
                     k = (k + 1);
                 }
             }
@@ -84,190 +86,188 @@ class OthelloAIService {
             directionScore[7] = 0;
             directionScore[8] = 0;
 
-            moveScore[k] = 0;
-
             // 1
-            for (let x = 1; x < 8; x++) {
-                if ((cordN[k] + x) > 9)
+            for (let idx = 1; idx < 8; idx++) {
+                if ((moves[k].x + idx) > 9)
                     break;
 
-                if (matrix[(cordN[k] + x)][cordM[k]] == 0) {
+                if (matrix[(moves[k].x + idx)][moves[k].y] == 0) {
                     directionScore[1] = 0;
                     break;
                 }
 
-                if (matrix[(cordN[k] + x)][cordM[k]] == p2) {
+                if (matrix[(moves[k].x + idx)][moves[k].y] == p2) {
                     directionScore[1]++;
 
-                    if (matrix[(cordN[k] + x + 1)][cordM[k]] == p1)
+                    if (matrix[(moves[k].x + idx + 1)][moves[k].y] == p1)
                         break;
                 }
             }
-            moveScore[k] += directionScore[1];
+            moves[k].score += directionScore[1];
 
             // 2
-            for (let x = 1; x < 8; x++) {
-                if ((cordM[k] + x) > 9)
+            for (let idx = 1; idx < 8; idx++) {
+                if ((moves[k].y + idx) > 9)
                     break;
 
-                if (matrix[(cordN[k])][cordM[k] + x] == 0) {
+                if (matrix[(moves[k].x)][moves[k].y + idx] == 0) {
                     directionScore[2] = 0;
                     break;
                 }
 
-                if (matrix[(cordN[k])][cordM[k] + x] == p2) {
+                if (matrix[(moves[k].x)][moves[k].y + idx] == p2) {
                     directionScore[2]++;
 
-                    if (matrix[(cordN[k])][cordM[k] + x + 1] == p1)
+                    if (matrix[(moves[k].x)][moves[k].y + idx + 1] == p1)
                         break;
                 }
             }
-            moveScore[k] += directionScore[2];
+            moves[k].score += directionScore[2];
 
             // 3
-            for (let x = 1; x < 8; x++) {
-                if ((cordM[k] - x) < 0)
+            for (let idx = 1; idx < 8; idx++) {
+                if ((moves[k].y - idx) < 0)
                     break;
 
-                if (matrix[(cordN[k])][cordM[k] - x] == 0) {
+                if (matrix[(moves[k].x)][moves[k].y - idx] == 0) {
                     directionScore[3] = 0;
                     break;
                 }
 
-                if (matrix[(cordN[k])][cordM[k] - x] == p2) {
+                if (matrix[(moves[k].x)][moves[k].y - idx] == p2) {
                     directionScore[3]++;
 
-                    if (matrix[(cordN[k])][cordM[k] - x - 1] == p1)
+                    if (matrix[(moves[k].x)][moves[k].y - idx - 1] == p1)
                         break;
                 }
             }
-            moveScore[k] += directionScore[3];
+            moves[k].score += directionScore[3];
 
             // 4
-            for (let x = 1; x < 8; x++) {
-                if ((cordN[k] - x) < 0)
+            for (let idx = 1; idx < 8; idx++) {
+                if ((moves[k].x - idx) < 0)
                     break;
 
-                if (matrix[(cordN[k]) - x][cordM[k]] == 0) {
+                if (matrix[(moves[k].x) - idx][moves[k].y] == 0) {
                     directionScore[4] = 0;
                     break;
                 }
 
-                if (matrix[(cordN[k]) - x][cordM[k]] == p2) {
+                if (matrix[(moves[k].x) - idx][moves[k].y] == p2) {
                     directionScore[4]++;
 
-                    if (matrix[(cordN[k]) - x - 1][cordM[k]] == p1)
+                    if (matrix[(moves[k].x) - idx - 1][moves[k].y] == p1)
                         break;
                 }
             }
-            moveScore[k] += directionScore[4];
+            moves[k].score += directionScore[4];
 
             // 5
-            for (let x = 1; x < 8; x++) {
-                if ((cordN[k] + x) > 9 || (cordM[k] + x) > 9)
+            for (let idx = 1; idx < 8; idx++) {
+                if ((moves[k].x + idx) > 9 || (moves[k].y + idx) > 9)
                     break;
 
-                if (matrix[(cordN[k]) + x][cordM[k] + x] == 0) {
+                if (matrix[(moves[k].x) + idx][moves[k].y + idx] == 0) {
                     directionScore[5] = 0;
                     break;
                 }
 
-                if (matrix[(cordN[k]) + x][cordM[k] + x] == p2) {
+                if (matrix[(moves[k].x) + idx][moves[k].y + idx] == p2) {
                     directionScore[5]++;
 
-                    if (matrix[(cordN[k]) + x + 1][cordM[k] + x + 1] == p1)
+                    if (matrix[(moves[k].x) + idx + 1][moves[k].y + idx + 1] == p1)
                         break;
                 }
             }
-            moveScore[k] += directionScore[5];
+            moves[k].score += directionScore[5];
 
             // 6
-            for (let x = 1; x < 8; x++) {
-                if ((cordN[k] - x) < 0 || (cordM[k] - x) < 0)
+            for (let idx = 1; idx < 8; idx++) {
+                if ((moves[k].x - idx) < 0 || (moves[k].y - idx) < 0)
                     break;
 
-                if (matrix[cordN[k] - x][cordM[k] - x] == 0) {
+                if (matrix[moves[k].x - idx][moves[k].y - idx] == 0) {
                     directionScore[6] = 0;
                     break;
                 }
 
-                if (matrix[(cordN[k]) - x][cordM[k] - x] == p2) {
+                if (matrix[(moves[k].x) - idx][moves[k].y - idx] == p2) {
                     directionScore[6]++;
 
-                    if (matrix[cordN[k] - x - 1][cordM[k] - x - 1] == p1)
+                    if (matrix[moves[k].x - idx - 1][moves[k].y - idx - 1] == p1)
                         break;
                 }
             }
-            moveScore[k] += directionScore[6];
+            moves[k].score += directionScore[6];
 
             // 7
-            for (let x = 1; x < 8; x++) {
-                if ((cordN[k] + x) > 9 || (cordM[k] - x) < 0)
+            for (let idx = 1; idx < 8; idx++) {
+                if ((moves[k].x + idx) > 9 || (moves[k].y - idx) < 0)
                     break;
 
-                if (matrix[(cordN[k]) + x][cordM[k] - x] == 0) {
+                if (matrix[(moves[k].x) + idx][moves[k].y - idx] == 0) {
                     directionScore[7] = 0;
                     break;
                 }
 
-                if (matrix[(cordN[k]) + x][cordM[k] - x] == p2) {
+                if (matrix[(moves[k].x) + idx][moves[k].y - idx] == p2) {
                     directionScore[7]++;
 
-                    if (matrix[(cordN[k]) + x + 1][cordM[k] - x - 1] == p1)
+                    if (matrix[(moves[k].x) + idx + 1][moves[k].y - idx - 1] == p1)
                         break;
                 }
             }
-            moveScore[k] += directionScore[7];
+            moves[k].score += directionScore[7];
 
             // 8
-            for (let x = 1; x < 8; x++) {
-                if ((cordN[k] - x) < 0 || (cordM[k] + x) > 9)
+            for (let idx = 1; idx < 8; idx++) {
+                if ((moves[k].x - idx) < 0 || (moves[k].y + idx) > 9)
                     break;
 
-                if (matrix[(cordN[k]) - x][cordM[k] + x] == 0) {
+                if (matrix[(moves[k].x) - idx][moves[k].y + idx] == 0) {
                     directionScore[8] = 0;
                     break;
                 }
 
-                if (matrix[(cordN[k]) - x][cordM[k] + x] == p2) {
+                if (matrix[(moves[k].x) - idx][moves[k].y + idx] == p2) {
                     directionScore[8]++;
 
-                    if (matrix[(cordN[k]) - x - 1][cordM[k] + x + 1] == p1)
+                    if (matrix[(moves[k].x) - idx - 1][moves[k].y + idx + 1] == p1)
                         break;
                 }
             }
 
-            moveScore[k] += directionScore[8];
+            moves[k].score += directionScore[8];
         }
 
         let max_k = 0;
 
-        for (k = 0; k < count; k = (k + 1)) {
-            if ((cordN[k] == 1) ||
-                (cordN[k] == 8) ||
-                (cordM[k] == 1) ||
-                (cordM[k] == 8)) {
-                moveScore[k] += 100;
+        for (let k = 0; k < count; k = (k + 1)) {
+            if ((moves[k].x == 1) ||
+                (moves[k].x == 8) ||
+                (moves[k].y == 1) ||
+                (moves[k].y == 8)) {
+                moves[k].score += 100;
             }
-            else if ((cordN[k] == 2) ||
-                (cordN[k] == 7) ||
-                (cordM[k] == 2) ||
-                (cordM[k] == 7)) {
-                moveScore[k] -= 100;
-                if (((cordN[k] == 2) && (cordM[k] == 2)) ||
-                    ((cordN[k] == 2) && (cordM[k] == 7)) ||
-                    ((cordN[k] == 7) && (cordM[k] == 2)) ||
-                    ((cordN[k] == 7) && (cordM[k] == 7)))
-                    moveScore[k] -= 50;
+            else if ((moves[k].x == 2) ||
+                (moves[k].x == 7) ||
+                (moves[k].y == 2) ||
+                (moves[k].y == 7)) {
+                moves[k].score -= 100;
+                if (((moves[k].x == 2) && (moves[k].y == 2)) ||
+                    ((moves[k].x == 2) && (moves[k].y == 7)) ||
+                    ((moves[k].x == 7) && (moves[k].y == 2)) ||
+                    ((moves[k].x == 7) && (moves[k].y == 7)))
+                    moves[k].score -= 50;
             }
 
-            if (moveScore[k] > moveScore[max_k]) {
+            if (moves[k].score > moves[max_k].score) {
                 max_k = k;
             }
         }
 
-        coords.x = cordN[max_k];
-        coords.y = cordM[max_k];
+        coords.x = moves[max_k].x;
+        coords.y = moves[max_k].y;
 
         return coords;
     };
