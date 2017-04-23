@@ -98,29 +98,29 @@ function OthelloController(OthelloHandlerService, OthelloAIService, $timeout) {
         if (ctrl.turn == 2) {
             let move = ai.calculateMove(ctrl.matrix, 2);
 
-            if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined') {
+            if (typeof move.x == 'undefined' || typeof move.y == 'undefined') {
                 ctrl.turn = 1;
                 playerMove = ai.calculateMove(ctrl.matrix, 1);
 
-                if (typeof playerMove[0] == 'undefined' || typeof playerMove[1] == 'undefined')
+                if (typeof playerMove.x == 'undefined' || typeof playerMove.y == 'undefined')
                     ctrl.endGame();
 
                 return;
             }
 
-            handler.stepProcess(ctrl.matrix, move[0], move[1], 2);
+            handler.stepProcess(ctrl.matrix, move.x, move.y, 2);
             ctrl.scoreBlack = handler.calculateScore(ctrl.matrix, 1);
             ctrl.scoreWhite = handler.calculateScore(ctrl.matrix, 2);
             ctrl.turn = 1;
 
             playerMove = ai.calculateMove(ctrl.matrix, 1);
-            while (typeof playerMove[0] == 'undefined' || typeof playerMove[1] == 'undefined') {
+            while (typeof playerMove.x == 'undefined' || typeof playerMove.y == 'undefined') {
                 move = ai.calculateMove(ctrl.matrix, 2);
 
-                if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined')
+                if (typeof move.x == 'undefined' || typeof move.y == 'undefined')
                     ctrl.endGame();
 
-                handler.stepProcess(ctrl.matrix, move[0], move[1], 2);
+                handler.stepProcess(ctrl.matrix, move.x, move.y, 2);
                 ctrl.scoreBlack = handler.calculateScore(ctrl.matrix, 1);
                 ctrl.scoreWhite = handler.calculateScore(ctrl.matrix, 2);
 
