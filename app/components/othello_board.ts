@@ -1,36 +1,38 @@
-import * as angular from 'angular';
+import * as angular from "angular";
+import {Component, Input, Output} from "angular-ts-decorators";
+import {OthelloHandlerService} from "../services/othello_handler";
 
-export default angular.module('othello.components.board', [])
-    .component('othelloBoard', {
-        templateUrl: 'components/othello_board.html',
-        controller: OthelloBoardController,
-        bindings: {
-            matrix: '<',
-            isPlaying: '<',
-            onSelection: '&'
-        }
-    }).name;
+@Component({
+    selector: 'othelloBoard',
+    templateUrl: 'components/othello_board.html'
+})
+export class OthelloBoard {
+    @Output() onSelection;
+    @Input() isPlaying;
+    @Input() matrix;
 
-/**
- * @param $timeout
- * @param {OthelloHandlerService} OthelloHandlerService
- */
-function OthelloBoardController(OthelloHandlerService, $timeout) {
-    let ctrl = this;
-    let handler = OthelloHandlerService;
+    private $ctrl;
+    private highlights;
+    private handler;
 
-    ctrl.$onInit = () => {
-        ctrl.highlights = [];
+    /*@ngInject*/
+    constructor(OthelloHandlerService: OthelloHandlerService, private $timeout) {
+        this.$ctrl = this;  // not really needed, just a hint for the IDE
+        this.handler = OthelloHandlerService;
+    }
+
+    $onInit = () => {
+        this.highlights = [];
     };
 
-    ctrl.getClass = (x, y) => {
-        if (!ctrl.isPlaying) {
+    getClass = (x, y) => {
+        if (!this.isPlaying) {
             return 'disc-empty';
         }
 
         let classes;
 
-        switch (ctrl.matrix[x][y]) {
+        switch (this.matrix[x][y]) {
             case 1:
                 classes = 'disc-black';
                 break;
@@ -41,28 +43,28 @@ function OthelloBoardController(OthelloHandlerService, $timeout) {
                 classes = 'disc-empty';
         }
 
-        if (ctrl.highlights[ctrl.matrix.length * x + y]) {
+        if (this.highlights[this.matrix.length * x + y]) {
             classes += ' disc-suggestion';
         }
 
         return classes;
     };
 
-    ctrl.click = (x, y, player) => {
-        if (ctrl.isPlaying) {
-            if (handler.stepControl(ctrl.matrix, x, y, player)) {
+    click = (x, y, player) => {
+        if (this.isPlaying) {
+            if (this.handler.stepControl(this.matrix, x, y, player)) {
                 // emit the selection event
-                ctrl.onSelection({"x": x, "y": y});
-            } else if (ctrl.matrix[x][y] == 0) {
+                this.onSelection({"x": x, "y": y});
+            } else if (this.matrix[x][y] == 0) {
                 // show suggestions
-                let suggestions = handler.getSuggestions(ctrl.matrix, player);
+                let suggestions = this.handler.getSuggestions(this.matrix, player);
                 angular.forEach(suggestions, (suggestionCoords) => {
-                    ctrl.highlights[ctrl.matrix.length * suggestionCoords.x + suggestionCoords.y] = true;
+                    this.highlights[this.matrix.length * suggestionCoords.x + suggestionCoords.y] = true;
                 });
-                $timeout(() => {
+                this.$timeout(() => {
                     // hide suggestions after a while
                     angular.forEach(suggestions, (suggestionCoords) => {
-                        ctrl.highlights[ctrl.matrix.length * suggestionCoords.x + suggestionCoords.y] = false;
+                        this.highlights[this.matrix.length * suggestionCoords.x + suggestionCoords.y] = false;
                     });
                 }, 500);
             }

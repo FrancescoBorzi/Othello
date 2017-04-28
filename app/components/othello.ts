@@ -1,130 +1,144 @@
-import * as angular from 'angular';
+import {Component} from "angular-ts-decorators";
+import {OthelloHandlerService} from "../services/othello_handler";
+import {OthelloAIService} from "../services/othello_AI";
 
-export default angular.module('othello.components.othello', [])
-    .component('othello', {
-        templateUrl: 'components/othello.html',
-        controller: OthelloController
-    }).name;
+@Component({
+    selector: 'othello',
+    templateUrl: 'components/othello.html',
+})
+export class Othello {
 
-/**
- * @param $timeout
- * @param {OthelloHandlerService} OthelloHandlerService
- * @param {OthelloAIService} OthelloAIService
- */
-function OthelloController(OthelloHandlerService, OthelloAIService, $timeout) {
-    let ctrl = this;
-    let handler = OthelloHandlerService;
-    let ai = OthelloAIService;
+    private $ctrl;
+    private handler;
+    private ai;
 
-    ctrl.$onInit = () =>{
-        ctrl.matrix = [];
+    private turn;
+    private matrix;
+    private cssClass;
+    private endingAnimation;
+    private scoreWhite;
+    private scoreBlack;
+    private playing;
 
-        ctrl.turn = 1;
 
-        ctrl.endingAnimation = {
-            class: 'win_disable',
+    /*@ngInject*/
+    constructor(OthelloHandlerService: OthelloHandlerService, OthelloAIService: OthelloAIService, private $timeout) {
+        this.$ctrl = this; // not really needed, just a hint for the IDE
+        this.handler = OthelloHandlerService;
+        this.ai = OthelloAIService;
+    }
+
+    $onInit = () => {
+        this.matrix = [];
+
+        this.turn = 1;
+
+        this.endingAnimation = {
+            cssclass: 'win_disable',
             label: ''
         };
 
-        ctrl.scoreWhite = 0;
-        ctrl.scoreBlack = 0;
-        ctrl.playing = false;
+        this.scoreWhite = 0;
+        this.scoreBlack = 0;
+        this.playing = false;
     };
 
-    ctrl.startGame = function () {
+    startGame = function () {
 
         let i, j;
 
         for (i = 0; i < 10; i++) {
-            ctrl.matrix[i] = [];
+            this.matrix[i] = [];
             for (j = 0; j < 10; j++) {
-                ctrl.matrix[i][j] = 0;
+                this.matrix[i][j] = 0;
             }
         }
 
-        ctrl.matrix[4][4] = 1;
-        ctrl.matrix[4][5] = 2;
-        ctrl.matrix[5][4] = 2;
-        ctrl.matrix[5][5] = 1;
+        this.matrix[4][4] = 1;
+        this.matrix[4][5] = 2;
+        this.matrix[5][4] = 2;
+        this.matrix[5][5] = 1;
 
-        ctrl.scoreBlack = handler.calculateScore(ctrl.matrix, 1);
-        ctrl.scoreWhite = handler.calculateScore(ctrl.matrix, 2);
+        this.scoreBlack = this.handler.calculateScore(this.matrix, 1);
+        this.scoreWhite = this.handler.calculateScore(this.matrix, 2);
 
-        ctrl.turn = 1;
+        this.turn = 1;
 
-        ctrl.endingAnimation.label = '';
-        ctrl.endingAnimation.class = 'win_disable';
+        this.endingAnimation.label = '';
+        this.endingAnimation.cssClass = 'win_disable';
 
-        ctrl.playing = true;
+        this.playing = true;
     };
 
-    ctrl.endGame = function () {
-        if (ctrl.scoreWhite > ctrl.scoreBlack) {
-            ctrl.endingAnimation.label = "White wins!";
-            ctrl.endingAnimation.class = "win_white";
+    endGame = function () {
+        if (this.scoreWhite > this.scoreBlack) {
+            this.endingAnimation.label = "White wins!";
+            this.endingAnimation.cssClass = "win_white";
         }
-        else if (ctrl.scoreBlack > ctrl.scoreWhite) {
-            ctrl.endingAnimation.label = "Black wins!";
-            ctrl.endingAnimation.class = "win_black";
+        else if (this.scoreBlack > this.scoreWhite) {
+            this.endingAnimation.label = "Black wins!";
+            this.endingAnimation.cssClass = "win_black";
         }
         else {
-            ctrl.endingAnimation.label = "Draw!";
-            ctrl.endingAnimation.class = "win_white";
+            this.endingAnimation.label = "Draw!";
+            this.endingAnimation.cssClass = "win_white";
         }
 
-        ctrl.playing = false;
+        this.playing = false;
     };
 
-    ctrl.select = function (x, y) {
-        if (ctrl.turn == 1) {
-            if (typeof ctrl.matrix[x] == 'undefined')
+    select = function (x, y) {
+        if (this.turn == 1) {
+            if (typeof this.matrix[x] == 'undefined')
                 return;
 
-            if (!handler.stepControl(ctrl.matrix, x, y, 1))
+            if (!this.handler.stepControl(this.matrix, x, y, 1))
                 return;
 
-            handler.stepProcess(ctrl.matrix, x, y, 1);
-            ctrl.scoreBlack = handler.calculateScore(ctrl.matrix, 1);
-            ctrl.scoreWhite = handler.calculateScore(ctrl.matrix, 2);
-            ctrl.turn = 2;
+            this.handler.stepProcess(this.matrix, x, y, 1);
+            this.scoreBlack = this.handler.calculateScore(this.matrix, 1);
+            this.scoreWhite = this.handler.calculateScore(this.matrix, 2);
+            this.turn = 2;
 
-            $timeout(() => { ctrl.cpuMove() }, 1000);
+            this.$timeout(() => {
+                this.cpuMove()
+            }, 1000);
         }
     };
 
-    ctrl.cpuMove = function () {
+    cpuMove = function () {
         let playerMove;
 
-        if (ctrl.turn == 2) {
-            let move = ai.calculateMove(ctrl.matrix, 2);
+        if (this.turn == 2) {
+            let move = this.ai.calculateMove(this.matrix, 2);
 
             if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined') {
-                ctrl.turn = 1;
-                playerMove = ai.calculateMove(ctrl.matrix, 1);
+                this.turn = 1;
+                playerMove = this.ai.calculateMove(this.matrix, 1);
 
                 if (typeof playerMove[0] == 'undefined' || typeof playerMove[1] == 'undefined')
-                    ctrl.endGame();
+                    this.endGame();
 
                 return;
             }
 
-            handler.stepProcess(ctrl.matrix, move[0], move[1], 2);
-            ctrl.scoreBlack = handler.calculateScore(ctrl.matrix, 1);
-            ctrl.scoreWhite = handler.calculateScore(ctrl.matrix, 2);
-            ctrl.turn = 1;
+            this.handler.stepProcess(this.matrix, move[0], move[1], 2);
+            this.scoreBlack = this.handler.calculateScore(this.matrix, 1);
+            this.scoreWhite = this.handler.calculateScore(this.matrix, 2);
+            this.turn = 1;
 
-            playerMove = ai.calculateMove(ctrl.matrix, 1);
+            playerMove = this.ai.calculateMove(this.matrix, 1);
             while (typeof playerMove[0] == 'undefined' || typeof playerMove[1] == 'undefined') {
-                move = ai.calculateMove(ctrl.matrix, 2);
+                move = this.ai.calculateMove(this.matrix, 2);
 
                 if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined')
-                    ctrl.endGame();
+                    this.endGame();
 
-                handler.stepProcess(ctrl.matrix, move[0], move[1], 2);
-                ctrl.scoreBlack = handler.calculateScore(ctrl.matrix, 1);
-                ctrl.scoreWhite = handler.calculateScore(ctrl.matrix, 2);
+                this.handler.stepProcess(this.matrix, move[0], move[1], 2);
+                this.scoreBlack = this.handler.calculateScore(this.matrix, 1);
+                this.scoreWhite = this.handler.calculateScore(this.matrix, 2);
 
-                playerMove = ai.calculateMove(ctrl.matrix, 1000)
+                playerMove = this.ai.calculateMove(this.matrix, 1000)
             }
         }
     };

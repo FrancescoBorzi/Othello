@@ -5,6 +5,7 @@
         "sourceMap": true,
         "typeRoots": [
             "node_modules/@types"
-        ]
+        ],
+        "experimentalDecorators": true
     }
 }
