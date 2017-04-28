@@ -1,10 +1,16 @@
-import * as angular from 'angular';
+import {Component, Input} from 'angular-ts-decorators';
 
-export default angular.module('othello.components.player_score', [])
-    .component('playerScore', {
-        templateUrl: 'components/player_score.html',
-        bindings: {
-            playerId: '<',
-            score: '<'
-        }
-    }).name;
+@Component({
+    selector: 'playerScore',
+    templateUrl: 'components/player_score.html'
+})
+export class PlayerScoreComponent {
+    @Input() playerId;
+    @Input() score;
+
+    private $ctrl;
+
+    constructor() {
+        this.$ctrl = this; // not really needed, just a hint for the IDE
+    }
+}

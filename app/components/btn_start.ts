@@ -1,9 +1,15 @@
-import * as angular from 'angular';
+import {Component, Input} from "angular-ts-decorators";
 
-export default angular.module('othello.components.btn_start', [])
-    .component('btnStart', {
-        templateUrl: 'components/btn_start.html',
-        bindings: {
-            isPlaying: '<'
-        }
-    }).name;
+@Component({
+    selector: 'btnStart',
+    templateUrl: 'components/btn_start.html'
+})
+export class BtnStartComponent {
+    @Input() isPlaying;
+
+    private $ctrl;
+
+    constructor() {
+        this.$ctrl = this; // not really needed, just a hint for the IDE
+    }
+}
