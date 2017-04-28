@@ -2,7 +2,7 @@ import {Component, Input} from 'angular-ts-decorators';
 
 @Component({
     selector: 'playerScore',
-    templateUrl: 'components/player_score.html'
+    templateUrl: 'player-score.component.html'
 })
 export class PlayerScoreComponent {
     @Input() playerId;

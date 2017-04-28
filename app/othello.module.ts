@@ -1,10 +1,10 @@
 import { NgModule } from 'angular-ts-decorators';
-import { OthelloAIService } from './services/othello_AI';
-import { OthelloHandlerService } from './services/othello_handler';
-import { BtnStartComponent } from './components/btn_start';
-import { PlayerScoreComponent } from './components/player_score';
-import { OthelloBoard } from './components/othello_board';
-import { Othello } from './components/othello';
+import { OthelloAIService } from './othello-ai.service';
+import { OthelloHandlerService } from './othello-handler.service';
+import { BtnStartComponent } from './btn-start.component';
+import { PlayerScoreComponent } from './player-score.component';
+import { OthelloBoard } from './othello-board.component';
+import { Othello } from './othello.component';
 
 @NgModule({
     id: 'OthelloModule',

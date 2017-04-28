@@ -1,10 +1,10 @@
 import {Component} from "angular-ts-decorators";
-import {OthelloHandlerService} from "../services/othello_handler";
-import {OthelloAIService} from "../services/othello_AI";
+import {OthelloHandlerService} from "./othello-handler.service";
+import {OthelloAIService} from "./othello-ai.service";
 
 @Component({
     selector: 'othello',
-    templateUrl: 'components/othello.html',
+    templateUrl: 'othello.component.html',
 })
 export class Othello {
 

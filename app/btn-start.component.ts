@@ -2,7 +2,7 @@ import {Component, Input} from "angular-ts-decorators";
 
 @Component({
     selector: 'btnStart',
-    templateUrl: 'components/btn_start.html'
+    templateUrl: 'btn-start.component.html'
 })
 export class BtnStartComponent {
     @Input() isPlaying;

@@ -1,10 +1,10 @@
 import * as angular from "angular";
 import {Component, Input, Output} from "angular-ts-decorators";
-import {OthelloHandlerService} from "../services/othello_handler";
+import {OthelloHandlerService} from "./othello-handler.service";
 
 @Component({
     selector: 'othelloBoard',
-    templateUrl: 'components/othello_board.html'
+    templateUrl: 'othello-board.component.html'
 })
 export class OthelloBoard {
     @Output() onSelection;
