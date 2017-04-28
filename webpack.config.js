@@ -2,7 +2,7 @@ var path = require('path');
 
 module.exports = {
     entry: {
-        app: './app/index.ts'
+        app: './app/othello.module.ts'
     },
     output: {
         filename: 'othello-bundle.js',
