@@ -28,7 +28,7 @@ export class Othello {
         this.ai = OthelloAIService;
     }
 
-    $onInit = () => {
+    $onInit() {
         this.matrix = [];
 
         this.turn = 1;
@@ -41,9 +41,9 @@ export class Othello {
         this.scoreWhite = 0;
         this.scoreBlack = 0;
         this.playing = false;
-    };
+    }
 
-    startGame = function () {
+    startGame() {
 
         let i, j;
 
@@ -68,9 +68,9 @@ export class Othello {
         this.endingAnimation.cssClass = 'win_disable';
 
         this.playing = true;
-    };
+    }
 
-    endGame = function () {
+    endGame() {
         if (this.scoreWhite > this.scoreBlack) {
             this.endingAnimation.label = "White wins!";
             this.endingAnimation.cssClass = "win_white";
@@ -85,9 +85,9 @@ export class Othello {
         }
 
         this.playing = false;
-    };
+    }
 
-    select = function (x, y) {
+    select(x, y) {
         if (this.turn == 1) {
             if (typeof this.matrix[x] == 'undefined')
                 return;
@@ -104,9 +104,9 @@ export class Othello {
                 this.cpuMove()
             }, 1000);
         }
-    };
+    }
 
-    cpuMove = function () {
+    cpuMove() {
         let playerMove;
 
         if (this.turn == 2) {
@@ -141,5 +141,5 @@ export class Othello {
                 playerMove = this.ai.calculateMove(this.matrix, 1000)
             }
         }
-    };
+    }
 }
