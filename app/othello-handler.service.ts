@@ -1,6 +1,7 @@
-import * as angular from 'angular';
+import { Injectable } from 'angular-ts-decorators';
 
-class OthelloHandlerService {
+@Injectable('OthelloHandlerService')
+export class OthelloHandlerService {
 
     calculateScore(matrix, val) {
         let count = 0;
@@ -336,5 +337,3 @@ class OthelloHandlerService {
         return suggestions;
     }
 }
-
-export default angular.module('othello.services.handler', []).service('OthelloHandlerService', OthelloHandlerService).name;

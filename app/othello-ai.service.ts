@@ -1,6 +1,7 @@
-import * as angular from 'angular';
+import { Injectable } from 'angular-ts-decorators';
 
-class OthelloAIService {
+@Injectable('OthelloAIService')
+export class OthelloAIService {
 
     private othelloHandlerService;
 
@@ -273,4 +274,3 @@ class OthelloAIService {
     };
 }
 
-export default angular.module('othello.services.ai', []).service('OthelloAIService', OthelloAIService).name;

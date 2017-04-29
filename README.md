@@ -1,9 +1,18 @@
 Othello
 ==========
 
-This repository shows old AngularJS application featuring the [Othello game (also known as Reversi)](https://en.wikipedia.org/wiki/Reversi), **refactored** using the [components introduced in AngularJS 1.5+](https://docs.angularjs.org/guide/component) the [Webpack](https://webpack.github.io/) module loader and the [TypeScript](https://www.typescriptlang.org/) language to make it better and also similar to the new Angular 2+ style.
+This repository shows a modernised AngularJS application which looks like an Angular 2+ application featuring the [Othello game (also known as Reversi)](https://en.wikipedia.org/wiki/Reversi).
+ 
+ The application has been refactored using:
+  
+ - the [components introduced in AngularJS 1.5+](https://docs.angularjs.org/guide/component)
+ - the [Webpack](https://webpack.github.io/) module loader
+ - the [TypeScript](https://www.typescriptlang.org/) language (using [definitely-typed-angular type definitions](https://www.npmjs.com/package/definitely-typed-angular))
+ - the [angular-ts-decorators](https://github.com/vsternbach/angular-ts-decorators) to make it similar to Angular 2+ style
 
-This repository can be used as an example to whoever wants to **prepare** an old AngularJS (1.x) application to the new Angular 2+, but also for those who just want to improve its AngularJS source code **without** actually migrating to the new Angular 2+.
+This repository can be used as an example to whoever wants to **prepare** an old AngularJS (1.x) application to be migrated to the new Angular 2+, but also for those who just want to improve its AngularJS source code **without** actually migrating to the new Angular 2+.
+
+*Note: with **Angular 2+** I just mean the new Angular (e.g. can be Angular 4, Angular 2.4, etc...). Confused about Angular version numbers? [**Read this**](http://angularjs.blogspot.nl/2016/12/ok-let-me-explain-its-going-to-be.html)*.
 
 [Live demo](http://shinworld.altervista.org/othello/)
 

@@ -2,6 +2,10 @@
     "compilerOptions": {
         "target": "es5",
         "noImplicitAny": false,
-        "sourceMap": true
+        "sourceMap": true,
+        "experimentalDecorators": true,
+        "typeRoots": [
+            "node_modules/@types"
+        ]
     }
 }
