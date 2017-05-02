@@ -21,11 +21,11 @@ export class OthelloBoard {
         this.handler = OthelloHandlerService;
     }
 
-    $onInit = () => {
+    $onInit() {
         this.highlights = [];
-    };
+    }
 
-    getClass = (x, y) => {
+    getClass(x, y) {
         if (!this.isPlaying) {
             return 'disc-empty';
         }
@@ -48,9 +48,9 @@ export class OthelloBoard {
         }
 
         return classes;
-    };
+    }
 
-    click = (x, y, player) => {
+    click(x, y, player) {
         if (this.isPlaying) {
             if (this.handler.stepControl(this.matrix, x, y, player)) {
                 // emit the selection event
