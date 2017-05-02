@@ -8,17 +8,16 @@ import {OthelloAIService} from "./othello-ai.service";
 })
 export class Othello {
 
-    private $ctrl;
-    private handler;
-    private ai;
+    private $ctrl: Othello;
+    private handler: OthelloHandlerService;
+    private ai: OthelloAIService;
 
-    private turn;
-    private matrix;
-    private cssClass;
-    private endingAnimation;
-    private scoreWhite;
-    private scoreBlack;
-    private playing;
+    private turn: number;
+    private matrix: number[][];
+    private endingAnimation: {label: string, cssClass: string};
+    private scoreWhite: number;
+    private scoreBlack: number;
+    private playing: boolean;
 
 
     /*@ngInject*/
@@ -28,13 +27,16 @@ export class Othello {
         this.ai = OthelloAIService;
     }
 
+    /**
+     * Automatically called when the component is initialised
+     */
     $onInit() {
         this.matrix = [];
 
         this.turn = 1;
 
         this.endingAnimation = {
-            cssclass: 'win_disable',
+            cssClass: 'win_disable',
             label: ''
         };
 
@@ -43,14 +45,12 @@ export class Othello {
         this.playing = false;
     }
 
-    startGame() {
+    startGame(): void {
 
-        let i, j;
-
-        for (i = 0; i < 10; i++) {
-            this.matrix[i] = [];
-            for (j = 0; j < 10; j++) {
-                this.matrix[i][j] = 0;
+        for (let x = 0; x < 10; x++) {
+            this.matrix[x] = [];
+            for (let y = 0; y < 10; y++) {
+                this.matrix[x][y] = 0;
             }
         }
 
@@ -70,7 +70,7 @@ export class Othello {
         this.playing = true;
     }
 
-    endGame() {
+    endGame(): void {
         if (this.scoreWhite > this.scoreBlack) {
             this.endingAnimation.label = "White wins!";
             this.endingAnimation.cssClass = "win_white";
@@ -87,13 +87,17 @@ export class Othello {
         this.playing = false;
     }
 
-    select(x, y) {
-        if (this.turn == 1) {
-            if (typeof this.matrix[x] == 'undefined')
-                return;
+    select(x: number, y: number): void {
 
-            if (!this.handler.stepControl(this.matrix, x, y, 1))
+        if (this.turn == 1) {
+
+            if (typeof this.matrix[x] == 'undefined') {
                 return;
+            }
+
+            if (!this.handler.stepControl(this.matrix, x, y, 1)) {
+                return;
+            }
 
             this.handler.stepProcess(this.matrix, x, y, 1);
             this.scoreBlack = this.handler.calculateScore(this.matrix, 1);
@@ -106,8 +110,8 @@ export class Othello {
         }
     }
 
-    cpuMove() {
-        let playerMove;
+    cpuMove(): void {
+        let playerMove: Coord|null;
 
         if (this.turn == 2) {
             let move = this.ai.calculateMove(this.matrix, 2);
@@ -138,7 +142,7 @@ export class Othello {
                 this.scoreBlack = this.handler.calculateScore(this.matrix, 1);
                 this.scoreWhite = this.handler.calculateScore(this.matrix, 2);
 
-                playerMove = this.ai.calculateMove(this.matrix, 1000)
+                playerMove = this.ai.calculateMove(this.matrix, 1)
             }
         }
     }
