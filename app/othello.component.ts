@@ -112,29 +112,29 @@ export class Othello {
         if (this.turn == 2) {
             let move = this.ai.calculateMove(this.matrix, 2);
 
-            if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined') {
+            if (typeof move.x == 'undefined' || typeof move.y == 'undefined') {
                 this.turn = 1;
                 playerMove = this.ai.calculateMove(this.matrix, 1);
 
-                if (typeof playerMove[0] == 'undefined' || typeof playerMove[1] == 'undefined')
+                if (typeof playerMove.x == 'undefined' || typeof playerMove.y == 'undefined')
                     this.endGame();
 
                 return;
             }
 
-            this.handler.stepProcess(this.matrix, move[0], move[1], 2);
+            this.handler.stepProcess(this.matrix, move.x, move.y, 2);
             this.scoreBlack = this.handler.calculateScore(this.matrix, 1);
             this.scoreWhite = this.handler.calculateScore(this.matrix, 2);
             this.turn = 1;
 
             playerMove = this.ai.calculateMove(this.matrix, 1);
-            while (typeof playerMove[0] == 'undefined' || typeof playerMove[1] == 'undefined') {
+            while (typeof playerMove.x == 'undefined' || typeof playerMove.y == 'undefined') {
                 move = this.ai.calculateMove(this.matrix, 2);
 
-                if (typeof move[0] == 'undefined' || typeof move[1] == 'undefined')
+                if (typeof move.x == 'undefined' || typeof move.y == 'undefined')
                     this.endGame();
 
-                this.handler.stepProcess(this.matrix, move[0], move[1], 2);
+                this.handler.stepProcess(this.matrix, move.x, move.y, 2);
                 this.scoreBlack = this.handler.calculateScore(this.matrix, 1);
                 this.scoreWhite = this.handler.calculateScore(this.matrix, 2);
 
