@@ -132,11 +132,13 @@ export class Othello {
             this.turn = 1;
 
             playerMove = this.ai.calculateMove(this.matrix, 1);
-            while (typeof playerMove.x == 'undefined' || typeof playerMove.y == 'undefined') {
+            while (!playerMove) {
                 move = this.ai.calculateMove(this.matrix, 2);
 
-                if (typeof move.x == 'undefined' || typeof move.y == 'undefined')
+                if (!move) {
                     this.endGame();
+                    return;
+                }
 
                 this.handler.stepProcess(this.matrix, move.x, move.y, 2);
                 this.scoreBlack = this.handler.calculateScore(this.matrix, 1);
