@@ -1,44 +1,35 @@
 import { Injectable } from 'angular-ts-decorators';
+import {OthelloHandlerService} from "./othello-handler.service";
 
 @Injectable('OthelloAIService')
 export class OthelloAIService {
 
-    private othelloHandlerService;
+    private handler: OthelloHandlerService;
 
     /**
      * @param {OthelloHandlerService} OthelloHandlerService
      */
-    constructor(OthelloHandlerService) {
-        this.othelloHandlerService = OthelloHandlerService;
+    constructor(private OthelloHandlerService: OthelloHandlerService) {
+        this.handler = OthelloHandlerService;
     }
 
-    private checkEdges(matrix: number[][], id: number): Coord | null {
+    /**
+     * Calculates the best move for the player id
+     * returns Coord or null if there are no moves available
+     *
+     * @param matrix
+     * @param id
+     * @returns {Coord|null}
+     */
+    calculateMove(matrix: number[][], id: number): Coord|null {
 
-        if (this.othelloHandlerService.stepControl(matrix, 1, 8, id)) {
-            return { x: 1, y: 8};
-        }
-        else if (this.othelloHandlerService.stepControl(matrix, 8, 1, id)) {
-            return { x: 8, y: 1};
-        }
-        else if (this.othelloHandlerService.stepControl(matrix, 1, 1, id)) {
-            return { x: 1, y: 1};
-        }
-        else if (this.othelloHandlerService.stepControl(matrix, 8, 8, id)) {
-            return { x: 8, y: 8};
-        } else {
-            return null;
-        }
-    }
-
-    calculateMove(matrix: number[][], id: number): Coord {
-
+        // if one of the edges is available, let's return it
         let edgeCoords = this.checkEdges(matrix, id);
         if (edgeCoords) {
             return edgeCoords;
         }
 
-        let coords: Coord = { x: 0, y: 0};
-
+        // p1 is the player who we are calculating the move for, p2 the opponent
         let p1: number, p2: number;
 
         if (id == 1) {
@@ -50,227 +41,381 @@ export class OthelloAIService {
             p2 = 1;
         }
 
-        let count = 0;
-        for (let n = 1; n <= 8; n = (n + 1)) {
-            for (let m = 1; m <= 8; m = (m + 1)) {
-                if (this.othelloHandlerService.stepControl(matrix, n, m, id)) {
-                    count = (count + 1);
-                }
-            }
-        }
-
+        // generate the available moves
         let moves: CoordScore[] = [];
-
-        let k = 0;
-        let directionScore: number[] = [];
+        let movesCount = 0;
 
         for (let m = 1; m <= 8; m = (m + 1)) {
             for (let n = 1; n <= 8; n = (n + 1)) {
-                if (this.othelloHandlerService.stepControl(matrix, m, n, id)) {
-                    moves[k] = {
+                if (this.handler.stepControl(matrix, m, n, id)) {
+                    moves[movesCount] = {
                         x: m,
                         y: n,
                         score: 0
                     };
-                    k = (k + 1);
+                    movesCount++;
                 }
             }
         }
 
-        for (k = 0; k < count; k++) {
-            directionScore[1] = 0;
-            directionScore[2] = 0;
-            directionScore[3] = 0;
-            directionScore[4] = 0;
-            directionScore[5] = 0;
-            directionScore[6] = 0;
-            directionScore[7] = 0;
-            directionScore[8] = 0;
-
-            // 1
-            for (let idx = 1; idx < 8; idx++) {
-                if ((moves[k].x + idx) > 9)
-                    break;
-
-                if (matrix[(moves[k].x + idx)][moves[k].y] == 0) {
-                    directionScore[1] = 0;
-                    break;
-                }
-
-                if (matrix[(moves[k].x + idx)][moves[k].y] == p2) {
-                    directionScore[1]++;
-
-                    if (matrix[(moves[k].x + idx + 1)][moves[k].y] == p1)
-                        break;
-                }
-            }
-            moves[k].score += directionScore[1];
-
-            // 2
-            for (let idx = 1; idx < 8; idx++) {
-                if ((moves[k].y + idx) > 9)
-                    break;
-
-                if (matrix[(moves[k].x)][moves[k].y + idx] == 0) {
-                    directionScore[2] = 0;
-                    break;
-                }
-
-                if (matrix[(moves[k].x)][moves[k].y + idx] == p2) {
-                    directionScore[2]++;
-
-                    if (matrix[(moves[k].x)][moves[k].y + idx + 1] == p1)
-                        break;
-                }
-            }
-            moves[k].score += directionScore[2];
-
-            // 3
-            for (let idx = 1; idx < 8; idx++) {
-                if ((moves[k].y - idx) < 0)
-                    break;
-
-                if (matrix[(moves[k].x)][moves[k].y - idx] == 0) {
-                    directionScore[3] = 0;
-                    break;
-                }
-
-                if (matrix[(moves[k].x)][moves[k].y - idx] == p2) {
-                    directionScore[3]++;
-
-                    if (matrix[(moves[k].x)][moves[k].y - idx - 1] == p1)
-                        break;
-                }
-            }
-            moves[k].score += directionScore[3];
-
-            // 4
-            for (let idx = 1; idx < 8; idx++) {
-                if ((moves[k].x - idx) < 0)
-                    break;
-
-                if (matrix[(moves[k].x) - idx][moves[k].y] == 0) {
-                    directionScore[4] = 0;
-                    break;
-                }
-
-                if (matrix[(moves[k].x) - idx][moves[k].y] == p2) {
-                    directionScore[4]++;
-
-                    if (matrix[(moves[k].x) - idx - 1][moves[k].y] == p1)
-                        break;
-                }
-            }
-            moves[k].score += directionScore[4];
-
-            // 5
-            for (let idx = 1; idx < 8; idx++) {
-                if ((moves[k].x + idx) > 9 || (moves[k].y + idx) > 9)
-                    break;
-
-                if (matrix[(moves[k].x) + idx][moves[k].y + idx] == 0) {
-                    directionScore[5] = 0;
-                    break;
-                }
-
-                if (matrix[(moves[k].x) + idx][moves[k].y + idx] == p2) {
-                    directionScore[5]++;
-
-                    if (matrix[(moves[k].x) + idx + 1][moves[k].y + idx + 1] == p1)
-                        break;
-                }
-            }
-            moves[k].score += directionScore[5];
-
-            // 6
-            for (let idx = 1; idx < 8; idx++) {
-                if ((moves[k].x - idx) < 0 || (moves[k].y - idx) < 0)
-                    break;
-
-                if (matrix[moves[k].x - idx][moves[k].y - idx] == 0) {
-                    directionScore[6] = 0;
-                    break;
-                }
-
-                if (matrix[(moves[k].x) - idx][moves[k].y - idx] == p2) {
-                    directionScore[6]++;
-
-                    if (matrix[moves[k].x - idx - 1][moves[k].y - idx - 1] == p1)
-                        break;
-                }
-            }
-            moves[k].score += directionScore[6];
-
-            // 7
-            for (let idx = 1; idx < 8; idx++) {
-                if ((moves[k].x + idx) > 9 || (moves[k].y - idx) < 0)
-                    break;
-
-                if (matrix[(moves[k].x) + idx][moves[k].y - idx] == 0) {
-                    directionScore[7] = 0;
-                    break;
-                }
-
-                if (matrix[(moves[k].x) + idx][moves[k].y - idx] == p2) {
-                    directionScore[7]++;
-
-                    if (matrix[(moves[k].x) + idx + 1][moves[k].y - idx - 1] == p1)
-                        break;
-                }
-            }
-            moves[k].score += directionScore[7];
-
-            // 8
-            for (let idx = 1; idx < 8; idx++) {
-                if ((moves[k].x - idx) < 0 || (moves[k].y + idx) > 9)
-                    break;
-
-                if (matrix[(moves[k].x) - idx][moves[k].y + idx] == 0) {
-                    directionScore[8] = 0;
-                    break;
-                }
-
-                if (matrix[(moves[k].x) - idx][moves[k].y + idx] == p2) {
-                    directionScore[8]++;
-
-                    if (matrix[(moves[k].x) - idx - 1][moves[k].y + idx + 1] == p1)
-                        break;
-                }
-            }
-
-            moves[k].score += directionScore[8];
+        // if there are no moves available, just return null
+        if (!movesCount) {
+            return null;
         }
 
+        // calculate the basic move scores for all the 8 directions (up, down, right, left, up-right, etc..)
+        for (let k = 0; k < movesCount; k++) {
+            moves[k].score += this.calculateScoreDirection1(moves[k], matrix, p1, p2);
+            moves[k].score += this.calculateScoreDirection2(moves[k], matrix, p1, p2);
+            moves[k].score += this.calculateScoreDirection3(moves[k], matrix, p1, p2);
+            moves[k].score += this.calculateScoreDirection4(moves[k], matrix, p1, p2);
+            moves[k].score += this.calculateScoreDirection5(moves[k], matrix, p1, p2);
+            moves[k].score += this.calculateScoreDirection6(moves[k], matrix, p1, p2);
+            moves[k].score += this.calculateScoreDirection7(moves[k], matrix, p1, p2);
+            moves[k].score += this.calculateScoreDirection8(moves[k], matrix, p1, p2);
+        }
+
+        // update the move scores considering the board sides
+        this.calculateSideScore(moves);
+
+        let max_k = this.getMaxScoreMove( moves);
+
+        return { x: moves[max_k].x, y: moves[max_k].y};
+    };
+
+    /**
+     * Checks if player id can move on one of the four edges
+     * returning its coordinates (Coord) if that's the case or null if it's not
+     *
+     * @param matrix
+     * @param id
+     * @returns {Coord|null}
+     */
+    private checkEdges(matrix: number[][], id: number): Coord|null {
+
+        if (this.handler.stepControl(matrix, 1, 8, id)) {
+            return { x: 1, y: 8};
+        }
+        else if (this.handler.stepControl(matrix, 8, 1, id)) {
+            return { x: 8, y: 1};
+        }
+        else if (this.handler.stepControl(matrix, 1, 1, id)) {
+            return { x: 1, y: 1};
+        }
+        else if (this.handler.stepControl(matrix, 8, 8, id)) {
+            return { x: 8, y: 8};
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Takes in input a CoordScore array and returns the index with the highest score
+     *
+     * @param moves
+     * @returns {number}
+     */
+    private getMaxScoreMove(moves: CoordScore[]) {
         let max_k = 0;
 
-        for (let k = 0; k < count; k = (k + 1)) {
-            if ((moves[k].x == 1) ||
-                (moves[k].x == 8) ||
-                (moves[k].y == 1) ||
-                (moves[k].y == 8)) {
-                moves[k].score += 100;
-            }
-            else if ((moves[k].x == 2) ||
-                (moves[k].x == 7) ||
-                (moves[k].y == 2) ||
-                (moves[k].y == 7)) {
-                moves[k].score -= 100;
-                if (((moves[k].x == 2) && (moves[k].y == 2)) ||
-                    ((moves[k].x == 2) && (moves[k].y == 7)) ||
-                    ((moves[k].x == 7) && (moves[k].y == 2)) ||
-                    ((moves[k].x == 7) && (moves[k].y == 7)))
-                    moves[k].score -= 50;
-            }
-
+        for (let k = 0; k < moves.length; k = (k + 1)) {
             if (moves[k].score > moves[max_k].score) {
                 max_k = k;
             }
         }
+        return max_k;
+    }
 
-        coords.x = moves[max_k].x;
-        coords.y = moves[max_k].y;
+    /**
+     * Takes in input the moves array holding CordScore values and:
+     * - adds 100 score points if the move is on the sides of the board
+     * - removes 100 score points if the move is adjacent to the sides
+     * - removes additional 50 score points if the move is adjacent to an edge
+     *
+     * @param moves
+     */
+    private calculateSideScore(moves: CoordScore[]) {
+        for (let k = 0; k < moves.length; k = (k + 1)) {
+            if (
+                (moves[k].x == 1) ||
+                (moves[k].x == 8) ||
+                (moves[k].y == 1) ||
+                (moves[k].y == 8)
+            ) {
+                moves[k].score += 100;
+            }
+            else if (
+                (moves[k].x == 2) ||
+                (moves[k].x == 7) ||
+                (moves[k].y == 2) ||
+                (moves[k].y == 7)
+            ) {
+                moves[k].score -= 100;
 
-        return coords;
-    };
+                if (
+                    ((moves[k].x == 2) && (moves[k].y == 2)) ||
+                    ((moves[k].x == 2) && (moves[k].y == 7)) ||
+                    ((moves[k].x == 7) && (moves[k].y == 2)) ||
+                    ((moves[k].x == 7) && (moves[k].y == 7))
+                )
+                    moves[k].score -= 50;
+            }
+        }
+    }
+
+    /**
+     * Calculates the score of the move in the direction: [x+idx][y]
+     * where idx is the index that we are iterating
+     *
+     * @param move
+     * @param matrix
+     * @param p1
+     * @param p2
+     * @returns {number}
+     */
+    private calculateScoreDirection1(move: CoordScore, matrix: number[][], p1: number, p2: number) {
+        let score = 0;
+
+        for (let idx = 1; idx < 8; idx++) {
+            if ((move.x + idx) > 9)
+                break;
+
+            if (matrix[(move.x + idx)][move.y] == 0) {
+                return 0;
+            }
+
+            if (matrix[(move.x + idx)][move.y] == p2) {
+                score++;
+
+                if (matrix[(move.x + idx + 1)][move.y] == p1)
+                    break;
+            }
+        }
+
+        return score;
+    }
+
+    /**
+     * Calculates the score of the move in the direction: [x][y+idx]
+     * where idx is the index that we are iterating
+     *
+     * @param move
+     * @param matrix
+     * @param p1
+     * @param p2
+     * @returns {number}
+     */
+    private calculateScoreDirection2(move: CoordScore, matrix: number[][], p1: number, p2: number) {
+        let score = 0;
+
+        for (let idx = 1; idx < 8; idx++) {
+            if ((move.y + idx) > 9)
+                break;
+
+            if (matrix[(move.x)][move.y + idx] == 0) {
+                return 0;
+            }
+
+            if (matrix[(move.x)][move.y + idx] == p2) {
+                score++;
+
+                if (matrix[(move.x)][move.y + idx + 1] == p1)
+                    break;
+            }
+        }
+
+        return score;
+    }
+
+    /**
+     * Calculates the score of the move in the direction: [x][y-idx]
+     * where idx is the index that we are iterating
+     *
+     * @param move
+     * @param matrix
+     * @param p1
+     * @param p2
+     * @returns {number}
+     */
+    private calculateScoreDirection3(move: CoordScore, matrix: number[][], p1: number, p2: number) {
+        let score = 0;
+
+        for (let idx = 1; idx < 8; idx++) {
+            if ((move.y - idx) < 0)
+                break;
+
+            if (matrix[(move.x)][move.y - idx] == 0) {
+                return 0;
+            }
+
+            if (matrix[(move.x)][move.y - idx] == p2) {
+                score++;
+
+                if (matrix[(move.x)][move.y - idx - 1] == p1)
+                    break;
+            }
+        }
+
+        return score;
+    }
+
+    /**
+     * Calculates the score of the move in the direction: [x-idx][y]
+     * where idx is the index that we are iterating
+     *
+     * @param move
+     * @param matrix
+     * @param p1
+     * @param p2
+     * @returns {number}
+     */
+    private calculateScoreDirection4(move: CoordScore, matrix: number[][], p1: number, p2: number) {
+        let score = 0;
+
+        for (let idx = 1; idx < 8; idx++) {
+            if ((move.x - idx) < 0)
+                break;
+
+            if (matrix[(move.x) - idx][move.y] == 0) {
+                return 0;
+            }
+
+            if (matrix[(move.x) - idx][move.y] == p2) {
+                score++;
+
+                if (matrix[(move.x) - idx - 1][move.y] == p1)
+                    break;
+            }
+        }
+
+        return score;
+    }
+
+    /**
+     * Calculates the score of the move in the direction: [x+idx][y+idx]
+     * where idx is the index that we are iterating
+     *
+     * @param move
+     * @param matrix
+     * @param p1
+     * @param p2
+     * @returns {number}
+     */
+    private calculateScoreDirection5(move: CoordScore, matrix: number[][], p1: number, p2: number) {
+        let score = 0;
+
+        for (let idx = 1; idx < 8; idx++) {
+            if ((move.x + idx) > 9 || (move.y + idx) > 9)
+                break;
+
+            if (matrix[(move.x) + idx][move.y + idx] == 0) {
+                return 0;
+            }
+
+            if (matrix[(move.x) + idx][move.y + idx] == p2) {
+                score++;
+
+                if (matrix[(move.x) + idx + 1][move.y + idx + 1] == p1)
+                    break;
+            }
+        }
+
+        return score;
+    }
+
+    /**
+     * Calculates the score of the move in the direction: [x-idx][y-idx]
+     * where idx is the index that we are iterating
+     *
+     * @param move
+     * @param matrix
+     * @param p1
+     * @param p2
+     * @returns {number}
+     */
+    private calculateScoreDirection6(move: CoordScore, matrix: number[][], p1: number, p2: number) {
+        let score = 0;
+
+        for (let idx = 1; idx < 8; idx++) {
+            if ((move.x - idx) < 0 || (move.y - idx) < 0)
+                break;
+
+            if (matrix[move.x - idx][move.y - idx] == 0) {
+                return 0;
+            }
+
+            if (matrix[(move.x) - idx][move.y - idx] == p2) {
+                score++;
+
+                if (matrix[move.x - idx - 1][move.y - idx - 1] == p1)
+                    break;
+            }
+        }
+
+        return score;
+    }
+
+    /**
+     * Calculates the score of the move in the direction: [x+idx][y-idx]
+     * where idx is the index that we are iterating
+     *
+     * @param move
+     * @param matrix
+     * @param p1
+     * @param p2
+     * @returns {number}
+     */
+    private calculateScoreDirection7(move: CoordScore, matrix: number[][], p1: number, p2: number) {
+        let score = 0;
+
+        for (let idx = 1; idx < 8; idx++) {
+            if ((move.x + idx) > 9 || (move.y - idx) < 0)
+                break;
+
+            if (matrix[(move.x) + idx][move.y - idx] == 0) {
+                return 0;
+            }
+
+            if (matrix[(move.x) + idx][move.y - idx] == p2) {
+                score++;
+
+                if (matrix[(move.x) + idx + 1][move.y - idx - 1] == p1)
+                    break;
+            }
+        }
+
+        return score;
+    }
+
+    /**
+     * Calculates the score of the move in the direction: [x-idx][y+idx]
+     * where idx is the index that we are iterating
+     *
+     * @param move
+     * @param matrix
+     * @param p1
+     * @param p2
+     * @returns {number}
+     */
+    private calculateScoreDirection8(move: CoordScore, matrix: number[][], p1: number, p2: number) {
+        let score = 0;
+
+        for (let idx = 1; idx < 8; idx++) {
+            if ((move.x - idx) < 0 || (move.y + idx) > 9)
+                break;
+
+            if (matrix[(move.x) - idx][move.y + idx] == 0) {
+                return 0;
+            }
+
+            if (matrix[(move.x) - idx][move.y + idx] == p2) {
+                score++;
+
+                if (matrix[(move.x) - idx - 1][move.y + idx + 1] == p1)
+                    break;
+            }
+        }
+
+        return score;
+    }
 }
-
