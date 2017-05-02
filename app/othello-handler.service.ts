@@ -4,7 +4,7 @@ import {Injectable} from "angular-ts-decorators";
 export class OthelloHandlerService {
 
     /**
-     * Calculate the current score of the player id
+     * Calculates the current score of the player id
      *
      * @param matrix
      * @param id
@@ -23,7 +23,16 @@ export class OthelloHandlerService {
         return count;
     };
 
-    stepControl(matrix: number[][], x: number, y: number, id: number) {
+    /**
+     * Checks if player id can move on (x, y) coordinates
+     *
+     * @param matrix
+     * @param x
+     * @param y
+     * @param id
+     * @returns {boolean}
+     */
+    stepControl(matrix: number[][], x: number, y: number, id: number): boolean {
 
         // if the spot is not empty, it's not possible to move there
         if (matrix[x][y] !== 0) {
@@ -165,11 +174,19 @@ export class OthelloHandlerService {
         return false;
     }
 
-    stepProcess(matrix, i, j, id) {
-        matrix[i][j] = id;
+    /**
+     * Processes the matrix after that player id has moved on (x, y)
+     *
+     * @param matrix
+     * @param x
+     * @param j
+     * @param id
+     */
+    stepProcess(matrix, x, j, id): void {
+        matrix[x][j] = id;
 
-        let p2;
-        let p1;
+        // p1 is the player who we are calculating the move for, p2 the opponent
+        let p1: number, p2: number;
 
         if (id == 1) {
             p1 = 1;
@@ -180,154 +197,152 @@ export class OthelloHandlerService {
             p2 = 1;
         }
 
-        let x;
-
-        if (matrix[i + 1][j] == p2) {
-            for (x = 2; x < 8; x++) {
-                if ((i + x) > 8)
+        if (matrix[x + 1][j] == p2) {
+            for (let idx = 2; idx < 8; idx++) {
+                if ((x + idx) > 8)
                     break;
 
-                if (matrix[i + x][j] == 0)
+                if (matrix[x + idx][j] == 0)
                     break;
 
-                if (matrix[i + x][j] == p1) {
-                    x--;
-                    while (x > 0) {
-                        matrix[i + x][j] = p1;
-                        x--;
+                if (matrix[x + idx][j] == p1) {
+                    idx--;
+                    while (idx > 0) {
+                        matrix[x + idx][j] = p1;
+                        idx--;
                     }
                     break;
                 }
             }
         }
 
-        if (matrix[i][j + 1] == p2) {
-            for (x = 2; x < 8; x++) {
-                if ((j + x) > 8)
+        if (matrix[x][j + 1] == p2) {
+            for (let idx = 2; idx < 8; idx++) {
+                if ((j + idx) > 8)
                     break;
 
-                if (matrix[i][j + x] == 0)
+                if (matrix[x][j + idx] == 0)
                     break;
 
-                if (matrix[i][j + x] == p1) {
-                    x--;
-                    while (x > 0) {
-                        matrix[i][j + x] = p1;
-                        x--;
+                if (matrix[x][j + idx] == p1) {
+                    idx--;
+                    while (idx > 0) {
+                        matrix[x][j + idx] = p1;
+                        idx--;
                     }
                     break;
                 }
             }
         }
 
-        if (matrix[i - 1][j] == p2) {
-            for (x = 2; x < 8; x++) {
-                if (i - x < 1)
+        if (matrix[x - 1][j] == p2) {
+            for (let idx = 2; idx < 8; idx++) {
+                if (x - idx < 1)
                     break;
 
-                if (matrix[i - x][j] == 0)
+                if (matrix[x - idx][j] == 0)
                     break;
 
-                if (matrix[i - x][j] == p1) {
-                    x--;
-                    while (x > 0) {
-                        matrix[i - x][j] = p1;
-                        x--;
+                if (matrix[x - idx][j] == p1) {
+                    idx--;
+                    while (idx > 0) {
+                        matrix[x - idx][j] = p1;
+                        idx--;
                     }
                     break;
                 }
             }
         }
 
-        if (matrix[i][j - 1] == p2) {
-            for (x = 2; x < 8; x++) {
-                if ((j - x) < 1)
+        if (matrix[x][j - 1] == p2) {
+            for (let idx = 2; idx < 8; idx++) {
+                if ((j - idx) < 1)
                     break;
 
-                if (matrix[i][j - x] == 0)
+                if (matrix[x][j - idx] == 0)
                     break;
 
-                if (matrix[i][j - x] == p1) {
-                    x--;
-                    while (x > 0) {
-                        matrix[i][j - x] = p1;
-                        x--;
+                if (matrix[x][j - idx] == p1) {
+                    idx--;
+                    while (idx > 0) {
+                        matrix[x][j - idx] = p1;
+                        idx--;
                     }
                     break;
                 }
             }
         }
 
-        if (matrix[i + 1][j + 1] == p2) {
-            for (x = 2; x < 8; x++) {
-                if ((i + x) > 8 || (j + x) > 8)
+        if (matrix[x + 1][j + 1] == p2) {
+            for (let idx = 2; idx < 8; idx++) {
+                if ((x + idx) > 8 || (j + idx) > 8)
                     break;
 
-                if (matrix[i + x][j + x] == 0)
+                if (matrix[x + idx][j + idx] == 0)
                     break;
 
-                if (matrix[i + x][j + x] == p1) {
-                    x--;
-                    while (x > 0) {
-                        matrix[i + x][j + x] = p1;
-                        x--;
+                if (matrix[x + idx][j + idx] == p1) {
+                    idx--;
+                    while (idx > 0) {
+                        matrix[x + idx][j + idx] = p1;
+                        idx--;
                     }
                     break;
                 }
             }
         }
 
-        if (matrix[i - 1][j - 1] == p2) {
-            for (x = 2; x < 8; x++) {
-                if ((i - x) < 1 || (j - x) < 1)
+        if (matrix[x - 1][j - 1] == p2) {
+            for (let idx = 2; idx < 8; idx++) {
+                if ((x - idx) < 1 || (j - idx) < 1)
                     break;
 
-                if (matrix[i - x][j - x] == 0)
+                if (matrix[x - idx][j - idx] == 0)
                     break;
 
-                if (matrix[i - x][j - x] == p1) {
-                    x--;
-                    while (x > 0) {
-                        matrix[i - x][j - x] = p1;
-                        x--;
+                if (matrix[x - idx][j - idx] == p1) {
+                    idx--;
+                    while (idx > 0) {
+                        matrix[x - idx][j - idx] = p1;
+                        idx--;
                     }
                     break;
                 }
             }
         }
 
-        if (matrix[i + 1][j - 1] == p2) {
-            for (x = 2; x < 8; x++) {
-                if ((i + x) > 8 || (j - x) < 1)
+        if (matrix[x + 1][j - 1] == p2) {
+            for (let idx = 2; idx < 8; idx++) {
+                if ((x + idx) > 8 || (j - idx) < 1)
                     break;
 
-                if (matrix[i + x][j - x] == 0)
+                if (matrix[x + idx][j - idx] == 0)
                     break;
 
-                if (matrix[i + x][j - x] == p1) {
-                    x--;
-                    while (x > 0) {
-                        matrix[i + x][j - x] = p1;
-                        x--;
+                if (matrix[x + idx][j - idx] == p1) {
+                    idx--;
+                    while (idx > 0) {
+                        matrix[x + idx][j - idx] = p1;
+                        idx--;
                     }
                     break;
                 }
             }
         }
 
-        if (matrix[i - 1][j + 1] == p2) {
-            for (x = 2; x < 8; x++) {
-                if ((i - x) < 1 || (j + x) > 8)
+        if (matrix[x - 1][j + 1] == p2) {
+            for (let idx = 2; idx < 8; idx++) {
+                if ((x - idx) < 1 || (j + idx) > 8)
                     break;
 
-                if (matrix[i - x][j + x] == 0)
+                if (matrix[x - idx][j + idx] == 0)
                     break;
 
-                if (matrix[i - x][j + x] == p1) {
-                    x--;
-                    while (x > 0) {
-                        matrix[i - x][j + x] = p1;
-                        x--;
+                if (matrix[x - idx][j + idx] == p1) {
+                    idx--;
+                    while (idx > 0) {
+                        matrix[x - idx][j + idx] = p1;
+                        idx--;
                     }
                     break;
                 }
@@ -335,18 +350,27 @@ export class OthelloHandlerService {
         }
     };
 
-    getSuggestions(matrix, id) {
-        let suggestions = [];
-        for (let i = 1; i < 9; i++) {
-            for (let j = 1; j < 9; j++) {
-                if (this.stepControl(matrix, i, j, id)) {
+    /**
+     * Returns suggestions for the player id
+     *
+     * @param matrix
+     * @param id
+     * @returns {Coord[]}
+     */
+    getSuggestions(matrix: number[][], id: number): Coord[] {
+        let suggestions: Coord[] = [];
+
+        for (let x = 1; x < 9; x++) {
+            for (let y = 1; y < 9; y++) {
+                if (this.stepControl(matrix, x, y, id)) {
                     suggestions.push({
-                        x: i,
-                        y: j
+                        x: x,
+                        y: y
                     });
                 }
             }
         }
+
         return suggestions;
     }
 }
