@@ -5,9 +5,9 @@ import {Component, Input} from "angular-ts-decorators";
     templateUrl: 'btn-start.component.html'
 })
 export class BtnStartComponent {
-    @Input() isPlaying;
+    @Input() isPlaying: boolean;
 
-    private $ctrl;
+    private $ctrl: BtnStartComponent;
 
     constructor() {
         this.$ctrl = this; // not really needed, just a hint for the IDE
