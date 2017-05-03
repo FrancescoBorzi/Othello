@@ -116,11 +116,11 @@ export class Othello {
         if (this.turn == 2) {
             let move = this.ai.calculateMove(this.matrix, 2);
 
-            if (typeof move.x == 'undefined' || typeof move.y == 'undefined') {
+            if (!move) {
                 this.turn = 1;
                 playerMove = this.ai.calculateMove(this.matrix, 1);
 
-                if (typeof playerMove.x == 'undefined' || typeof playerMove.y == 'undefined')
+                if (!playerMove)
                     this.endGame();
 
                 return;
