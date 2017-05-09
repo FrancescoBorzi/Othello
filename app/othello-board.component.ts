@@ -1,4 +1,5 @@
 import * as angular from "angular";
+import {ITimeoutService} from "angular";
 import {Component, Input, Output} from "angular-ts-decorators";
 import {OthelloHandlerService} from "./othello-handler.service";
 
@@ -7,25 +8,35 @@ import {OthelloHandlerService} from "./othello-handler.service";
     templateUrl: 'othello-board.component.html'
 })
 export class OthelloBoard {
-    @Output() onSelection;
-    @Input() isPlaying;
-    @Input() matrix;
+    @Output() onSelection: (Coord) => void;
+    @Input() isPlaying: boolean;
+    @Input() matrix: number[][];
 
-    private $ctrl;
-    private highlights;
-    private handler;
+    private $ctrl: OthelloBoard;
+    private highlights: boolean[];
+    private handler: OthelloHandlerService;
 
     /*@ngInject*/
-    constructor(OthelloHandlerService: OthelloHandlerService, private $timeout) {
+    constructor(OthelloHandlerService: OthelloHandlerService, private $timeout: ITimeoutService) {
         this.$ctrl = this;  // not really needed, just a hint for the IDE
         this.handler = OthelloHandlerService;
     }
 
+    /**
+     * Automatically called when the component is initialised
+     */
     $onInit() {
         this.highlights = [];
     }
 
-    getClass(x, y) {
+    /**
+     * Returns the css classes as string of the (x, y) position of the board
+     *
+     * @param x
+     * @param y
+     * @returns {any}
+     */
+    getClass(x: number, y: number): string {
         if (!this.isPlaying) {
             return 'disc-empty';
         }
@@ -50,14 +61,24 @@ export class OthelloBoard {
         return classes;
     }
 
-    click(x, y, player) {
+    /**
+     * Handles the event when the user clicks on the (x, y) position of the board
+     *
+     * @param x
+     * @param y
+     * @param id
+     */
+    click(x: number, y: number, id: number) {
         if (this.isPlaying) {
-            if (this.handler.stepControl(this.matrix, x, y, player)) {
+            if (this.handler.stepControl(this.matrix, x, y, id)) {
                 // emit the selection event
-                this.onSelection({"x": x, "y": y});
+                this.onSelection({
+                    x: x,
+                    y: y
+                });
             } else if (this.matrix[x][y] == 0) {
                 // show suggestions
-                let suggestions = this.handler.getSuggestions(this.matrix, player);
+                let suggestions = this.handler.getSuggestions(this.matrix, id);
                 angular.forEach(suggestions, (suggestionCoords) => {
                     this.highlights[this.matrix.length * suggestionCoords.x + suggestionCoords.y] = true;
                 });

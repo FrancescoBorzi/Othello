@@ -5,10 +5,10 @@ import {Component, Input} from 'angular-ts-decorators';
     templateUrl: 'player-score.component.html'
 })
 export class PlayerScoreComponent {
-    @Input() playerId;
-    @Input() score;
+    @Input() playerId: number;
+    @Input() score: number;
 
-    private $ctrl;
+    private $ctrl: PlayerScoreComponent;
 
     constructor() {
         this.$ctrl = this; // not really needed, just a hint for the IDE
